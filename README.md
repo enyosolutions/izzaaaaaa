@@ -1,6 +1,7 @@
-# Find and Replace ionTheme_2 with your own value
-# To generate the data we use this tool: http://www.json-generator.com/
+Check out then to run:
 
-Original color palette: http://paletton.com/#uid=7000u0kiCFn8GVde7NVmtwSqXtg
+on IOS device: ionic run ios --device
+on Android device: ionic run android
+in a browser: ionic serve -c -l
 
-# You can find the documentation here: http://bit.ly/ionicthemes-theme1
+more info nf@invicti.eu
