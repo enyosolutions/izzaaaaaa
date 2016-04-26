@@ -1,0 +1,26 @@
+<ion-view view-title="Réservation" class="book-view">
+
+ <!-- <ion-nav-view name="book-home"></ion-nav-view>-->
+
+
+  <ion-tabs class="tabs-icon-top tabs-striped tabs-background-balanced tabs-color-light shop-tabs">
+
+     <ion-tab title="Réserver"  icon="ion-android-calendar" ui-sref="app.book.home">
+       <ion-nav-view name="book-home"></ion-nav-view>
+     </ion-tab>
+
+      <ion-tab title="Mes Réservations" icon="ion-ios-list-outline" ui-sref="app.bookings">
+       <ion-nav-view name="bookings"></ion-nav-view>
+     </ion-tab>
+
+      <ion-tab title="Profil"  icon="ion-person"  ui-sref="app.profile.home">
+         <ion-nav-view name="profile-home"></ion-nav-view>
+     </ion-tab>
+
+<!--      <ion-tab title="Profile"  icon="ion-person"  ui-sref="app.profile.posts({userId:loggedUser._id})">
+         <ion-nav-view name="book-sale"></ion-nav-view>
+     </ion-tab>-->
+  </ion-tabs>
+
+
+</ion-view>

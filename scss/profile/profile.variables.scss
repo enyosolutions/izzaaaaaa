@@ -1,0 +1,45 @@
+// Profile - Common
+$profile-background-color: #EEE;
+$profile-bar-bg: $theme-color-3;
+$profile-bar-color: #FFFFFF;
+// $profile-highlighted-color: #1DBB1D;
+$profile-highlighted-color: darken($profile-bar-bg, 16%);
+$profile-text-color: #444;
+$buy-product-color: $theme-color-4;
+$profile-section-action-height: 24px;
+
+// Profile - Products narrow cards
+$profile-product-narrow-card-color: #222222;
+$profile-product-narrow-card-padding: 10px;
+$profile-product-narrow-card-outer-padding: 10px;
+$profile-product-img-ratio: 1 1;
+$pre-img-ratios: append($pre-img-ratios, $profile-product-img-ratio);
+
+// Profile - Home
+$profile-home-option-image-ratio: 2 1;
+$pre-img-ratios: append($pre-img-ratios, $profile-home-option-image-ratio);
+
+// Profile - Details
+$profile-details-bg: #FFFFFF;
+$profile-details-bar-color: #FFFFFF;
+$profile-details-bar-bg: transparent;
+
+// Profile - Cart
+$cart-bar-bg: $theme-color-3;
+$cart-bar-color: #FFFFFF;
+$cart-items-bg: #FFFFFF;
+$cart-item-img-width: 20vw;
+$cart-item-margin: 10px;
+$cart-item-select-padding: 5px;
+$cart-item-image-ratio: 1 1;
+$pre-img-ratios: append($pre-img-ratios, $cart-item-image-ratio);
+
+// Profile - Shipping Address
+$shipping-address-bar-bg: $cart-bar-bg;
+$shipping-address-bar-color: $cart-bar-color;
+$shipping-address-form-bg: $cart-items-bg;
+
+// Profile - Checkout
+$checkout-bar-bg: $cart-bar-bg;
+$checkout-bar-color: $cart-bar-color;
+$checkout-form-bg: $cart-items-bg;
