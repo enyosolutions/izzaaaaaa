@@ -1,7 +1,90 @@
-<ion-view view-title="Profil" class="profile-home-view">
-    <ion-content>
 
-        <h3>Profile</h3>
-    </ion-content>
+<ion-view title="Mon Profile" id="page3">
+                <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+
+                    <!-- <form class="list"> -->
+                    <div class="list">
+
+                        <div class="item item-divider">
+                            Coordonnées
+                        </div>
+
+                        <label class="item item-input" name="regiteremail">
+                            <span class="input-label">Votre email</span>
+                            <input type="text" placeholder="jeane@gmail.com"
+                                   value="{{$storage.profile.email}}"
+                                   ng-model="$storage.profile.email"
+                            >
+                        </label>
+                        <label class="item item-input" name="registermobile">
+                            <span class="input-label">Mobile</span>
+                            <input type="tel" placeholder="06 55 55 55 55"
+                                   value="{{$storage.profile.mobile}}"
+                                   ng-model="$storage.profile.mobile"
+                            >
+                        </label>
+                        <label class="item item-input" name="registername">
+                            <span class="input-label">Titre</span>
+                            <input type="text" placeholder="Mme"
+                                   value="{{$storage.profile.title}}"
+                                   ng-model="$storage.profile.title"
+                            >
+                        </label>
+                        <label class="item item-input" name="registername">
+                            <span class="input-label">Nom</span>
+                            <input type="text" placeholder="Durand"
+                                   value="{{$storage.profile.lastname}}"
+                                   ng-model="$storage.profile.lastname"
+                            >
+                        </label>
+                        <label class="item item-input" name="registerfirstname">
+                            <span class="input-label">Prénom</span>
+                            <input type="text" placeholder="Jeanne"
+                                   value="{{$storage.profile.firstname}}"
+                                   ng-model="$storage.profile.firstname"
+                            >
+                        </label>
+                        <form ng-submit="updateContactOnServer()">
+
+                            <input belvert class="button button-block button-positive"
+                                   type="submit" name="submit" value="Valider">
+                        </form>
+
+
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                Résultat: <b ng-bind="simulresponse"></b>
+                            </div>
+                        </div>
+
+                        <div class="item item-divider">
+                            Services
+                        </div>
+
+                        <ion-toggle toggle-class="toggle-positive"
+
+                                    ng-model="$storage.profile.receivebyemail"
+                                    ng-checked={{$storage.profile.receivebyemail}}
+                                    toggle-class="toggle-positive"
+                        >
+                            <p>Rappel via email</p>
+                        </ion-toggle>
+
+                        <ion-toggle toggle-class="toggle-positive"
+                                    ng-model="$storage.profile.receivebysms"
+                                    ng-checked={{$storage.profile.receivebysms}}
+                                    toggle-class="toggle-positive"
+                        >
+                            <p>Rappel via SMS</p>
+                        </ion-toggle>
+
+
+                    </div>
+
+                    </div>
+
+                </ion-content>
 </ion-view>
+
 

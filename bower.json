@@ -11,6 +11,7 @@
     "angular-moment": "~0.10.1",
     "angular-ios9-uiwebview-patch": "~1.1.1",
     "knuth-shuffle": "https://github.com/coolaj86/knuth-shuffle.git",
-    "ionic-datepicker": "^1.1.0"
+    "ionic-datepicker": "^1.1.0",
+    "ngstorage": "^0.3.10"
   }
 }

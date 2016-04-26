@@ -1,6 +1,6 @@
 {
   "name": "IZZA.CO",
-  "app_id": "",
+  "app_id": "57079388",
   "gulpStartupTasks": [
     "default",
     "watch",

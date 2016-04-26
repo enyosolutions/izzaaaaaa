@@ -58,13 +58,23 @@
                   <h2>{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
                   <p>Inscription: {{provider.membersince}}</p>
                   <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
+
+                    <div class="product-list-item" ng-repeat="skill in provider.skills">
+                        <p>{{skill}}</p>
+                    </div>
+
+
+
                 </div>
 
+                  <div class="item">
+                      <span class="name-text"> {{provider.profile}} </span>
+                  </div>
 
-                  <!-- <img class="full-image" src="delorean.jpg"> -->
-                  <p>
-                  {{provider.profile}}
-                  </p>
+
+
+
+
                   <div class="item item-actions">
                     <button class="action-button icon-left ion-heart button button-small">
                       Like
@@ -84,12 +94,6 @@
 
                   <script id="addbooking.html" type="text/ng-template">
                       <ion-modal-view>
-
-
-
-
-
-
 
 
                           <ion-header-bar class="bar bar-header bar-dark">
@@ -136,7 +140,7 @@
 
                               <div class="list">
 
-                                  <button class="button button-full button-primary" ng-click="createContact(newUser)">Create</button>
+                                  <button class="button button-full button-primary" ng-click="confirmBooking(provider.email)">Confirmer</button>
                               </div>
 
                               </div>

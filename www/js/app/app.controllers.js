@@ -130,8 +130,15 @@ angular.module('izza.app.controllers', [])
 })
 
 
-.controller('ProfileCtrl', function($scope, $stateParams, PostService, $ionicHistory, $state, $ionicScrollDelegate) {
-/*
+.controller('ProfileCtrl', function($scope, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
+
+    $localStorage = $localStorage.$default({
+        profile: {"email":"","FirstName":""}
+    });
+    $scope.$storage = $localStorage.profile;
+   // $scope.$storage = $sessionStorage.$default(/* any defaults here */);
+  console.log($scope.$storage);
+  /*
   $scope.$on('$ionicView.afterEnter', function() {
     $ionicScrollDelegate.$getByHandle('profile-scroll').resize();
   });

@@ -13,7 +13,8 @@ angular.module('izza', [
   'underscore',
   'angularMoment',
   'ngIOS9UIWebViewPatch',
-      'ionic-datepicker'
+      'ionic-datepicker',
+    'ngStorage'
 ])
 
 
@@ -25,7 +26,7 @@ angular.module('izza', [
   }
 })
 
-.run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig) {
+.run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -62,6 +63,14 @@ angular.module('izza', [
     	console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
     }
   });
+
+  $rootScope.$watch(function() {
+        $rootScope.storagevalue = Date();
+        return angular.toJson($localStorage);
+
+    }, function() {
+        //$rootScope.updateContactOnServer();
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
