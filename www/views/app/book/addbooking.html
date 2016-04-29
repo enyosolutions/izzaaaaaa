@@ -1,0 +1,51 @@
+<ion-view view-title="" class="book-home-view">
+
+<!--    <ion-header-bar class="bar bar-header bar-dark">
+        <h1 class="title">Réserver</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+    </ion-header-bar>-->
+
+    <ion-content class="padding">
+
+        {{provider.title}} {{provider.firstname}} {{provider.lastname}}
+
+        <div class="list list-inset">
+            <label class="item">
+                <span class="input-label">Le</span>
+
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Jour</span>
+                <input type="text" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
+            </label>
+
+
+            <label class="item">
+                <span class="input-label">Entre</span>
+
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Heure</span>
+                <input type="time" ng-model="reservation.betweenFrom">
+            </label>
+
+            <label class="item">
+                <span class="input-label">Et</span>
+
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Heure</span>
+                <input type="time" ng-model="reservation.betweenTo">
+            </label>
+
+            <div class="list">
+
+                <button class="button button-full button-primary" ng-click="confirmBooking(provider.email)">Confirmer</button>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

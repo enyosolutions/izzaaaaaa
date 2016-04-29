@@ -140,11 +140,27 @@ angular.module('izza.app.services', [])
       this.getProviders = function(categoryName){
         var dfd = $q.defer();
         //$http.get('database.json').success(function(database) {
-        $http.get('http://dev001.fodor.net:3000/api/providers/bycategory/' + encodeURIComponent(categoryName)).success(function(database) {
+        $http.get('http://001.izza.co/api/providers/bycategory/' + encodeURIComponent(categoryName)).success(function(database) {
           dfd.resolve(database);
         });
         return dfd.promise;
       };
+  
+      this.createBookingForProvider = function (bookingInfo)
+      {
+        var dfd = $q.defer();
+          var toPost = JSON.stringify(bookingInfo);
+
+        //$http.get('database.json').success(function(database) {
+      
+        $http.post('http://001.izza.co/api/reservations/createreservation',toPost).success(function(database) {
+          dfd.resolve(database);
+        });
+        return dfd.promise;
+        
+      }
+  
+  /*
 
       this.getProvider = function(providerId){
         var dfd = $q.defer();
@@ -180,6 +196,7 @@ angular.module('izza.app.services', [])
 
         window.localStorage.ionTheme1_cart = JSON.stringify(new_booking_providers);
       };
+      */
 
     })
 

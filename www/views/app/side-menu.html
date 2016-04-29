@@ -1,7 +1,5 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus <!--enable-menu-with-back-views="true"-->>
   <ion-side-menu-content>
-
-
 
 
 <!--
@@ -9,8 +7,8 @@
 -->
     <ion-nav-bar ng-class="{'profile-color': ('green' | includedByState), 'settings-color': ('app.settings' | includedByState), 'product-color': ('app.product-detail' | includedByState), 'feed-color': ('app.booking' | includedByState), 'shop-color': ('app.shop' | includedByState), 'cart-color': ('app.cart' | includedByState), 'shipping-address-color': ('app.shipping-address' | includedByState), 'checkout-color': ('app.checkout' | includedByState)}">
 
-        <ion-nav-back-button>
-      </ion-nav-back-button>
+
+      <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
 
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
@@ -20,7 +18,7 @@
     </ion-nav-bar>
 
 
-    <ion-nav-view name="menuContent"> </ion-nav-view>
+      <ion-nav-view name="menuContent"> </ion-nav-view>
 
 
 

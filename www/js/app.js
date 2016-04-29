@@ -21,6 +21,12 @@ angular.module('izza', [
 // Enable native scrolls for Android platform only,
 // as you see, we're disabling jsScrolling to achieve this.
 .config(function ($ionicConfigProvider) {
+
+        $ionicConfigProvider.views.maxCache(5);
+
+        // note that you can also chain configs
+        $ionicConfigProvider.backButton.text('<<').icon('ion-chevron-left');
+
   if (ionic.Platform.isAndroid()) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
@@ -155,6 +161,16 @@ angular.module('izza', [
           }
         }
       })
+      .state('app.book.addbooking', {
+        url: "/book_addbooking",
+        views: {
+          'book-home': {
+            templateUrl: "views/app/book/addbooking.html",
+            controller: 'ProviderCardCtrl'
+          }
+        }
+      })
+
       .state('app.book.popular', {
         url: "/book_popular",
         views: {

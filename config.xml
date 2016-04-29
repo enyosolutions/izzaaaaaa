@@ -35,6 +35,12 @@
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
   </platform>
   <platform name="ios">
+    <config-file parent="NSAppTransportSecurity" platform="ios" target="*-Info.plist">
+      <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true></true>
+      </dict>
+    </config-file>
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>
     <icon src="resources/ios/icon/icon-40.png" width="40" height="40"/>

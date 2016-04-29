@@ -7,70 +7,41 @@ angular.module('izza.app.controllers', [])
 
     }
 )
-.controller('ProviderCardCtrl', function($scope, PostService, $ionicModal, $ionicPopup, $state, $ionicHistory) {
+.controller('ProviderCardCtrl', function($scope, PostService, $stateParams,$location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $state, $ionicHistory) {
       var commentsPopup = {};
+
+
+
+
+    $scope.reservation ={
+        reservation_date:"",
+        betweenFrom:"",
+        betweenTo:""
+    };
+
+    $scope.confirmBooking = function(){
+
+        var bookingInfo = {
+
+            userInfo : $localStorage.profile,
+            reservationInfo: $scope.reservation
+
+        };
+
+        BookService.createBookingForProvider(bookingInfo);
+
+    };
   
-  
-  
-  
-      $ionicModal.fromTemplateUrl('addbooking.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.modal = modal;
-      });
-      $scope.openModal = function() {
-        $scope.modal.show();
-      };
-      $scope.closeModal = function() {
-        $scope.modal.hide();
-      };
-      // Cleanup the modal when we're done with it!
-      $scope.$on('$destroy', function() {
-        $scope.modal.remove();
-      });
-      // Execute action on hide modal
-      $scope.$on('modal.hidden', function() {
-        // Execute action
-      });
-      // Execute action on remove modal
-      $scope.$on('modal.removed', function() {
-        // Execute action
-      });
+
   
       $scope.navigateToProviderSchedule = function (provider) {
         //commentsPopup.close();
-        /*$ionicHistory.currentView($ionicHistory.backView());
-         $ionicHistory.nextViewOptions({ disableAnimate: true });*/
+        //$ionicHistory.currentView($ionicHistory.backView());
+         //$ionicHistory.nextViewOptions({ disableAnimate: true,historyRoot: true });
         //$state.go('app.profile.posts', {userId: 123});
-        //$state.go('app.book.provider');//provider.contact_email
-        $scope.data = {}
-        $scope.modal.show();
+        $state.go('app.book.addbooking');//provider.contact_email
 
 
-
-        /*
-         $ionicPopup.show({
-         templateUrl: 'views/app/book/book-provider.html',
-         title: 'Options',
-         scope: $scope,
-         buttons: [
-         { text: 'Annuler',
-         onTap: function(e) { return true; }
-         },
-         {
-         text: '<b>Valider</b>',
-         type: 'button-positive',
-         onTap: function(e) {
-         return true;
-         }
-         },
-         ]
-         }).then(function(password) {
-         console.log('Got wifi password', password);
-         });
-         };
-         */
       };
     }
 
@@ -292,7 +263,7 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope, BookService) {
+.controller('BookCtrl', function($scope,  $state, BookService) {
 
 
       $scope.filterCategory = "Toutes";

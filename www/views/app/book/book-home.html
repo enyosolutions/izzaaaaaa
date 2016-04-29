@@ -1,10 +1,7 @@
 <ion-view view-title="Prestataires" class="book-home-view">
 
 
-
-
-
-  <ion-content>
+    <ion-content>
 
 
       <div ng-if="providers.length == 0">
@@ -67,6 +64,8 @@
 
                 </div>
 
+
+
                   <div class="item">
                       <span class="name-text"> {{provider.profile}} </span>
                   </div>
@@ -86,13 +85,18 @@
                     <button ng-click="showComments(post)" class="right-button action-button icon-left ion-chatbox button button-small">
                       {{ provider.comments }}
                     </button>
+
+<!--                     <button class="button button-small button-positive" ui-sref="app.book.addbooking">
+                          Réserver
+                      </button>-->
+
                     <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
                         Réserver
                     </button>
                   </div>
 
 
-                  <script id="addbooking.html" type="text/ng-template">
+                  <!--<script id="addbooking.html" type="text/ng-template">
                       <ion-modal-view>
 
 
@@ -114,7 +118,7 @@
 
                               <label class="item item-input">
                                   <span class="input-label">Jour</span>
-                                  <input type="date">
+                                  <input type="text" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
                               </label>
 
 
@@ -125,7 +129,7 @@
 
                               <label class="item item-input">
                                   <span class="input-label">Heure</span>
-                                  <input type="time">
+                                  <input type="time" ng-model="reservation.betweenFrom">
                               </label>
 
                               <label class="item">
@@ -135,7 +139,7 @@
 
                               <label class="item item-input">
                                   <span class="input-label">Heure</span>
-                                  <input type="time">
+                                  <input type="time" ng-model="reservation.betweenTo">
                               </label>
 
                               <div class="list">
@@ -146,7 +150,7 @@
                               </div>
                           </ion-content>
                       </ion-modal-view>
-                  </script>
+                  </script>-->
 
                 </div>
 
@@ -198,6 +202,7 @@
 
 
             </div>
+
           </div>
 
 
