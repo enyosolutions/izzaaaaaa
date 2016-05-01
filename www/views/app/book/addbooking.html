@@ -7,37 +7,53 @@
 
     <ion-content class="padding">
 
+        <div class="card">
+
+
+
+            <label class="item item-input">
+                <span class="input-label">Date:</span>
+                {{showdate}}
+                <button class="button button-small button-primary" ng-click="openDatePicker()">Changer la date</button>
+
+            </label>
+
+
         {{provider.title}} {{provider.firstname}} {{provider.lastname}}
 
         <div class="list list-inset">
-            <label class="item">
+
+
+
+
+<!--            <label class="item">
                 <span class="input-label">Le</span>
 
             </label>
 
             <label class="item item-input">
                 <span class="input-label">Jour</span>
-                <input type="text" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
-            </label>
+                <input type="date" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
+            </label>-->
 
 
-            <label class="item">
+<!--            <label class="item">
                 <span class="input-label">Entre</span>
 
-            </label>
+            </label>-->
 
             <label class="item item-input">
-                <span class="input-label">Heure</span>
+                <span class="input-label">Entre:</span>
                 <input type="time" ng-model="reservation.betweenFrom">
             </label>
 
-            <label class="item">
+<!--            <label class="item">
                 <span class="input-label">Et</span>
 
-            </label>
+            </label>-->
 
             <label class="item item-input">
-                <span class="input-label">Heure</span>
+                <span class="input-label">Et:</span>
                 <input type="time" ng-model="reservation.betweenTo">
             </label>
 
@@ -47,5 +63,7 @@
             </div>
 
         </div>
+            </div>
     </ion-content>
 </ion-view>
+

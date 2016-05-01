@@ -140,7 +140,8 @@ angular.module('izza.app.services', [])
       this.getProviders = function(categoryName){
         var dfd = $q.defer();
         //$http.get('database.json').success(function(database) {
-        $http.get('http://001.izza.co/api/providers/bycategory/' + encodeURIComponent(categoryName)).success(function(database) {
+        var hostname = 'http://799836ab.ngrok.io';
+        $http.get(hostname + '/api/providers/bycategory/' + encodeURIComponent(categoryName)).success(function(database) {
           dfd.resolve(database);
         });
         return dfd.promise;
@@ -152,8 +153,9 @@ angular.module('izza.app.services', [])
           var toPost = JSON.stringify(bookingInfo);
 
         //$http.get('database.json').success(function(database) {
-      
-        $http.post('http://001.izza.co/api/reservations/createreservation',toPost).success(function(database) {
+
+        var hostname = 'http://799836ab.ngrok.io';
+        $http.post(hostname + '/api/reservations/createreservation',toPost).success(function(database) {
           dfd.resolve(database);
         });
         return dfd.promise;

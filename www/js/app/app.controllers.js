@@ -7,28 +7,88 @@ angular.module('izza.app.controllers', [])
 
     }
 )
-.controller('ProviderCardCtrl', function($scope, PostService, $stateParams,$location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $state, $ionicHistory) {
-      var commentsPopup = {};
+.controller('PickBookingTimeCtrl', function($scope, PostService, $filter, $stateParams,ionicDatePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
 
 
+         $scope.params = $stateParams;
 
+        var ipObj1 = {
+            callback: function (val) {  //Mandatory
+                console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+                //var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"}; ,options
+                var caldate = new Date(val);
+                $scope.reservation.reservation_date = caldate;
+                //$scope.showdate =    caldate.toLocaleDateString("ar-EG");
+                $scope.showdate =  $filter('date')(caldate, 'dd/MM/yyyy');
+
+
+            },
+            disabledDates: [            //Optional
+                /*        new Date(2016, 2, 16),
+                 new Date(2015, 3, 16),
+                 new Date(2015, 4, 16),
+                 new Date(2015, 5, 16),
+                 new Date('Wednesday, August 12, 2015'),
+                 new Date("08-16-2016"),
+                 new Date(1439676000000)*/
+            ],
+            //from: new Date(2012, 1, 1), //Optional
+            //to: new Date(2016, 10, 30), //Optional
+            inputDate: new Date(),      //Optional
+            mondayFirst: true,          //Optional
+            disableWeekdays: [0],       //Optional
+            closeOnSelect: false,       //Optional
+            templateType: 'popup'       //Optional
+        };
+
+        $scope.openDatePicker = function(){
+            ionicDatePicker.openDatePicker(ipObj1);
+        };
+
+    $scope.profile = $localStorage.profile;
+
+    $filter('date')(Date(), 'dd/MM/yyyy')
 
     $scope.reservation ={
-        reservation_date:"",
+        reservation_date:Date(),
         betweenFrom:"",
-        betweenTo:""
+        betweenTo:"",
+
     };
 
     $scope.confirmBooking = function(){
 
+        $scope.profile = $localStorage.profile;
         var bookingInfo = {
-
+            providerInfo: $scope.params,
             userInfo : $localStorage.profile,
             reservationInfo: $scope.reservation
 
         };
+        var profileok = false;
+        if ($scope.profile){
+            if ($scope.profile.profile.email){
+                if ($scope.profile.profile.email!==""){
+                    profileok = true;
 
-        BookService.createBookingForProvider(bookingInfo);
+                }
+            }
+        }
+        else {
+            profileok = false;
+        }
+
+
+        if (profileok){
+            BookService.createBookingForProvider(bookingInfo);
+            $state.go('app.book.home');
+
+        }
+        else
+        {
+            $state.go('app.profile.home');
+        }
+
 
     };
   
@@ -39,10 +99,21 @@ angular.module('izza.app.controllers', [])
         //$ionicHistory.currentView($ionicHistory.backView());
          //$ionicHistory.nextViewOptions({ disableAnimate: true,historyRoot: true });
         //$state.go('app.profile.posts', {userId: 123});
-        $state.go('app.book.addbooking');//provider.contact_email
+          //book_addbooking/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url
+        $state.go('app.book.addbooking',{provider_data:provider,
+            title:provider.title,
+            firstname:provider.firstname,
+            lastname:provider.lastname,
+            contact_email:provider.contact_email,
+            contact_mobilenb:provider.contact_mobilenb,
+            contact_web_site_url:provider.web_site_url
+        }
+        );//provider.contact_email
 
 
       };
+
+      //$self.openDatePicker();
     }
 
 )
@@ -50,34 +121,7 @@ angular.module('izza.app.controllers', [])
 
 
 
-  var pickDate = function(){
 
-    var ipObj1 = {
-      callback: function (val) {  //Mandatory
-        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
-      },
-      disabledDates: [            //Optional
-        new Date(2016, 2, 16),
-        new Date(2015, 3, 16),
-        new Date(2015, 4, 16),
-        new Date(2015, 5, 16),
-        new Date('Wednesday, August 12, 2015'),
-        new Date("08-16-2016"),
-        new Date(1439676000000)
-      ],
-      from: new Date(2012, 1, 1), //Optional
-      to: new Date(2016, 10, 30), //Optional
-      inputDate: new Date(),      //Optional
-      mondayFirst: true,          //Optional
-      disableWeekdays: [0],       //Optional
-      closeOnSelect: false,       //Optional
-      templateType: 'popup'       //Optional
-    };
-
-    $scope.openDatePicker = function(){
-      ionicDatePicker.openDatePicker(ipObj1);
-    };
-  };
 
 }
 )
@@ -104,7 +148,7 @@ angular.module('izza.app.controllers', [])
 .controller('ProfileCtrl', function($scope, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
 
     $localStorage = $localStorage.$default({
-        profile: {"email":"","FirstName":""}
+        profile: {}
     });
     $scope.$storage = $localStorage.profile;
    // $scope.$storage = $sessionStorage.$default(/* any defaults here */);

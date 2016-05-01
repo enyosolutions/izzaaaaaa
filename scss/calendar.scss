@@ -1,0 +1,96 @@
+$project-namespace: 'hk-';
+$has-event-color: #2c8ac8;
+
+@charset "UTF-8";
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+// -- Helpers --------------------
+// Reset
+   .#{$project-namespace}reset--button {
+       background: none;
+       border: 0;
+   }
+
+// Positionning
+   .#{$project-namespace}left { float: left }
+.#{$project-namespace}right { float: right }
+
+
+// -- Components --------------------
+   .#{$project-namespace}calendar {
+       border-collapse: collapse;
+       font-family: "Roboto";
+       table-layout: fixed;
+       text-align: center;
+
+&__caption,
+&__day {
+     padding: .875em;
+ }
+
+&__caption {
+&-ctrl {}
+}
+
+&__row {}
+
+&__days {
+     border-bottom: 1px solid rgba(0, 0, 0, .1);
+ }
+
+&__day {
+     color: #666;
+     font-weight: 300;
+     width: (100/7) * 1%;
+ }
+
+&__dates {}
+
+&__date {
+
+&-link {
+     border: 1px solid transparent;
+     color: #222;
+     display: block;
+     font-weight: 400;
+     padding: 1em .875em;
+     text-decoration: none;
+     transition: all .3s ease;
+
+&:hover,
+&:focus {
+ //background: rgba(0, 0, 0, .1);
+     border-color: rgba(0, 0, 0, .2);
+ }
+
+&.-disabled {
+     border-color: transparent;
+     color: #aaa;
+     cursor: default;
+     font-weight: 300;
+ }
+
+&.-has-event {
+
+&::after {
+     color: $has-event-color;
+     content: "•";
+     display: block;
+     font-size: 1.25em;
+     font-weight: 700;
+     line-height: 0;
+     position: relative;
+     top: .35em;
+ }
+}
+}
+}
+
+}
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,400italic,700italic,300,700,500italic,300italic,400);

@@ -30,7 +30,8 @@
     "gulp-zip": "^3.0.2",
     "jshint": "^2.8.0",
     "minimist": "^1.1.2",
-    "mv": "^2.1.1"
+    "mv": "^2.1.1",
+    "node-sass": "^3.4.1"
   },
   "cordovaPlugins": [
     "cordova-plugin-console@^1.0.1",

@@ -162,11 +162,11 @@ angular.module('izza', [
         }
       })
       .state('app.book.addbooking', {
-        url: "/book_addbooking",
+        url: "/book_addbooking/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
         views: {
           'book-home': {
             templateUrl: "views/app/book/addbooking.html",
-            controller: 'ProviderCardCtrl'
+            controller: 'PickBookingTimeCtrl'
           }
         }
       })
@@ -191,7 +191,7 @@ angular.module('izza', [
         }
       })
 
-
+/*
       .state('app.booking', {
         url: "/feed",
         views: {
@@ -200,7 +200,7 @@ angular.module('izza', [
             controller: "FeedCtrl"
           }
         }
-      })
+      })*/
 
       .state('app.bookings', {
         url: "/bookings",
@@ -378,6 +378,10 @@ angular.module('izza', [
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/auth/welcome');
+
+
+    //$urlRouterProvider.otherwise('/profile-home');
+
   // $urlRouterProvider.otherwise('/app/feed');
 })
 

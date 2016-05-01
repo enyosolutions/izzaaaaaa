@@ -9,12 +9,16 @@
                         <div class="item item-divider">
                             Coordonnées
                         </div>
+                        <form name="signin" ng-submit="updateContactOnServer()">
 
-                        <label class="item item-input" name="regiteremail">
+
+                        <label class="item item-input" name="registeremail">
                             <span class="input-label">Votre email</span>
                             <input type="text" placeholder="jeane@gmail.com"
                                    value="{{$storage.profile.email}}"
                                    ng-model="$storage.profile.email"
+                                   tabindex="1"
+                                   required
                             >
                         </label>
                         <label class="item item-input" name="registermobile">
@@ -22,6 +26,8 @@
                             <input type="tel" placeholder="06 55 55 55 55"
                                    value="{{$storage.profile.mobile}}"
                                    ng-model="$storage.profile.mobile"
+                                   tabindex="2"
+                                   required
                             >
                         </label>
                         <label class="item item-input" name="registername">
@@ -29,6 +35,8 @@
                             <input type="text" placeholder="Mme"
                                    value="{{$storage.profile.title}}"
                                    ng-model="$storage.profile.title"
+                                   tabindex="3"
+
                             >
                         </label>
                         <label class="item item-input" name="registername">
@@ -36,6 +44,8 @@
                             <input type="text" placeholder="Durand"
                                    value="{{$storage.profile.lastname}}"
                                    ng-model="$storage.profile.lastname"
+                                   tabindex="4"
+                                   required
                             >
                         </label>
                         <label class="item item-input" name="registerfirstname">
@@ -43,9 +53,11 @@
                             <input type="text" placeholder="Jeanne"
                                    value="{{$storage.profile.firstname}}"
                                    ng-model="$storage.profile.firstname"
+                                   tabindex="5"
+                                   required
                             >
                         </label>
-                        <form ng-submit="updateContactOnServer()">
+
 
                             <input belvert class="button button-block button-positive"
                                    type="submit" name="submit" value="Valider">
