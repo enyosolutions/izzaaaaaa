@@ -1,6 +1,9 @@
 angular.module('izza.app.services', [])
 
 .service('AuthService', function (){
+    
+    //For
+    // - Saving a user
 
   this.saveUser = function(user){
     window.localStorage.izza_user = JSON.stringify(user);
@@ -137,11 +140,19 @@ angular.module('izza.app.services', [])
 
 .service('BookService', function ($http, $q, _){
 
+    //For:
+    // - getting providers.
+    // - create booking for a provider.
+
       this.getProviders = function(categoryName){
         var dfd = $q.defer();
         //$http.get('database.json').success(function(database) {
-        var hostname = 'http://799836ab.ngrok.io';
-        $http.get(hostname + '/api/providers/bycategory/' + encodeURIComponent(categoryName)).success(function(database) {
+        //var hostname = 'http://799836ab.ngrok.io';
+        //var hostname = 'http://001.izza.co';
+        //var hostname = 'http://localhost:3000';
+          var hostname = 'http://dev001.invicti.eu';
+          var url = hostname + '/api/providers/bycategory/' + encodeURIComponent(categoryName);
+        $http.get(url).success(function(database) {
           dfd.resolve(database);
         });
         return dfd.promise;
@@ -154,9 +165,22 @@ angular.module('izza.app.services', [])
 
         //$http.get('database.json').success(function(database) {
 
-        var hostname = 'http://799836ab.ngrok.io';
-        $http.post(hostname + '/api/reservations/createreservation',toPost).success(function(database) {
-          dfd.resolve(database);
+        //var hostname = 'http://799836ab.ngrok.io';
+        //var hostname = 'http://001.izza.co';
+        var hostname = 'http://dev001.invicti.eu';
+
+        var url =   hostname + '/api/reservations/createreservation';
+
+        $http.post(url,toPost).success(function(database) {
+          if (database.error)
+          {
+              console.log("Error creating reservation: " + database.error);
+          }
+            else
+          {
+              dfd.resolve(database);
+          }
+
         });
         return dfd.promise;
         

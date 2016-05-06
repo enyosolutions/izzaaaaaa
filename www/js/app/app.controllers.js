@@ -10,7 +10,7 @@ angular.module('izza.app.controllers', [])
 .controller('PickBookingTimeCtrl', function($scope, PostService, $filter, $stateParams,ionicDatePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
 
 
-         $scope.params = $stateParams;
+        $scope.params = $stateParams;
 
         var ipObj1 = {
             callback: function (val) {  //Mandatory
@@ -307,19 +307,92 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope,  $state, BookService) {
+.controller('BookCtrl', function($scope,  $state, BookService, $ionicModal,$ionicPopup) {
+//List of providers where one can book one
 
 
       $scope.filterCategory = "Toutes";
       $scope.providers = [];
       $scope.popular_providers = [];
 
-  $scope.values=  [
+ /* $scope.values=  [
     {id:1, name:"value1" },
     {id:2, name:"value2" },
     {id:3, name:"value3" }
   ];
   $scope.selectedValues= []; //initial selections
+*/
+
+
+    //cssClass: 'popup-outer comments-view',
+
+        $scope.showDetails=function(provider) {
+       // $scope.details_modal.show();
+        $scope.selectedProvider = provider;  
+            
+            
+        $scope.myPopup = $ionicPopup.show(
+            {
+            cssClass: 'add-to-cart-popup',
+            templateUrl: 'views/app/book/partials/show_skills_popup.html',
+            title: 'Services disponibles',
+            scope: $scope,
+            buttons: [
+                { text: '', type: 'close-popup ion-ios-close-outline' } /*,
+                {
+                    text: 'Add to cart',
+                    onTap: function(e) {
+                        return $scope.data;
+                    }
+                }*/
+            ]
+        });
+        $scope.myPopup.then(function(res) {
+            if(res)
+            {
+                $ionicLoading.show({ template: '<ion-spinner icon="ios"></ion-spinner><p style="margin: 5px 0 0 0;">Adding to cart</p>', duration: 1000 });
+                //ShopService.addProductToCart(res.product);
+                console.log('Item added to cart!', res);
+            }
+            else {
+                console.log('Popup closed');
+            }
+        });
+
+    };
+
+
+
+
+   /* $ionicModal.fromTemplateUrl('details-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.details_modal = modal;
+    });
+
+    $scope.$on('$destroy', function() {
+        $scope.details_modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+        // Execute action
+    });
+
+    $scope.showDetails=function(category) {
+        $scope.details_modal.show();
+
+
+    };
+
+    $scope.hideDetails = function() {
+        $scope.details_modal.hide();
+    };*/
+    //Cleanup the modal when we're done with it!
 
     $scope.updateQuery=function(category){
 
@@ -346,6 +419,8 @@ angular.module('izza.app.controllers', [])
 
 
     })
+    
+    //Shopping
 .controller('ShopCtrl', function($scope, ShopService) {
   $scope.products = [];
   $scope.popular_products = [];

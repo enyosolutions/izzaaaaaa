@@ -53,18 +53,77 @@
                 <div class="item item-avatar">
                   <img src="img/sample_images/people/2.jpeg">
                   <h2>{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
-                  <p>Inscription: {{provider.membersince}}</p>
-                  <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
+                  <!--<p>Inscription: {{provider.membersince}}</p>-->
 
-                    <div class="product-list-item" ng-repeat="skill in provider.skills">
-                        <p>{{skill}}</p>
+                    <p>Tarifs: {{provider.pricelist}}</p>
+
+
+
+                    <div class="row">
+                        <span class="name-text">{{provider.qualification1}}
+                          {{provider.qualification2}}
+                          {{provider.qualification3}}
+                          {{provider.qualification4}}
+                        </span>
                     </div>
+
+                    <div class="row">
+                        <button class="button button-small" ng-click="showDetails(provider)">
+                            Détails
+                        </button>
+                    </div>
+
+<!--                    <div class="product-list-item" ng-repeat="skill in provider.skills">
+                        <p>{{skill}}</p>
+                    </div>-->
 
 
 
                 </div>
 
 
+                  <script id="details-modal.html" type="text/ng-template">// <![CDATA[
+
+
+                  <ion-modal-view>
+
+
+                  <style>
+                      @media (max-width: 680px) {
+                          .active .modal-backdrop-bg {
+                              opacity: .5;
+                              transition: opacity 300ms ease-in-out;
+                              background-color: #000;
+                          }
+                      }
+                  </style>
+
+                      <div class="container-fluid">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="list-group">
+                                      <a href="#" class="list-group-item active">Home</a>
+                                      <div class="list-group-item">
+                                          List header
+                                      </div>
+                                      <div class="list-group-item">
+                                          <h4 class="list-group-item-heading">
+                                              List group item heading
+                                          </h4>
+                                          <p class="list-group-item-text">
+                                              ...
+                                          </p>
+                                      </div>
+                                      <div class="list-group-item">
+                                          <span class="badge">14</span>Help
+                                      </div> <a class="list-group-item active"><span class="badge">14</span>Help</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </ion-modal-view>
+                  // ]]></script>
 
                   <div class="item">
                       <span class="name-text"> {{provider.profile}} </span>
@@ -89,6 +148,8 @@
 <!--                     <button class="button button-small button-positive" ui-sref="app.book.addbooking">
                           Réserver
                       </button>-->
+
+
 
                     <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
                         Réserver
