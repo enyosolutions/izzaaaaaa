@@ -30,7 +30,7 @@
                                    required
                             >
                         </label>
-                        <label class="item item-input" name="registername">
+                        <label class="item item-input" name="registertitle">
                             <span class="input-label">Titre</span>
                             <input type="text" placeholder="Mme"
                                    value="{{$storage.profile.title}}"
@@ -57,6 +57,46 @@
                                    required
                             >
                         </label>
+
+                            <label class="item item-input" name="registerservicedeliveryrue1">
+                                <span class="input-label">Rue</span>
+                                <input type="text" placeholder="14 rue Jeanne"
+                                       value="{{$storage.profile.delivery_street1}}"
+                                       ng-model="$storage.profile.delivery_street1"
+                                       tabindex="6"
+                                       required
+                                >
+                            </label>
+
+                            <label class="item item-input" name="registerservicedeliveryrue2">
+                                <span class="input-label">Rue 2</span>
+                                <input type="text" placeholder="Complément adresse"
+                                       value="{{$storage.profile.delivery_street2}}"
+                                       ng-model="$storage.profile.delivery_street2"
+                                       tabindex="7"
+                                       required
+                                >
+                            </label>
+
+                            <label class="item item-input" name="registerservicedeliverycity">
+                                <span class="input-label">Ville</span>
+                                <input type="text" placeholder="Paris"
+                                       value="{{$storage.profile.delivery_city}}"
+                                       ng-model="$storage.profile.delivery_city"
+                                       tabindex="8"
+                                       required
+                                >
+                            </label>
+
+                            <label class="item item-input" name="registerservicedeliveryzip">
+                                <span class="input-label">Code Postal</span>
+                                <input type="text" placeholder="75008"
+                                       value="{{$storage.profile.delivery_codepostal}}"
+                                       ng-model="$storage.profile.delivery_codepostal"
+                                       tabindex="9"
+                                       required
+                                >
+                            </label>
 
 
                             <input belvert class="button button-block button-positive"
