@@ -1,0 +1,51 @@
+<div class="select-option-wrapper">
+
+<!--
+    <li class="item item-checkbox" ng-repeat='pricing in selectedProvider.Pricing | filter: search'>
+        <label class="checkbox">
+            <input type="checkbox" ng-model="pricing.selected">
+        </label>
+        <p ng-bind-html="pricing.Description"></p>
+
+    </li>-->
+    <div>
+        </div>
+    <div>
+        <ion-list ng-repeat="pricing in selectedProvider.Pricing">
+            <ion-item>
+                 <ion-checkbox ng-model="pricing.selected">{{pricing.Description}} <br> {{pricing.Price}} {{pricing.Currency}}</ion-checkbox>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="col text-center">
+
+<!--        <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
+            Réserver
+        </button>-->
+    </div>
+<!--
+<span class="popup-product-title">Services proposés</span>
+<div class="separator-line"></div>
+-->
+    <!--
+    {{selectedProvider.qualification1}}
+    {{selectedProvider.qualification2}}
+    {{selectedProvider.qualification3}}
+    {{selectedProvider.qualification4}}
+    -->
+    <!--<div class="row product-options">
+      <div class="col col-75 select-option-wrapper">
+        <select ng-model="data.productOption">
+          <option value="1">Shiny Black Gold</option>
+          <option value="2">Black Ice Revo</option>
+          <option value="3">Black Silver</option>
+        </select>
+      </div>
+      <div class="col col-25 select-option-wrapper">
+        <select ng-model="data.productQuantity">
+          <option ng-repeat="i in [1,2,3,4,5,6,7,8,9,10]" value="{{i}}">{{i}}</option>
+        </select>
+      </div>
+    </div>-->
+
+</div>

@@ -12,6 +12,8 @@ angular.module('izza.app.controllers', [])
 
         $scope.params = $stateParams;
 
+        $scope.pickedServices = $scope.provider;
+
         var ipObj1 = {
             callback: function (val) {  //Mandatory
                 console.log('Return value from the datepicker popup is : ' + val, new Date(val));
@@ -62,7 +64,8 @@ angular.module('izza.app.controllers', [])
         var bookingInfo = {
             providerInfo: $scope.params,
             userInfo : $localStorage.profile,
-            reservationInfo: $scope.reservation
+            reservationInfo: $scope.reservation,
+            serviceInfo: $scope.provider
 
         };
         var profileok = false;
@@ -326,7 +329,63 @@ angular.module('izza.app.controllers', [])
 
     //cssClass: 'popup-outer comments-view',
 
-        $scope.showDetails=function(provider) {
+    $scope.bookPerService=function(provider) {
+// $scope.details_modal.show();
+        $scope.selectedProvider = provider;
+
+
+        $scope.myPopup = $ionicPopup.show(
+            {
+                cssClass: 'add-to-cart-popup',
+                templateUrl: 'views/app/book/partials/book_by_skills_popup.html',
+                title: 'Réserver',
+                scope: $scope,
+                buttons: [
+                    { text: '', type: 'close-popup ion-ios-close-outline' },
+
+                     {
+                     text: 'Réserver',
+                         onTap: function(e) {
+                             /*$state.go('app.book.addbooking',{provider_data:provider,
+                                         title:provider.title,
+                                         firstname:provider.firstname,
+                                         lastname:provider.lastname,
+                                         contact_email:provider.contact_email,
+                                         contact_mobilenb:provider.contact_mobilenb,
+                                         contact_web_site_url:provider.web_site_url
+                                     }
+                                 );*///provider.contact_email
+
+                            return provider;
+                         }
+                     }
+                ]
+            });
+        $scope.myPopup.then(function(provider) {
+            if(provider)
+            {
+                $state.go('app.book.addbooking',{provider_data:provider,
+                        title:provider.title,
+                        firstname:provider.firstname,
+                        lastname:provider.lastname,
+                        contact_email:provider.contact_email,
+                        contact_mobilenb:provider.contact_mobilenb,
+                        contact_web_site_url:provider.web_site_url
+                    }
+                );//provider.contact_email
+
+                //$ionicLoading.show({ template: '<ion-spinner icon="ios"></ion-spinner><p style="margin: 5px 0 0 0;">Adding to cart</p>', duration: 1000 });
+                //ShopService.addProductToCart(res.product);
+                //console.log('Item added to cart!', res);
+            }
+            else {
+                console.log('Popup closed');
+            }
+        });
+
+    };
+
+    $scope.showDetails=function(provider) {
        // $scope.details_modal.show();
         $scope.selectedProvider = provider;  
             
