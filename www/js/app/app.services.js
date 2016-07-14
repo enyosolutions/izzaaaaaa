@@ -1,7 +1,27 @@
 angular.module('izza.app.services', [])
 
+
+
+.service('RemoteDirectory', function() {
+
+      this.api_url =  "http://001.izza.co";
+
+      //this.api_url =  'http://localhost:3000';
+
+      this.getAPISrvURL = function() {
+        return this.api_url;
+      };
+
+      this.setAPISrvURL = function(url) {
+        this.api_url = url;
+      };
+
+
+
+})
+
 .service('AuthService', function (){
-    
+
     //For
     // - Saving a user
 
@@ -136,28 +156,52 @@ angular.module('izza.app.services', [])
     return dfd.promise;
   };
 })
+.service('currentProvider', function() {
+
+  this.currentProvider = {};
+
+  this.currentProvider = function() {
+    return this.currentProvider;
+  };
+
+  this.setcurrentProvider = function(provider) {
+    this.currentProvider = provider;
+  };
 
 
-.service('BookService', function ($http, $q, _){
+
+})
+
+
+.service('BookService', function ($http, $q, _,RemoteDirectory){
 
     //For:
     // - getting providers.
     // - create booking for a provider.
 
+
+      this.getReservations = function(useremail){
+        var dfd = $q.defer();
+        var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/byemail/' + encodeURIComponent(useremail);
+        $http.get(url).success(function(database) {
+          dfd.resolve(database);
+        }).error(function(err){
+           console.log('Error loading reservations...');
+        })
+
+        ;
+        return dfd.promise;
+      };
+
       this.getProviders = function(categoryName){
         var dfd = $q.defer();
-        //$http.get('database.json').success(function(database) {
-        //var hostname = 'http://799836ab.ngrok.io';
-        //var hostname = 'http://001.izza.co';
-        //var hostname = 'http://localhost:3000';
-          var hostname = 'http://dev001.invicti.eu';
-          var url = hostname + '/api/providers/bycategory/' + encodeURIComponent(categoryName);
+          var url = RemoteDirectory.getAPISrvURL() + '/api/providers/bycategory/' + encodeURIComponent(categoryName);
         $http.get(url).success(function(database) {
           dfd.resolve(database);
         });
         return dfd.promise;
       };
-  
+
       this.createBookingForProvider = function (bookingInfo)
       {
         var dfd = $q.defer();
@@ -166,10 +210,11 @@ angular.module('izza.app.services', [])
         //$http.get('database.json').success(function(database) {
 
         //var hostname = 'http://799836ab.ngrok.io';
-        //var hostname = 'http://001.izza.co';
-        var hostname = 'http://dev001.invicti.eu';
+       //var hostname = 'http://001.izza.co';
+        var hostname = 'http://localhost:3000';
+        //var hostname = 'http://dev001.invicti.eu';
 
-        var url =   hostname + '/api/reservations/createreservation';
+        var url =   RemoteDirectory.getAPISrvURL() + '/api/reservations/createreservation';
 
         $http.post(url,toPost).success(function(database) {
           if (database.error)
@@ -181,11 +226,17 @@ angular.module('izza.app.services', [])
               dfd.resolve(database);
           }
 
+        }).error(function(err){
+          if(err)
+          {
+            console.log("Error creating reservation: " + err.message);
+          }
+
         });
         return dfd.promise;
-        
+
       }
-  
+
   /*
 
       this.getProvider = function(providerId){
@@ -224,8 +275,8 @@ angular.module('izza.app.services', [])
       };
       */
 
-    })
-
+    });
+/*
 .service('ShopService', function ($http, $q, _){
 
   this.getProducts = function(){
@@ -262,7 +313,7 @@ angular.module('izza.app.services', [])
   this.getCartProducts = function(){
     return JSON.parse(window.localStorage.ionTheme1_cart || '[]');
   };
-
+//Kimshis
   this.removeProductFromCart = function(productToRemove){
     var cart_products = JSON.parse(window.localStorage.ionTheme1_cart);
 
@@ -270,5 +321,6 @@ angular.module('izza.app.services', [])
 
     window.localStorage.ionTheme1_cart = JSON.stringify(new_cart_products);
   };
+  */
 
-});
+

@@ -3,11 +3,26 @@ angular.module('izza.app.controllers', [])
 
 
 
-.controller('BookingsCtrl', function($scope, PostService, $ionicPopup,$ionicModal, $state, $ionicHistory) {
+.controller('BookingsCtrl', function($scope, currentProvider, BookService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
-    }
+        $scope.profile = $localStorage.profile;
+        //getReservations
+        if ($scope.profile){
+            if ($scope.profile.profile.email){
+                if ($scope.profile.profile.email!==""){
+                    profileok = true;
+                    BookService.getReservations($scope.profile.profile.email).then(function(reservations){
+                        $scope.reservations = reservations;
+                    });
+
+                }
+            }
+        }
+
+
+}
 )
-.controller('PickBookingTimeCtrl', function($scope, PostService, $filter, $stateParams,ionicDatePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
+.controller('PickBookingTimeCtrl', function($scope,currentProvider, PostService, $filter, $stateParams,ionicDatePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
 
 
         $scope.params = $stateParams;
@@ -60,12 +75,23 @@ angular.module('izza.app.controllers', [])
 
     $scope.confirmBooking = function(){
 
+        //debugger;
+
+
         $scope.profile = $localStorage.profile;
+
+        var providerAndReservedSkills = currentProvider.currentProvider;
+
+        for(var i = providerAndReservedSkills.skillsandprice.length; i--;) {
+            if (!providerAndReservedSkills.skillsandprice[i].selected) {
+                providerAndReservedSkills.skillsandprice.splice(i, 1);
+            }
+        }
         var bookingInfo = {
-            providerInfo: $scope.params,
+            providerInfo: providerAndReservedSkills,
             userInfo : $localStorage.profile,
             reservationInfo: $scope.reservation,
-            serviceInfo: $scope.provider
+            serviceInfo: providerAndReservedSkills.skillsandprice
 
         };
         var profileok = false;
@@ -84,7 +110,7 @@ angular.module('izza.app.controllers', [])
 
         if (profileok){
             BookService.createBookingForProvider(bookingInfo);
-            $state.go('app.book.home');
+            $state.go('app.book.home',{},{reload: true});
 
         }
         else
@@ -94,9 +120,9 @@ angular.module('izza.app.controllers', [])
 
 
     };
-  
 
-  
+
+
       $scope.navigateToProviderSchedule = function (provider) {
         //commentsPopup.close();
         //$ionicHistory.currentView($ionicHistory.backView());
@@ -110,7 +136,7 @@ angular.module('izza.app.controllers', [])
             contact_email:provider.contact_email,
             contact_mobilenb:provider.contact_mobilenb,
             contact_web_site_url:provider.web_site_url
-        }
+        },{reload: true}
         );//provider.contact_email
 
 
@@ -120,7 +146,7 @@ angular.module('izza.app.controllers', [])
     }
 
 )
-.controller('BookProviderCtrl', function($scope, PostService, $ionicPopup, $state,ionicDatePicker) {
+.controller('BookProviderCtrl', function($scope, currentProvider,BookService, $ionicPopup, $state,ionicDatePicker) {
 
 
 
@@ -148,7 +174,7 @@ angular.module('izza.app.controllers', [])
 })
 
 
-.controller('ProfileCtrl', function($scope, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
+.controller('ProfileCtrl', function($scope,currentProvider, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
 
     $localStorage = $localStorage.$default({
         profile: {}
@@ -310,7 +336,7 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope,  $state, BookService, $ionicModal,$ionicPopup) {
+.controller('BookCtrl', function($scope,  currentProvider,$state, BookService, $ionicModal,$ionicPopup,lodash) {
 //List of providers where one can book one
 
 
@@ -332,7 +358,31 @@ angular.module('izza.app.controllers', [])
     $scope.bookPerService=function(provider) {
 // $scope.details_modal.show();
         $scope.selectedProvider = provider;
+        currentProvider.setcurrentProvider(provider);
 
+        //debug;
+        //var nb_skillset = $scope.selectedProvider.skillsandprice.length;
+
+/*        _.dropWhile($scope.selectedProvider.skillsandprice, function(o) {
+            return (o.price > 0);
+        });
+        var copArray = $scope.selectedProvider.skillsandprice;
+        _.pullAllWith(copArray, [{ 'price': 0 }], _.isEqual);
+        console.log(copArray);
+
+        */
+
+        //Added selected to skillset entries.
+
+        for(var i = $scope.selectedProvider.skillsandprice.length; i--;) {
+            if ($scope.selectedProvider.skillsandprice[i].price === 0) {
+                $scope.selectedProvider.skillsandprice.splice(i, 1);
+            }
+        }
+        for (var i=0;i<$scope.selectedProvider.skillsandprice.length;i++)
+        {
+            $scope.selectedProvider.skillsandprice[i].selected = false;
+        }
 
         $scope.myPopup = $ionicPopup.show(
             {
@@ -364,14 +414,18 @@ angular.module('izza.app.controllers', [])
         $scope.myPopup.then(function(provider) {
             if(provider)
             {
-                $state.go('app.book.addbooking',{provider_data:provider,
+/*                $state.go('app.book.addbooking',{provider_data:provider,
+                        bookedskills:provider.skillsandprice,
                         title:provider.title,
                         firstname:provider.firstname,
                         lastname:provider.lastname,
                         contact_email:provider.contact_email,
                         contact_mobilenb:provider.contact_mobilenb,
                         contact_web_site_url:provider.web_site_url
-                    }
+                    }*/
+                $state.go('app.book.addbooking',{obj:provider},{reload: true}
+
+
                 );//provider.contact_email
 
                 //$ionicLoading.show({ template: '<ion-spinner icon="ios"></ion-spinner><p style="margin: 5px 0 0 0;">Adding to cart</p>', duration: 1000 });
@@ -387,9 +441,9 @@ angular.module('izza.app.controllers', [])
 
     $scope.showDetails=function(provider) {
        // $scope.details_modal.show();
-        $scope.selectedProvider = provider;  
-            
-            
+        $scope.selectedProvider = provider;
+
+
         $scope.myPopup = $ionicPopup.show(
             {
             cssClass: 'add-to-cart-popup',
@@ -478,7 +532,8 @@ angular.module('izza.app.controllers', [])
 
 
     })
-    
+/*
+
     //Shopping
 .controller('ShopCtrl', function($scope, ShopService) {
   $scope.products = [];
@@ -518,7 +573,9 @@ angular.module('izza.app.controllers', [])
     return _.reduce($scope.products, function(memo, product){ return memo + product.price; }, 0);
   };
 
+
 })
+ */
 
 
 .controller('CheckoutCtrl', function($scope) {
@@ -551,6 +608,3 @@ angular.module('izza.app.controllers', [])
 
 })
 
-
-
-;

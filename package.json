@@ -34,19 +34,32 @@
     "node-sass": "^3.4.1"
   },
   "cordovaPlugins": [
-    "cordova-plugin-console@^1.0.1",
-    "cordova-plugin-device@^1.0.1",
-    "cordova-plugin-dialogs@^1.1.1",
-    "cordova-plugin-whitelist@1.0.0",
+    "cordova-plugin-transport-security",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard",
-    "cordova-plugin-transport-security"
+    "cordova-plugin-whitelist",
+    "cordova-plugin-console",
+    "cordova-plugin-device",
+    "cordova-plugin-dialogs",
+    {
+      "locator": "https://github.com/driftyco/ionic-plugins-keyboard.git",
+      "id": "ionic-plugin-keyboard"
+    }
   ],
   "cordovaPlatforms": [
     {
       "platform": "android",
       "locator": "browser"
     },
-    "ios"
+    "ios",
+    {
+      "platform": "browser",
+      "version": "",
+      "locator": "browser"
+    },
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
   ]
 }

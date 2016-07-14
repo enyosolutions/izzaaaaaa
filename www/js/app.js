@@ -11,11 +11,25 @@ angular.module('izza', [
   'izza.app.services',
   //'izza.views',
   'underscore',
+  'ngLodash',
   'angularMoment',
   'ngIOS9UIWebViewPatch',
       'ionic-datepicker',
     'ngStorage'
-])
+]).provider('MyAppConfiguration', function () {
+  // default values
+  var values = {
+    username: 'World'
+  };
+  return {
+    set: function (constants) { // 1
+      angular.extend(values, constants);
+    },
+    $get: function () { // 2
+      return values;
+    }
+  };
+})
 
 
 // Enable native scrolls for Android platform only,
@@ -33,6 +47,8 @@ angular.module('izza', [
 })
 
 .run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage) {
+
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -166,7 +182,10 @@ angular.module('izza', [
         views: {
           'book-home': {
             templateUrl: "views/app/book/addbooking.html",
-            controller: 'PickBookingTimeCtrl'
+            controller: 'PickBookingTimeCtrl',
+            params: {
+              obj: null
+            }
           }
         }
       })

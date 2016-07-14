@@ -11,9 +11,25 @@
     <div>
         </div>
     <div>
-        <ion-list ng-repeat="pricing in selectedProvider.Pricing">
+<!--        <ion-list ng-repeat="pricing in selectedProvider.Pricing">
             <ion-item>
                  <ion-checkbox ng-model="pricing.selected">{{pricing.Description}} <br> {{pricing.Price}} {{pricing.Currency}}</ion-checkbox>
+            </ion-item>
+        </ion-list>-->
+        <ion-list ng-repeat="skill in selectedProvider.skillsandprice">
+            <ion-item>
+
+                <ion-checkbox ng-model="skill.selected">
+
+                    <div class="card item-text-wrap">
+                        <div class="item">
+                            {{skill.description}}
+                        </div>
+                        <div class="item">
+                            {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
+                        </div>
+                    </div>
+                </ion-checkbox>
             </ion-item>
         </ion-list>
     </div>
