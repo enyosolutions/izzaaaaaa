@@ -11,55 +11,43 @@
 
 
 
+
+
+ <!--       {{provider.title}} {{provider.firstname}} {{provider.lastname}}-->
+
+        <div class="list">
+
+
+
             <label class="item item-input">
-                <span class="input-label">Date:</span>
-                {{showdate}}
-                <button class="button button-small button-primary" ng-click="openDatePicker()">Changer la date</button>
-
-            </label>
-
-
-        {{provider.title}} {{provider.firstname}} {{provider.lastname}}
-
-        <div class="list list-inset">
-
-
-
-
-<!--            <label class="item">
-                <span class="input-label">Le</span>
-
+                <div class="row">
+                    <div class="col">Date:</div>
+                    <div class="col">{{showdate}}</div>
+                    <div class="col"><button class="button button-small button-energized" ng-click="openDatePicker()">Choisir</button></div>
+                </div>
             </label>
 
             <label class="item item-input">
-                <span class="input-label">Jour</span>
-                <input type="date" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
-            </label>-->
-
-
-<!--            <label class="item">
-                <span class="input-label">Entre</span>
-
-            </label>-->
-
-            <label class="item item-input">
-                <span class="input-label">Entre:</span>
-                <input type="time" ng-model="reservation.betweenFrom">
+                <div class="row">
+                    <div class="col">Entre:</div>
+                    <div class="col">{{reservation.betweenFrom}}</div>
+                    <div class="col"><button class="button button-small button-energized" ng-click="openFromTimePicker()">Choisir</button></div>
+                </div>
             </label>
 
-<!--            <label class="item">
-                <span class="input-label">Et</span>
-
-            </label>-->
-
             <label class="item item-input">
-                <span class="input-label">Et:</span>
-                <input type="time" ng-model="reservation.betweenTo">
+                <div class="row">
+                    <div class="col">Et:</div>
+                    <div class="col">{{reservation.betweenTo}}</div>
+                    <div class="col"><button class="button button-small button-energized" ng-click="openToTimePicker()">Choisir</button></div>
+                </div>
             </label>
+
+
 
             <div class="list">
 
-                <button class="button button-full button-primary" ng-click="confirmBooking(provider.email)">Confirmer</button>
+                <button class="button button-full button-primary" ng-click="confirmBooking()">Confirmer</button>
             </div>
 
         </div>

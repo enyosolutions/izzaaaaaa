@@ -1,26 +1,145 @@
 
 <ion-view title="Mon Profile" id="page3">
-                <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+    <ion-content overflow-scroll="true" padding="true" >
 
 
-                    <!-- <form class="list"> -->
-                    <div class="list">
+        <div>
 
-                        <div class="item item-divider">
-                            Coordonnées
-                        </div>
-                        <form name="signin" ng-submit="updateContactOnServer()">
 
+      <!--  <ion-scroll direction="y" >-->
+
+            <ion-list>
+                <ion-item >
+                    <label class="item item-input" name="registeremail">
+                        <span class="input-label">Votre email</span>
+                        <input type="email" placeholder="jeane@gmail.com"
+                               value="{{$storage.profile.email}}"
+                               ng-model="$storage.profile.email"
+                               tabindex="1"
+                               required
+                        >
+                    </label>
+                </ion-item>
+
+                <ion-item >
+                    <label class="item item-input" name="registermobile">
+                        <span class="input-label">Mobile</span>
+                        <input type="tel" placeholder="06 55 55 55 55"
+                               value="{{$storage.profile.mobile}}"
+                               ng-model="$storage.profile.mobile"
+                               tabindex="2"
+                               required
+                        >
+                    </label>
+                </ion-item>
+
+                <ion-item >
+                    <label class="item item-input" name="registertitle">
+                        <span class="input-label">Titre</span>
+                        <input type="text" placeholder="Mme"
+                               value="{{$storage.profile.title}}"
+                               ng-model="$storage.profile.title"
+                               tabindex="3"
+
+                        >
+                    </label>
+                </ion-item>
+                <ion-item >
+                <label class="item item-input" name="registername">
+                    <span class="input-label">Nom</span>
+                    <input type="text" placeholder="Durand"
+                           value="{{$storage.profile.lastname}}"
+                           ng-model="$storage.profile.lastname"
+                           tabindex="4"
+                           required
+                    >
+                </label>
+                </ion-item >
+
+                <ion-item >
+                    <label class="item item-input" name="registerfirstname">
+                        <span class="input-label">Prénom</span>
+                        <input type="text" placeholder="Jeanne"
+                               value="{{$storage.profile.firstname}}"
+                               ng-model="$storage.profile.firstname"
+                               tabindex="5"
+                               required
+                        >
+                    </label>
+                </ion-item>
+
+
+                <ion-item >
+                <label class="item item-input" name="registerservicedeliveryrue1">
+                    <span class="input-label">Rue</span>
+                    <input type="text" placeholder="14 rue Jeanne"
+                           value="{{$storage.profile.delivery_street1}}"
+                           ng-model="$storage.profile.delivery_street1"
+                           tabindex="6"
+                           required
+                    >
+                </label>
+                </ion-item >
+
+                <ion-item >
+                <label class="item item-input" name="registerservicedeliveryrue2">
+                    <span class="input-label">Rue 2</span>
+                    <input type="text" placeholder="Complément adresse"
+                           value="{{$storage.profile.delivery_street2}}"
+                           ng-model="$storage.profile.delivery_street2"
+                           tabindex="7"
+                           required
+                    >
+                </label>
+                </ion-item >
+
+                <ion-item >
+                <label class="item item-input" name="registerservicedeliverycity">
+                    <span class="input-label">Ville</span>
+                    <input type="text" placeholder="Paris"
+                           value="{{$storage.profile.delivery_city}}"
+                           ng-model="$storage.profile.delivery_city"
+                           tabindex="8"
+                           required
+                    >
+                </label>
+                </ion-item >
+
+
+                <ion-item >
+                <label class="item item-input" name="registerservicedeliveryzip">
+                    <span class="input-label">Code Postal</span>
+                    <input type="text" placeholder="75008"
+                           value="{{$storage.profile.delivery_codepostal}}"
+                           ng-model="$storage.profile.delivery_codepostal"
+                           tabindex="9"
+                           required
+                    >
+                </label>
+                </ion-item >
+
+
+
+            </ion-list>
+
+
+ <form name="signin" ng-submit="updateContactOnServer()">
+
+
+       <!--<form class="list">-->
+          <!-- <div class="list">
 
                         <label class="item item-input" name="registeremail">
                             <span class="input-label">Votre email</span>
-                            <input type="text" placeholder="jeane@gmail.com"
+                            <input type="email" placeholder="jeane@gmail.com"
                                    value="{{$storage.profile.email}}"
                                    ng-model="$storage.profile.email"
                                    tabindex="1"
                                    required
                             >
                         </label>
+
                         <label class="item item-input" name="registermobile">
                             <span class="input-label">Mobile</span>
                             <input type="tel" placeholder="06 55 55 55 55"
@@ -30,6 +149,8 @@
                                    required
                             >
                         </label>
+
+
                         <label class="item item-input" name="registertitle">
                             <span class="input-label">Titre</span>
                             <input type="text" placeholder="Mme"
@@ -39,6 +160,7 @@
 
                             >
                         </label>
+
                         <label class="item item-input" name="registername">
                             <span class="input-label">Nom</span>
                             <input type="text" placeholder="Durand"
@@ -48,6 +170,8 @@
                                    required
                             >
                         </label>
+
+
                         <label class="item item-input" name="registerfirstname">
                             <span class="input-label">Prénom</span>
                             <input type="text" placeholder="Jeanne"
@@ -67,6 +191,8 @@
                                        required
                                 >
                             </label>
+
+
 
                             <label class="item item-input" name="registerservicedeliveryrue2">
                                 <span class="input-label">Rue 2</span>
@@ -101,7 +227,8 @@
 
                             <input belvert class="button button-block button-positive"
                                    type="submit" name="submit" value="Valider">
-                        </form>
+                    </div>-->
+
 
 
                         <div class="card">
@@ -132,11 +259,17 @@
                         </ion-toggle>
 
 
-                    </div>
+              </div>
+      </form>
 
-                    </div>
 
-                </ion-content>
+
+              </div>
+            <!--</ion-scroll>-->
+        </div>
+
+    </ion-content>
+
 </ion-view>
 
 

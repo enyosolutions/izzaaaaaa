@@ -6,8 +6,37 @@
     <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
     <title></title>
 
+
+
     <link href="css/ionic.app.css" rel="stylesheet">
     <link href="css/calendar.css" rel="stylesheet">
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script>
+      // require this script before your document is done loading
+      ;(function () {
+        var isDroid = navigator.userAgent.match(/Android/)
+        var isiOS = navigator.userAgent.match(/(iPhone|iPod|iPad)/)
+
+        if (isDroid) {
+          console.log("Connect from Droid");
+          $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+        }
+        else if (isiOS) {
+          console.log("Connect from iOS");
+          $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+
+        }
+        else {
+          console.log("Connect from Browser");
+          //$('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+
+
+
+        }
+      })();
+
+    </script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
@@ -26,8 +55,11 @@
     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
     <script src="lib/ngstorage/ngStorage.js"></script>
     <script src="lib/ng-lodash/build/ng-lodash.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
   </head>
   <body ng-app="izza">
     <ion-nav-view></ion-nav-view>
+
+
   </body>
 </html>

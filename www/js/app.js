@@ -15,6 +15,7 @@ angular.module('izza', [
   'angularMoment',
   'ngIOS9UIWebViewPatch',
       'ionic-datepicker',
+  'ionic-timepicker',
     'ngStorage'
 ]).provider('MyAppConfiguration', function () {
   // default values
@@ -34,31 +35,71 @@ angular.module('izza', [
 
 // Enable native scrolls for Android platform only,
 // as you see, we're disabling jsScrolling to achieve this.
-.config(function ($ionicConfigProvider) {
+.config(function ($ionicConfigProvider,ionicTimePickerProvider) {
 
-        $ionicConfigProvider.views.maxCache(5);
+        //$ionicConfigProvider.views.maxCache(5);
 
         // note that you can also chain configs
-        $ionicConfigProvider.backButton.text('<<').icon('ion-chevron-left');
-
+       // $ionicConfigProvider.backButton.text('<<').icon('ion-chevron-left');
   if (ionic.Platform.isAndroid()) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
+  var timePickerObj = {
+    inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+    format: 24,
+    step: 15,
+    setLabel: 'Choisir',
+    closeLabel: 'Annuler'
+  };
+  ionicTimePickerProvider.configTimePicker(timePickerObj);
+
 })
+/*.factory('Application', function ($window) {
 
-.run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage) {
+  isInitialRun = function () {
+    var value = $window.localStorage["initialRun"] || "true";
+    return value == "true";
+      return {
 
+        setInitialRun = function (initial) {
+        $window.localStorage["initialRun"] = (initial ? "true" : "false");
+      }
 
+    };
+})*/
+.run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage,$state,$window) {
+
+  function isViewedByBrowser() {
+    return (window.cordova || window.PhoneGap || window.phonegap)
+        && /^file:\/{3}[^\/]/i.test(window.location.href)
+        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+  }
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(false);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+/*    if ( isViewedByBrowser() ) {
+      console.log("Running on Browser!");
+    } else {
+      console.log("Not running on PhoneGap!");
+    }*/
+
+    //ionic.Platform.isFullScreen = true;
+
   });
+/*  var isFirstRun = $window.localStorage["initialRun"] || "true";
+  if (isFirstRun){
+
+  }
+
+  $window.localStorage["initialRun"] = (isFirstRun ? "true" : "false");*/
 
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
@@ -66,9 +107,15 @@ angular.module('izza', [
     {
       // set transitions to android to avoid weird visual effect in the walkthrough transitions
       $timeout(function(){
+        console.log("setting transition to android and disabling swipe back");
+
         $ionicConfig.views.transition('android');
         $ionicConfig.views.swipeBackEnabled(false);
-      	console.log("setting transition to android and disabling swipe back");
+        if(ionic.Platform.isIOS())
+        {
+          $ionicConfig.views.swipeBackEnabled(true);
+          console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
+        }
       }, 0);
     }
   });
@@ -78,13 +125,31 @@ angular.module('izza', [
       // Restore platform default transition. We are just hardcoding android transitions to auth views.
       $ionicConfig.views.transition('platform');
       // If it's ios, then enable swipe back again
-      if(ionic.Platform.isIOS())
-      {
-        $ionicConfig.views.swipeBackEnabled(true);
-      }
-    	console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
+
+
     }
   });
+
+  //var state = "app.book.home";  // whatever, the main page of your app
+ if ($window.localStorage.initialRun==="true"){
+   state = "app.profile.home";
+   $window.localStorage.initialRun = "false";
+
+ }else
+ {
+   state = "app.book.home";
+ }
+
+  $state.go(state);
+
+/*  if (Application.isInitialRun()) {
+    Application.setInitialRun(false);
+    state = "app.profile";
+  }
+
+  $state.go(state);*/
+
+
 
   $rootScope.$watch(function() {
         $rootScope.storagevalue = Date();
@@ -93,6 +158,7 @@ angular.module('izza', [
     }, function() {
         //$rootScope.updateContactOnServer();
     });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -130,22 +196,22 @@ angular.module('izza', [
       })
 
   .state('app.profile.posts', {
-    url: '/posts',
-    views: {
-      'profile-posts-view': {
-        templateUrl: 'views/app/profile/profile.posts.html'
+      url: '/posts',
+      views: {
+        'profile-posts-view': {
+          templateUrl: 'views/app/profile/profile.posts.html'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.profile.likes', {
-    url: '/likes',
-    views: {
-      'profile-likes-view': {
-        templateUrl: 'views/app/profile/profile.likes.html'
+    .state('app.profile.likes', {
+      url: '/likes',
+      views: {
+        'profile-likes-view': {
+          templateUrl: 'views/app/profile/profile.likes.html'
+        }
       }
-    }
-  })
+    })
 
 
 
@@ -369,7 +435,7 @@ angular.module('izza', [
     templateUrl: "views/auth/forgot-password.html",
     controller: 'ForgotPasswordCtrl'
   })
-
+  //$urlRouterProvider.otherwise('/auth/welcome');
   // .state('facebook-sign-in', {
   //   url: "/facebook-sign-in",
   //   templateUrl: "views/auth/facebook-sign-in.html",
@@ -396,7 +462,7 @@ angular.module('izza', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/welcome');
+
 
 
     //$urlRouterProvider.otherwise('/profile-home');

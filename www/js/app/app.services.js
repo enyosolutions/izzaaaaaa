@@ -4,8 +4,9 @@ angular.module('izza.app.services', [])
 
 .service('RemoteDirectory', function() {
 
-      this.api_url =  "http://001.izza.co";
+      //this.api_url =  "http://001.izza.co";
 
+      this.api_url =  'http://10.0.0.16:3000';
       //this.api_url =  'http://localhost:3000';
 
       this.getAPISrvURL = function() {
@@ -183,10 +184,12 @@ angular.module('izza.app.services', [])
       this.getReservations = function(useremail){
         var dfd = $q.defer();
         var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/byemail/' + encodeURIComponent(useremail);
+        console.log('Loading res from:' + url);
         $http.get(url).success(function(database) {
           dfd.resolve(database);
+          console.log("resolved database getting reservations.");
         }).error(function(err){
-           console.log('Error loading reservations...');
+           console.log('Error loading reservations...' + err);
         })
 
         ;

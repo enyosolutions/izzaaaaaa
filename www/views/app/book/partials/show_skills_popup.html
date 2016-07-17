@@ -1,34 +1,42 @@
-<div class="col col-100 select-option-wrapper">
+<div class="select-option-wrapper">
 
 
-    <ion-list ng-repeat="skill in selectedProvider.skills">
-        <ion-item>
-            {{skill}}
-        </ion-item>
-    </ion-list>
+    <div>
+    </div>
+    <div>
 
-<!--
-<span class="popup-product-title">Services proposés</span>
-<div class="separator-line"></div>
--->
+        <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 500px">
+            <ion-list ng-repeat="skill in selectedProvider.skillsandprice " >
+                <ion-item class="item-borderless">
+
+
+
+                        <div class="card item-text-wrap item-borderless">
+                            <div class="item">
+                                {{skill.description}}
+                            </div>
+                            <div class="item">
+                                {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
+                            </div>
+                        </div>
+
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
+
+
+    </div>
+    <div class="col text-center">
+
+        <!--        <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
+                    Réserver
+                </button>-->
+    </div>
     <!--
-    {{selectedProvider.qualification1}}
-    {{selectedProvider.qualification2}}
-    {{selectedProvider.qualification3}}
-    {{selectedProvider.qualification4}}
+    <span class="popup-product-title">Services proposés</span>
+    <div class="separator-line"></div>
     -->
-    <!--<div class="row product-options">
-      <div class="col col-75 select-option-wrapper">
-        <select ng-model="data.productOption">
-          <option value="1">Shiny Black Gold</option>
-          <option value="2">Black Ice Revo</option>
-          <option value="3">Black Silver</option>
-        </select>
-      </div>
-      <div class="col col-25 select-option-wrapper">
-        <select ng-model="data.productQuantity">
-          <option ng-repeat="i in [1,2,3,4,5,6,7,8,9,10]" value="{{i}}">{{i}}</option>
-        </select>
-      </div>
-    </div>-->
 
+
+
+</div>

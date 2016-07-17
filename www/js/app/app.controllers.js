@@ -6,30 +6,89 @@ angular.module('izza.app.controllers', [])
 .controller('BookingsCtrl', function($scope, currentProvider, BookService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
         $scope.profile = $localStorage.profile;
-        //getReservations
-        if ($scope.profile){
-            if ($scope.profile.profile.email){
-                if ($scope.profile.profile.email!==""){
-                    profileok = true;
-                    BookService.getReservations($scope.profile.profile.email).then(function(reservations){
-                        $scope.reservations = reservations;
-                    });
 
+        $scope.doRefresh = function() {
+
+            console.log("Refreshing reservations.");
+            //getReservations
+            if ($scope.profile){
+                if ($scope.profile.profile.email){
+                    if ($scope.profile.profile.email!==""){
+                        profileok = true;
+                        BookService.getReservations($scope.profile.profile.email).then(function(reservations){
+                            $scope.reservations = reservations;
+                            console.log("got reservations from api server.");
+
+                                $scope.$broadcast('scroll.refreshComplete');
+
+                        });
+
+                    }
+                }
+                else {
+                    console.log("could not get reservations from api server: no email in profile.");
                 }
             }
-        }
+        };
+
+
+        $scope.doRefresh();
 
 
 }
 )
-.controller('PickBookingTimeCtrl', function($scope,currentProvider, PostService, $filter, $stateParams,ionicDatePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
+.controller('PickBookingTimeCtrl', function($scope,currentProvider, PostService, $filter, $stateParams,ionicDatePicker,ionicTimePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
 
 
         $scope.params = $stateParams;
 
         $scope.pickedServices = $scope.provider;
 
-        var ipObj1 = {
+
+    $scope.ipObjFromTimePicker= {
+        callback: function (val) {      //Mandatory
+            console.log('Return value from the timepicker popup is : ' + val, new Date(val));
+
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                var selectedTimeFrom = new Date(val * 1000);
+                $scope.ipObjFromTimePicker.inputEpochTime = val;
+                $scope.reservation.betweenFrom = selectedTimeFrom.getUTCHours() +  'h' + (selectedTimeFrom.getUTCMinutes()?selectedTimeFrom.getUTCMinutes() +  'm':'') ;
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeFrom.getUTCHours(), 'H :', selectedTimeFrom.getUTCMinutes(), 'M');
+            }
+        },
+        inputTime: 50400,   //Optional
+        format: 24,         //Optional
+        step: 15,           //Optional
+        setLabel: 'Choisir'    //Optional
+    };
+
+    $scope.ipObjToTimePicker= {
+        callback: function (val) {      //Mandatory
+            console.log('Return value from the timepicker popup is : ' + val, new Date(val));
+            if (typeof (val) === 'undefined') {
+
+                console.log('Time not selected');
+
+            } else {
+                var selectedTimeTo = new Date(val * 1000);
+                $scope.ipObjToTimePicker.inputEpochTime = val;
+                $scope.reservation.betweenTo = selectedTimeTo.getUTCHours() +  'h' + (selectedTimeTo.getUTCMinutes()?selectedTimeTo.getUTCMinutes() +  'm':'') ;
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeTo.getUTCHours(), 'H :', selectedTimeTo.getUTCMinutes(), 'M');
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeTo.getUTCHours(), 'H :', selectedTimeTo.getUTCMinutes(), 'M');
+            }
+        },
+        inputTime: 50400,   //Optional
+        format: 24,         //Optional
+        step: 15,           //Optional
+        setLabel: 'Choisir'    //Optional
+    };
+
+
+
+
+        $scope.ipObjDatePicker = {
             callback: function (val) {  //Mandatory
                 console.log('Return value from the datepicker popup is : ' + val, new Date(val));
                 //var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"}; ,options
@@ -59,7 +118,14 @@ angular.module('izza.app.controllers', [])
         };
 
         $scope.openDatePicker = function(){
-            ionicDatePicker.openDatePicker(ipObj1);
+            ionicDatePicker.openDatePicker($scope.ipObjDatePicker);
+        };
+
+        $scope.openFromTimePicker = function(){
+            ionicTimePicker.openTimePicker($scope.ipObjFromTimePicker);
+        };
+        $scope.openToTimePicker = function(){
+            ionicTimePicker.openTimePicker($scope.ipObjToTimePicker);
         };
 
     $scope.profile = $localStorage.profile;
@@ -99,12 +165,14 @@ angular.module('izza.app.controllers', [])
             if ($scope.profile.profile.email){
                 if ($scope.profile.profile.email!==""){
                     profileok = true;
+                    console.log("profile loaded.");
 
                 }
             }
         }
         else {
             profileok = false;
+            console.log("profile not loaded.");
         }
 
 
@@ -336,21 +404,23 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope,  currentProvider,$state, BookService, $ionicModal,$ionicPopup,lodash) {
+.controller('BookCtrl', function($scope,  currentProvider,$state, BookService, $ionicModal,$ionicPopup,lodash,$filter) {
 //List of providers where one can book one
 
 
       $scope.filterCategory = "Toutes";
       $scope.providers = [];
       $scope.popular_providers = [];
+      $scope.filteredServices =[];
 
- /* $scope.values=  [
-    {id:1, name:"value1" },
-    {id:2, name:"value2" },
-    {id:3, name:"value3" }
-  ];
-  $scope.selectedValues= []; //initial selections
-*/
+
+        /* $scope.values=  [
+           {id:1, name:"value1" },
+           {id:2, name:"value2" },
+           {id:3, name:"value3" }
+         ];
+         $scope.selectedValues= []; //initial selections
+       */
 
 
     //cssClass: 'popup-outer comments-view',
@@ -439,10 +509,14 @@ angular.module('izza.app.controllers', [])
 
     };
 
+
+
     $scope.showDetails=function(provider) {
        // $scope.details_modal.show();
         $scope.selectedProvider = provider;
 
+
+        $scope.selectedProvider.filteredServices = $filter('filter')($scope.selectedProvider.skillsandprice, {data :{price:0}}, true);
 
         $scope.myPopup = $ionicPopup.show(
             {
@@ -519,11 +593,20 @@ angular.module('izza.app.controllers', [])
     };
 
       BookService.getProviders($scope.filterCategory).then(function(providers){
-        $scope.providers = providers;
+
+          if (providers.error) {
+              $scope.providers = {};
+          }
+          else {
+              $scope.providers = providers;
+
+
+          }
+
       });
 
       BookService.getProviders($scope.filterCategory).then(function(providers){
-        $scope.popular_providers = providers.slice(0, 2);
+        $scope.popular_providers = providers;
       });
 
 

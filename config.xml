@@ -38,7 +38,7 @@
     <config-file parent="NSAppTransportSecurity" platform="ios" target="*-Info.plist">
       <dict>
         <key>NSAllowsArbitraryLoads</key>
-        <true></true>
+        <true/>
       </dict>
     </config-file>
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>

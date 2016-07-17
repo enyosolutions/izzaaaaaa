@@ -13,6 +13,7 @@
     "knuth-shuffle": "https://github.com/coolaj86/knuth-shuffle.git",
     "ionic-datepicker": "^1.1.0",
     "ngstorage": "^0.3.10",
-    "ng-lodash": "^0.5.0"
+    "ng-lodash": "^0.5.0",
+    "ionic-timepicker": "^0.5.1"
   }
 }
