@@ -1,19 +1,20 @@
 {
-  "name": "ionTheme_2",
+  "name": "Izza",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.2.1"
+    "ionic": "driftyco/ionic-bower#1.3.1"
   },
   "dependencies": {
-    "bourbon": "~4.2.3",
-    "underscore": "~1.8.3",
-    "moment": "~2.10.3",
-    "angular-moment": "~0.10.1",
-    "angular-ios9-uiwebview-patch": "~1.1.1",
+    "angular": "*",
+    "bourbon": "*",
+    "underscore": "*",
+    "moment": "*",
+    "angular-moment": "*",
+    "angular-ios9-uiwebview-patch": "*",
     "knuth-shuffle": "https://github.com/coolaj86/knuth-shuffle.git",
-    "ionic-datepicker": "^1.1.0",
-    "ngstorage": "^0.3.10",
-    "ng-lodash": "^0.5.0",
-    "ionic-timepicker": "^0.5.1"
+    "ionic-datepicker": "*",
+    "ngstorage": "*",
+    "ng-lodash": "*",
+    "ionic-timepicker": "*"
   }
 }

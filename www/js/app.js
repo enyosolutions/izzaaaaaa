@@ -42,7 +42,7 @@ angular.module('izza', [
         // note that you can also chain configs
        // $ionicConfigProvider.backButton.text('<<').icon('ion-chevron-left');
   if (ionic.Platform.isAndroid()) {
-    $ionicConfigProvider.scrolling.jsScrolling(false);
+    //$ionicConfigProvider.scrolling.jsScrolling(false);
   }
   var timePickerObj = {
     inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
@@ -292,6 +292,15 @@ angular.module('izza', [
         views: {
           'menuContent': {
             templateUrl: "views/app/book/bookings.html",
+            controller: 'BookingsCtrl'
+          }
+        }
+      })
+      .state('app.bookings.home', {
+        url: "/bookings-home",
+        views: {
+          'bookings-home': {
+            templateUrl: "views/app/book/bookings-home.html",
             controller: 'BookingsCtrl'
           }
         }
