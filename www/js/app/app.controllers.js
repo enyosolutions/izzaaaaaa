@@ -1,9 +1,42 @@
 angular.module('izza.app.controllers', [])
 
 
+.controller('test', function($scope, BookingsService,$localStorage) {
 
 
-.controller('BookingsCtrl', function($scope, currentProvider, BookService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+    $scope.profile = $localStorage.profile;
+
+    $scope.doRefresh = function() {
+
+        console.log("Refreshing reservations.");
+        //getReservations
+        if ($scope.profile){
+            if ($scope.profile.profile.email){
+                if ($scope.profile.profile.email!==""){
+                    profileok = true;
+                    BookService.getReservations($scope.profile.profile.email).then(function(reservations){
+                        $scope.reservations = reservations;
+                        console.log("got reservations from api server.");
+
+                        $scope.$broadcast('scroll.refreshComplete');
+
+                    });
+
+                }
+            }
+            else {
+                console.log("could not get reservations from api server: no email in profile.");
+            }
+        }
+    };
+
+
+    $scope.doRefresh();
+
+        }
+)
+
+.controller('BookingsController', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
         $scope.profile = $localStorage.profile;
 
@@ -15,8 +48,12 @@ angular.module('izza.app.controllers', [])
                 if ($scope.profile.profile.email){
                     if ($scope.profile.profile.email!==""){
                         profileok = true;
-                        BookService.getReservations($scope.profile.profile.email).then(function(reservations){
+                        var bs = BookingsService;
+                        //var key = $scope.profile.profile.email;
+                        var key = "izza@invicti.eu";
+                        bs.getReservations(key).then(function(reservations){
                             $scope.reservations = reservations;
+                            $scope.resToJSON = JSON.stringify(reservations);
                             console.log("got reservations from api server.");
 
                                 $scope.$broadcast('scroll.refreshComplete');
@@ -37,7 +74,7 @@ angular.module('izza.app.controllers', [])
 
 }
 )
-.controller('PickBookingTimeCtrl', function($scope,currentProvider, PostService, $filter, $stateParams,ionicDatePicker,ionicTimePicker, $location, $state,BookService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
+.controller("PickBookingTimeCtrl", function($scope,currentProvider, PostService, $filter, $stateParams,ionicDatePicker,ionicTimePicker, $location, $state,BookingsService, $ionicModal, $localStorage, $sessionStorage,$ionicPopup, $ionicHistory) {
 
 
         $scope.params = $stateParams;
@@ -177,7 +214,7 @@ angular.module('izza.app.controllers', [])
 
 
         if (profileok){
-            BookService.createBookingForProvider(bookingInfo);
+            BookingsService.createBookingForProvider(bookingInfo);
             $state.go('app.book.home',{},{reload: true});
 
         }
@@ -214,7 +251,7 @@ angular.module('izza.app.controllers', [])
     }
 
 )
-.controller('BookProviderCtrl', function($scope, currentProvider,BookService, $ionicPopup, $state,ionicDatePicker) {
+.controller('BookProviderCtrl', function($scope, currentProvider,BookingsService, $ionicPopup, $state,ionicDatePicker) {
 
 
 
@@ -404,7 +441,7 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope,  currentProvider,$state, BookService, $ionicModal,$ionicPopup,lodash,$filter) {
+.controller('BookCtrl', function($scope,  currentProvider,$state, BookingsService, $ionicModal,$ionicPopup,lodash,$filter) {
 //List of providers where one can book one
 
 
@@ -583,7 +620,7 @@ angular.module('izza.app.controllers', [])
 
     $scope.updateQuery=function(category){
 
-        BookService.getProviders(category).then(function(providers){
+        BookingsService.getProviders(category).then(function(providers){
             $scope.providers = providers;
             if (providers.size === 0)
             {
@@ -592,7 +629,7 @@ angular.module('izza.app.controllers', [])
         });
     };
 
-      BookService.getProviders($scope.filterCategory).then(function(providers){
+    BookingsService.getProviders($scope.filterCategory).then(function(providers){
 
           if (providers.error) {
               $scope.providers = {};
@@ -605,7 +642,7 @@ angular.module('izza.app.controllers', [])
 
       });
 
-      BookService.getProviders($scope.filterCategory).then(function(providers){
+    BookingsService.getProviders($scope.filterCategory).then(function(providers){
         $scope.popular_providers = providers;
       });
 

@@ -63,17 +63,15 @@
                       <option>Tatouage au Jagua</option>
                       <option>Mariage</option>
 
-
                   </select>
               </label>
-
           </div>
+
+
         <div class="product-list-item" ng-repeat="provider in providers">
 
           <div class="card-4" ng-controller="PickBookingTimeCtrl">
 
-
-            <div class="card">
               <div class="list card">
 
                 <div class="item item-avatar">
@@ -160,155 +158,11 @@
                   <div class="item">
                       <span class="name-text"> {{provider.profile}} </span>
                   </div>
-
-
-
-
-
-                  <div class="item item-actions">
-                    <button class="action-button icon-left ion-heart button button-small">
-                      Like
-                    </button>
-                    <button class="action-button button button-icon icon ion-android-more-vertical button-small">
-                    </button>
-                    <button class="right-button action-button button-icon icon ion-share button button-small">
-                    </button>
-                    <button ng-click="showComments(post)" class="right-button action-button icon-left ion-chatbox button button-small">
-                      {{ provider.comments }}
-                    </button>
-
-<!--                     <button class="button button-small button-positive" ui-sref="app.book.addbooking">
-                          Réserver
-                      </button>-->
-
-
-
-<!--                    <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
-                        Réserver
-                    </button>-->
-                  </div>
-
-
-                  <!--<script id="addbooking.html" type="text/ng-template">
-                      <ion-modal-view>
-
-
-                          <ion-header-bar class="bar bar-header bar-dark">
-                              <h1 class="title">Réserver</h1>
-                              <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
-                          </ion-header-bar>
-
-
-                          <ion-content class="padding">
-
-                              {{provider.title}} {{provider.firstname}} {{provider.lastname}}
-
-                              <div class="list list-inset">
-                              <label class="item">
-                                  <span class="input-label">Le</span>
-
-                              </label>
-
-                              <label class="item item-input">
-                                  <span class="input-label">Jour</span>
-                                  <input type="text" datetime="yyyy-MM-dd" ng-model="reservation.reservation_date">
-                              </label>
-
-
-                              <label class="item">
-                                  <span class="input-label">Entre</span>
-
-                              </label>
-
-                              <label class="item item-input">
-                                  <span class="input-label">Heure</span>
-                                  <input type="time" ng-model="reservation.betweenFrom">
-                              </label>
-
-                              <label class="item">
-                                  <span class="input-label">Et</span>
-
-                              </label>
-
-                              <label class="item item-input">
-                                  <span class="input-label">Heure</span>
-                                  <input type="time" ng-model="reservation.betweenTo">
-                              </label>
-
-                              <div class="list">
-
-                                  <button class="button button-full button-primary" ng-click="confirmBooking(provider.email)">Confirmer</button>
-                              </div>
-
-                              </div>
-                          </ion-content>
-                      </ion-modal-view>
-                  </script>-->
-
-                </div>
-
               </div>
-
-
-          <!--  <div class="list card">
-
-              <div class="item item-image">
-                <pre-img ratio="_16_15" helper-class="main-image">
-                  <img ng-src="{{provider.picture}}" spinner-on-load>
-                </pre-img>
-              </div>
-              -->
-<!--
-              <div class="item item-body">
-                <div class="col col-50">
-
-                <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
-
-                <p class="card-description">
-                  <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
-                    <span class="card-avatar-image-outer">
-                      <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
-                        <img ng-src="{{post.user.picture}}" spinner-on-load>
-                      </pre-img>
-                    </span>
-
-                    <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
-                  </a>
-                  <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
-                </p>
-
-
-              </div>
-
-              <div class="col col-30">
-                  <div class="card">
-                    <div class="item item-text-wrap">
-                      {{provider.profile}}
-                    </div>
-                  </div>
-              </div>
-
             </div>
-  -->
-
-
-
-
-            </div>
-
           </div>
-
-
-
-
-
-          <!-- <div class="row product-title-wrapper">
-            <span class="product-title">{{product.title}}</span>
-          </div> -->
-
         </div>
       </div>
-
     </div>
 
 <!--    <div class="list book-home-options-list">
@@ -346,3 +200,71 @@
 
   </ion-content>
 </ion-view>
+<!--                  <div class="item item-actions">
+
+                    <button class="action-button icon-left ion-heart button button-small">
+                      Like
+                    </button>
+
+                    <button class="action-button button button-icon icon ion-android-more-vertical button-small">
+                    </button>
+
+                    <button class="right-button action-button button-icon icon ion-share button button-small">
+                    </button>
+
+                    <button ng-click="showComments(post)" class="right-button action-button icon-left ion-chatbox button button-small">
+                      {{ provider.comments }}
+                    </button>
+
+&lt;!&ndash;                     <button class="button button-small button-positive" ui-sref="app.book.addbooking">
+                          Réserver
+                      </button>&ndash;&gt;
+
+
+
+&lt;!&ndash;                    <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
+                        Réserver
+                    </button>&ndash;&gt;
+                  </div>-->
+
+
+<!--  <div class="list card">
+
+      <div class="item item-image">
+        <pre-img ratio="_16_15" helper-class="main-image">
+          <img ng-src="{{provider.picture}}" spinner-on-load>
+        </pre-img>
+      </div>
+      -->
+<!--
+              <div class="item item-body">
+                <div class="col col-50">
+
+                <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
+
+                <p class="card-description">
+                  <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
+                    <span class="card-avatar-image-outer">
+                      <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
+                        <img ng-src="{{post.user.picture}}" spinner-on-load>
+                      </pre-img>
+                    </span>
+
+                    <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
+                  </a>
+                  <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
+                </p>
+
+
+              </div>
+
+              <div class="col col-30">
+                  <div class="card">
+                    <div class="item item-text-wrap">
+                      {{provider.profile}}
+                    </div>
+                  </div>
+              </div>
+
+            </div>
+  -->

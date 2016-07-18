@@ -174,7 +174,7 @@ angular.module('izza.app.services', [])
 })
 
 
-.service('BookService', function ($http, $q, _,RemoteDirectory){
+.service('BookingsService', function ($http, $q, _,RemoteDirectory){
 
     //For:
     // - getting providers.

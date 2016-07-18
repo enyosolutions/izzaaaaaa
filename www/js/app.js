@@ -113,8 +113,8 @@ angular.module('izza', [
         $ionicConfig.views.swipeBackEnabled(false);
         if(ionic.Platform.isIOS())
         {
-          $ionicConfig.views.swipeBackEnabled(true);
-          console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
+          //$ionicConfig.views.swipeBackEnabled(true);
+          //console.log("enabling swipe back and restoring transition to platform default", $ionicConfig.views.transition());
         }
       }, 0);
     }
@@ -162,10 +162,11 @@ angular.module('izza', [
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+
 
   //SIDE MENU ROUTES
-  .state('app', {
+  //
+  $stateProvider.state('app', {
     url: "/app",
     abstract: true,
     templateUrl: "views/app/side-menu.html",
@@ -194,25 +195,6 @@ angular.module('izza', [
           }
         }
       })
-
-  .state('app.profile.posts', {
-      url: '/posts',
-      views: {
-        'profile-posts-view': {
-          templateUrl: 'views/app/profile/profile.posts.html'
-        }
-      }
-    })
-
-    .state('app.profile.likes', {
-      url: '/likes',
-      views: {
-        'profile-likes-view': {
-          templateUrl: 'views/app/profile/profile.likes.html'
-        }
-      }
-    })
-
 
 
       .state('app.book', {
@@ -255,44 +237,12 @@ angular.module('izza', [
           }
         }
       })
-
-      .state('app.book.popular', {
-        url: "/book_popular",
-        views: {
-          'book-popular': {
-            templateUrl: "views/app/book/book-popular.html",
-            controller: 'BookCtrl'
-          }
-        }
-      })
-
-      .state('app.book.sale', {
-        url: "/book_sale",
-        views: {
-          'book-sale': {
-            templateUrl: "views/app/book/book-sale.html",
-            controller: 'BookCtrl'
-          }
-        }
-      })
-
-/*
-      .state('app.booking', {
-        url: "/feed",
-        views: {
-          'menuContent': {
-            templateUrl: "views/app/feed.html",
-            controller: "FeedCtrl"
-          }
-        }
-      })*/
-
       .state('app.bookings', {
         url: "/bookings",
+        abstract: true,
         views: {
           'menuContent': {
-            templateUrl: "views/app/book/bookings.html",
-            controller: 'BookingsCtrl'
+            templateUrl: "views/app/book/bookings.html"
           }
         }
       })
@@ -300,8 +250,9 @@ angular.module('izza', [
         url: "/bookings-home",
         views: {
           'bookings-home': {
-            templateUrl: "views/app/book/bookings-home.html",
-            controller: 'BookingsCtrl'
+            templateUrl: "views/app/book/bookings-home.html"
+           ,controller: "BookingsController"
+           // ,controller: "test"
           }
         }
       })

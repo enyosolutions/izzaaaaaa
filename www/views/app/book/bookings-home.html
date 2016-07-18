@@ -1,23 +1,139 @@
-<ion-view view-title="Réservations"  class="bookings-home-view" cache-view="false">
-
-
+<ion-view view-title="Réservations" >
 
     <ion-content>
-        <!--overflow-scroll="true" padding="true"-->
+        <ion-refresher pulling-text="Glissez de haut en bas pour rafraîchir..." on-refresh="doRefresh()" ></ion-refresher>
 
+        <div class="product-list-item" ng-repeat="reservation in reservations">
+            <div class="list card">
+                <div class="item item-avatar">
 
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()" ></ion-refresher>
-
-        <ion-scroll zooming="true" direction="xy" style="width: 500px; height: 5000px">
-            <div style="width: 5000px; height: 5000px;"></div>
-        </ion-scroll>
-
-        <div style="position:absolute; top:0; right:0: bottom:0; left:0; overflow-y:scroll; overflow-x: hidden">
-
-
-            <div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div>
-
+                    <img src="img/sample_images/people/2.jpeg">
+                    <h2> Avec: {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h2>
+                    <h2> Le: {{reservation.reservationInfo.reservation_date }} </h2>
+                    <h2> Entre: {{reservation.providerInfo.firstname }} Et: {{reservation.providerInfo.lastname }}</h2>
+                    <h3> Prestations commandées:</h3>
+                            <div  ng-repeat="service in reservation.serviceInfo">
+                                <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
+                                <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
+                            </div>
+                </div>
+            </div>
         </div>
+
+    </ion-content>
+
+<!--    <ion-content>
+
+        <div class="product-list-item" ng-repeat="reservation in reservations">
+                <div  ng-repeat="service in reservation.serviceInfo">
+                    &lt;!&ndash;<h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>&ndash;&gt;
+                    <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
+                </div>
+        </div>
+
+    </ion-content>-->
+<!--
+    <ion-content>
+       &lt;!&ndash; &lt;!&ndash;overflow-scroll="true" padding="true"&ndash;&gt;&ndash;&gt;
+        <div class="product-list-item" ng-repeat="reservation in reservations">
+
+            <div class="card-4" ng-controller="">
+
+                <div class="list card">
+
+                    <div class="item item-avatar">
+
+                        <img src="img/sample_images/people/2.jpeg">
+
+                        <h2> {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h2>
+
+
+
+                         <div  ng-repeat="service in reservation.serviceInfo">
+                            <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <button class="button button-small" ng-click="showDetails(provider)">
+                                Détails
+                            </button>
+                            <button class="button button-small button-positive" ng-click="bookPerService(provider)">
+                                Réserver
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ion-content>-->
+
+</ion-view>
+
+<!--        <script id="details-modal.html" type="text/ng-template">// <![CDATA[
+
+
+        <ion-modal-view>
+
+
+            <style>
+                @media (max-width: 680px) {
+                    .active .modal-backdrop-bg {
+                        opacity: .5;
+                        transition: opacity 300ms ease-in-out;
+                        background-color: #000;
+                    }
+                }
+            </style>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">Home</a>
+                            <div class="list-group-item">
+                                List header
+                            </div>
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">
+                                    List group item heading
+                                </h4>
+                                <p class="list-group-item-text">
+                                    ...
+                                </p>
+                            </div>
+                            <div class="list-group-item">
+                                <span class="badge">14</span>Help
+                            </div> <a class="list-group-item active"><span class="badge">14</span>Help</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ion-modal-view>
+        // ]]></script>-->
+
+<!--        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()" ></ion-refresher>
+-->
+<!--        <ion-scroll zooming="true" direction="xy" style="width: 500px; height: 5000px">
+            <div style="width: 5000px; height: 5000px;">
+
+                <div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div><div> qsdqsd</div>
+
+            </div>
+        </ion-scroll>-->
+
+<!--
+        <div style="position:absolute; top:0; right:0: bottom:0; left:0; overflow-y:scroll; overflow-x: hidden">
+-->
+
+
+
+        <!--</div>-->
     <!--<div ng-if="reservations.length > 0">-->
    <!-- <ion-list>
 
@@ -56,28 +172,9 @@
     </div>
 -->
 
-</ion-content>
 
-</ion-view>
 
-<!--  </ion-content>-->
-  <ion-tabs class="tabs-icon-top tabs-striped tabs-background-balanced tabs-color-light shop-tabs">
 
-    <ion-tab title="Réserver"  icon="ion-android-calendar" ui-sref="app.book.home">
-      <ion-nav-view name="book-home"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="Mes Réservations" icon="ion-ios-list-outline" ui-sref="app.bookings.home">
-      <ion-nav-view name="bookings"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="Profile"  icon="ion-person"  ui-sref="app.profile.home">
-      <ion-nav-view name="profile-home"></ion-nav-view>
-    </ion-tab>
-    <!-- <ion-tab title="Profile"  icon="ion-person"  ui-sref="app.profile.posts({userId:loggedUser._id})">
-        <ion-nav-view name="book-sale"></ion-nav-view>
-    </ion-tab> -->
-  </ion-tabs>
 
 
 
