@@ -52,6 +52,7 @@ angular.module('izza', [
     closeLabel: 'Annuler'
   };
   ionicTimePickerProvider.configTimePicker(timePickerObj);
+  $ionicConfigProvider.backButton.text('').icon('ion-ios9-arrow-left');
 
 })
 /*.factory('Application', function ($window) {
@@ -70,9 +71,7 @@ angular.module('izza', [
 .run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage,$state,$window) {
 
   function isViewedByBrowser() {
-    return (window.cordova || window.PhoneGap || window.phonegap)
-        && /^file:\/{3}[^\/]/i.test(window.location.href)
-        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+    return (window.cordova || window.PhoneGap || window.phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
   }
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -129,15 +128,14 @@ angular.module('izza', [
 
     }
   });
-
-  //var state = "app.book.home";  // whatever, the main page of your app
+  var state = "app.book.home";  // whatever, the main page of your app
  if ($window.localStorage.initialRun==="true"){
    state = "app.profile.home";
    $window.localStorage.initialRun = "false";
 
  }else
  {
-   state = "app.book.home";
+   state = "app.book.select";
  }
 
   $state.go(state);
@@ -216,6 +214,15 @@ angular.module('izza', [
           }
         }
       })
+      .state('app.book.select', {
+        url: "/book_select",
+        views: {
+          'book-select': {
+            templateUrl: "views/app/book/book-select.html",
+            controller: 'BookSelectCtrl'
+          }
+        }
+      })
       .state('app.book.provider', {
         url: "/book_provider",
         views: {
@@ -250,8 +257,8 @@ angular.module('izza', [
         url: "/bookings-home",
         views: {
           'bookings-home': {
-            templateUrl: "views/app/book/bookings-home.html"
-           ,controller: "BookingsController"
+            templateUrl: "views/app/book/bookings-home.html",
+            controller: "BookingsController"
            // ,controller: "test"
           }
         }

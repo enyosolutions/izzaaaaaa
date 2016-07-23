@@ -1,71 +1,137 @@
 <ion-view view-title="Prestataires" class="book-home-view">
+<style>
+    body {
+        cursor: url('http://ionicframework.com/img/finger.png'), auto;
+    }
 
+    /*
+     * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+     */
+    .list .item.item-accordion {
+        line-height: 38px;
+        padding-top: 0;
+        padding-bottom: 0;
+        transition: 0.09s all linear;
+    }
+    .list .item.item-accordion.ng-hide {
+        line-height: 0px;
+    }
+    .list .item.item-accordion.ng-hide-add,
+    .list .item.item-accordion.ng-hide-remove {
+        display: block !important;
+    }
+</style>
 <ion-content>
 
-    <div ng-if="providers.length > 0">
+
+
+    <div class="button-bar">
+        <a class="button" ng-class="{'button-small': isActive('Recherche')}" ng-click="setActive('Recherche')">Recherche</a>
+        <a class="button" ng-class="{'button-small': isActive('Résultat')}" ng-click="setActive('Résultat')">Résultat</a>
+    </div>
+
+    <ion-list ng-show="isActive('Recherche')" >
+
+        <div ng-repeat="group in groups">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup(group)"
+                      ng-class="{active: isGroupShown(group)}">
+                <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+
+               {{group.name}}
+            </ion-item>
+
+            <ion-item class="item-accordion"  ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+                         {{item}}
+            </ion-item>
+        </div>
+
+
+
+
+
+    </ion-list>
+
+
+
+
+    <!--  <div ng-model="filterCategory" ng-show="isActive('Recherche')" class="list">
+
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Catégorie
+            </div>
+        </label>
+
+
+          <select  ng-model="filterCategory" ng-change="updateQuery(filterCategory)">
+                <option>Toutes</option>
+                <option>Coiffure </option>
+                <option>Manucure/Pédicure</option>
+                <option>Maquillage</option>
+                <option>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                <option>Brushing</option>
+                <option>Chignon</option>
+                <option>Coupe</option>
+                <option>Décoloration/Coloration</option>
+                <option>Défrisage</option>
+                <option>Lissage brésilien</option>
+                <option>Nattes</option>
+                <option>Nattes collées </option>
+                <option>Vanilles</option>
+                <option>Piqué-laché</option>
+                <option>Locks</option>
+                <option>Fausses locks</option>
+                <option>Crochets</option>
+                <option>Tissage Ouvert</option>
+                <option>Tissage Fermé</option>
+                <option>Tissage Invisible (américain)</option>
+                <option>Tissage U part</option>
+                <option>Pose de closure</option>
+                <option>Pose de closure élastic band</option>
+                <option>Pose Lace Frontale</option>
+                <option>Pose perruque</option>
+                <option>Retrait tissage</option>
+                <option>Extension de cils pose classique</option>
+                <option>Extension de cils pose mixte</option>
+                <option>Extension de cils pose volume russe</option>
+                <option>Remplissage classique</option>
+                <option>Remplissage mixte</option>
+                <option>Remplissage volume russe</option>
+                <option>Dépose extensions et faux cils</option>
+                <option>Manucure –pédicure simple</option>
+                <option>Manucure – pédicure semi permanent</option>
+                <option>Pose de vernis simple (Mains)</option>
+                <option>Pose vernis semi permanent (Mains)</option>
+                <option>Pose gel avec capsule (Mains)</option>
+                <option>Extension au gel (chablon) (Mains)</option>
+                <option>Nail art (Mains)</option>
+                <option>Pose de vernis simple (Pieds)</option>
+                <option>Pose vernis semi permanent (Pieds)</option>
+                <option>Pose gel avec capsule (Pieds)</option>
+                <option>Extension au gel (chablon) (Pieds)</option>
+                <option>Nail art (Pieds)</option>
+                <option>Maquillage jour</option>
+                <option>Maquillage soir</option>
+                <option>Tatouage au henné naturel</option>
+                <option>Tatouage au Jagua</option>
+                <option>Mariage</option>
+
+            </select>-->
+
+    </div>
+
+<!--    <div ng-if="providers.length < 1">
+        <div class="card" style="text-align:center">
+
+            <h3>Aucun prestaire.</h3>
+
+        </div>
+
+    </div>-->
+
+    <div ng-show="isActive('Résultat')" ng-if="providers.length > 0">
       <div class="products-list">
-          <div class="list">
-
-              <label class="item item-input item-select">
-                  <div class="input-label">
-                      Catégorie
-                  </div>
-                  <select  ng-model="filterCategory" ng-change="updateQuery(filterCategory)">
-                      <option>Toutes</option>
-                      <option>Coiffure </option>
-                      <option>Manucure/Pédicure</option>
-                      <option>Maquillage</option>
-                      <option>-------------</option>
-                      <option>Brushing</option>
-                      <option>Chignon</option>
-                      <option>Coupe</option>
-                      <option>Décoloration/Coloration</option>
-                      <option>Défrisage</option>
-                      <option>Lissage brésilien</option>
-                      <option>Nattes</option>
-                      <option>Nattes collées </option>
-                      <option>Vanilles</option>
-                      <option>Piqué-laché</option>
-                      <option>Locks</option>
-                      <option>Fausses locks</option>
-                      <option>Crochets</option>
-                      <option>Tissage Ouvert</option>
-                      <option>Tissage Fermé</option>
-                      <option>Tissage Invisible (américain)</option>
-                      <option>Tissage U part</option>
-                      <option>Pose de closure</option>
-                      <option>Pose de closure élastic band</option>
-                      <option>Pose Lace Frontale</option>
-                      <option>Pose perruque</option>
-                      <option>Retrait tissage</option>
-                      <option>Extension de cils pose classique</option>
-                      <option>Extension de cils pose mixte</option>
-                      <option>Extension de cils pose volume russe</option>
-                      <option>Remplissage classique</option>
-                      <option>Remplissage mixte</option>
-                      <option>Remplissage volume russe</option>
-                      <option>Dépose extensions et faux cils</option>
-                      <option>Manucure –pédicure simple</option>
-                      <option>Manucure – pédicure semi permanent</option>
-                      <option>Pose de vernis simple (Mains)</option>
-                      <option>Pose vernis semi permanent (Mains)</option>
-                      <option>Pose gel avec capsule (Mains)</option>
-                      <option>Extension au gel (chablon) (Mains)</option>
-                      <option>Nail art (Mains)</option>
-                      <option>Pose de vernis simple (Pieds)</option>
-                      <option>Pose vernis semi permanent (Pieds)</option>
-                      <option>Pose gel avec capsule (Pieds)</option>
-                      <option>Extension au gel (chablon) (Pieds)</option>
-                      <option>Nail art (Pieds)</option>
-                      <option>Maquillage jour</option>
-                      <option>Maquillage soir</option>
-                      <option>Tatouage au henné naturel</option>
-                      <option>Tatouage au Jagua</option>
-                      <option>Mariage</option>
-
-                  </select>
-              </label>
-          </div>
 
 
         <div class="product-list-item" ng-repeat="provider in providers">
@@ -75,7 +141,7 @@
               <div class="list card">
 
                 <div class="item item-avatar">
-                  <img src="img/sample_images/people/2.jpeg">
+                  <!--<img src="img/sample_images/people/2.jpeg">-->
                   <h2>{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
                   <!--<p>Inscription: {{provider.membersince}}</p>-->
 
@@ -95,9 +161,11 @@
                     </div>
 
                     <div class="row">
+
                         <button class="button button-small" ng-click="showDetails(provider)">
                             Détails
                         </button>
+
                         <button class="button button-small button-positive" ng-click="bookPerService(provider)">
                             Réserver
                         </button>
@@ -188,14 +256,7 @@
       </a>
     </div>-->
 
-        <div ng-if="providers.length < 1">
-            <div class="card" style="text-align:center">
 
-                <h3>Aucun prestaires. Vérifier la connection Internet. {{providers.length}}</h3>
-
-            </div>
-
-        </div>
 
 
   </ion-content>

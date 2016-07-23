@@ -15,6 +15,7 @@ In NavBar
 
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+
         </button>
       </ion-nav-buttons>
 
@@ -30,7 +31,7 @@ In NavBar
 
   <ion-side-menu side="left">
     <ion-content has-bouncing="false" scroll="false" class="menu-outer left-menu">
-      <div multi-bg="['img/menu-bg.jpeg']">
+      <div multi-bg="['img/menu-bg-izza.jpeg']">
         <div class="row menu-top-options">
           <div class="col col-top">
             <ion-list>
@@ -39,20 +40,20 @@ In NavBar
                 <h2 class="menu-text">Feed</h2>
               </ion-item>-->
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.book.home">
-                <i class="menu-icon icon ion-bag"></i>
+                <i class="menu-icon icon ion-android-calendar"></i>
                 <h2 class="menu-text">Réserver</h2>
               </ion-item>
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.bookings.home">
-                <i class="menu-icon icon ion-ios-cart"></i>
-                <h2 class="menu-text">Réservations</h2>
+                <i class="menu-icon icon ion-ios-list-outline"></i>
+                <h2 class="menu-text">Mes Réservations</h2>
               </ion-item>
                 <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.home">
-                    <i class="menu-icon icon ion-ios-cart"></i>
+                    <i class="menu-icon icon ion-person"></i>
                     <h2 class="menu-text">Profile</h2>
                 </ion-item>
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.settings.home">
-                <i class="menu-icon icon ion-ios-cart"></i>
-                <h2 class="menu-text">Règlages</h2>
+                <i class="menu-icon icon ion-ios-heart-outline"></i>
+                <h2 class="menu-text">A propos</h2>
               </ion-item>
               <!-- <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.posts({userId:loggedUser._id})">
                 <i class="menu-icon icon ion-ios-cart"></i>
@@ -69,11 +70,11 @@ In NavBar
             </ion-list>
           </div>
         </div>
-        <div class="row menu-bottom-options">
+        <!--<div class="row menu-bottom-options">
           <div class="col col-bottom">
             <ion-list>
               <ion-item class="user-item" menu-close ui-sref="app.profile.posts({userId:loggedUser._id})">
-                <!-- We need a wrapper with width set for the preload image directive -->
+                &lt;!&ndash; We need a wrapper with width set for the preload image directive &ndash;&gt;
                 <div class="user-image-outer">
                   <pre-img ratio="_1_1" helper-class="rounded-image">
                     <img class="user-image" ng-src="{{loggedUser.picture}}" spinner-on-load>
@@ -85,14 +86,14 @@ In NavBar
                   <span class="inbox-unread">13</span>
                 </div>
               </ion-item>
-<!--              <ion-item class="full-width-item" menu-close ui-sref="app.shop.sale">
+&lt;!&ndash;              <ion-item class="full-width-item" menu-close ui-sref="app.shop.sale">
                 <button class="button button-full button-positive">
                   Season Sale!
                 </button>
-              </ion-item>-->
+              </ion-item>&ndash;&gt;
             </ion-list>
           </div>
-        </div>
+        </div>-->
       </div>
     </ion-content>
   </ion-side-menu>

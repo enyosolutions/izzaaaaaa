@@ -5,16 +5,19 @@
 
         <div class="product-list-item" ng-repeat="reservation in reservations">
             <div class="list card">
-                <div class="item item-avatar">
+                <div class="item">
 
+<!--
                     <img src="img/sample_images/people/2.jpeg">
+-->                 <h2> Prise le: {{reservation.reservationInfo.createdon_ts_server.date }}/{{reservation.reservationInfo.createdon_ts_server.months }}/{{reservation.reservationInfo.createdon_ts_server.years }} à {{reservation.reservationInfo.createdon_ts_server.hours }}h:{{reservation.reservationInfo.createdon_ts_server.minutes }}m</h2>
                     <h2> Avec: {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h2>
-                    <h2> Le: {{reservation.reservationInfo.reservation_date }} </h2>
-                    <h2> Entre: {{reservation.providerInfo.firstname }} Et: {{reservation.providerInfo.lastname }}</h2>
-                    <h3> Prestations commandées:</h3>
+                    <h2> Statut: {{reservation.reservationInfo.status }}</h2>
+
+                    <h2> Pour le: {{reservation.reservationInfo.reservation_date | date:'dd/MM/yyyy' }}
+                     {{(reservation.reservationInfo.betweenFrom === reservation.reservationInfo.betweenTo ? 'A: ' + reservation.reservationInfo.betweenFrom :  'Entre:' + reservation.reservationInfo.betweenFrom + ' Et: ' + reservation.reservationInfo.betweenTo)}} </h2>
+                    <h2> Prestations commandées:</h2>
                             <div  ng-repeat="service in reservation.serviceInfo">
-                                <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
-                                <h4>{{service.description}} {{service.price}} {{(service.cur ? 'eur':'€')}} </h4>
+                                <h3>{{service.description}} ({{service.price}} {{((service.cur === "") ? 'eur':'€')}})  </h3>
                             </div>
                 </div>
             </div>

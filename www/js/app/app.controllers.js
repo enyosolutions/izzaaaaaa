@@ -36,7 +36,16 @@ angular.module('izza.app.controllers', [])
         }
 )
 
-.controller('BookingsController', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+
+    .controller('BookSelectCtrl', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+
+
+
+    }
+)
+
+
+        .controller('BookingsController', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
         $scope.profile = $localStorage.profile;
 
@@ -49,8 +58,8 @@ angular.module('izza.app.controllers', [])
                     if ($scope.profile.profile.email!==""){
                         profileok = true;
                         var bs = BookingsService;
-                        //var key = $scope.profile.profile.email;
-                        var key = "izza@invicti.eu";
+                        var key = $scope.profile.profile.email;
+                        //var key = "izza@invicti.eu";
                         bs.getReservations(key).then(function(reservations){
                             $scope.reservations = reservations;
                             $scope.resToJSON = JSON.stringify(reservations);
@@ -92,6 +101,8 @@ angular.module('izza.app.controllers', [])
                 var selectedTimeFrom = new Date(val * 1000);
                 $scope.ipObjFromTimePicker.inputEpochTime = val;
                 $scope.reservation.betweenFrom = selectedTimeFrom.getUTCHours() +  'h' + (selectedTimeFrom.getUTCMinutes()?selectedTimeFrom.getUTCMinutes() +  'm':'') ;
+                $scope.reservation.betweenTo = $scope.reservation.betweenFrom;
+
                 console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeFrom.getUTCHours(), 'H :', selectedTimeFrom.getUTCMinutes(), 'M');
             }
         },
@@ -181,28 +192,95 @@ angular.module('izza.app.controllers', [])
         //debugger;
 
 
+        $scope.showAlertBookError = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Erreur',
+                template: "Votre réservation n'a pas pu être enregistrée. Veuillez reessayer plus tard"
+            });
+
+            alertPopup.then(function(res) {
+
+                console.log('Booking error alert.');
+            });
+        };
+
+        $scope.showAlertNoProfile = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Confirmation',
+                template: 'Merci de remplir votre profile avant de réserver.'
+            });
+
+            alertPopup.then(function(res) {
+                $state.go('app.profile.home');
+                console.log('User told to fill profile.');
+            });
+        };
+
+        $scope.showAlertReserveOK = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Confirmation',
+                template: 'Le montant total de votre réservation est ' + totalAmount + '€. Vous recevrez un email lorsque ' +
+                'le/la prestataire aura confirmé sa disponibilité au jour et à la plage horaire demandée.'
+            });
+
+            alertPopup.then(function(res) {
+                BookingsService.createBookingForProvider(bookingInfo).then (function(result){
+                    if (!result.status.message === "success") {
+                        //currentProvider.setcurrentProvider( $scope.selectedProvider);
+
+                        $state.go('app.book.home',{},{reload: true});
+                        $scope.showAlertBookError();
+                    }
+                    else
+                    {
+                        $state.go('app.book.home',{},{reload: true});
+                        console.log('Reservation posted.');
+                    }
+
+
+                });
+
+            });
+        };
+
+
         $scope.profile = $localStorage.profile;
+//TODO clear currentProvider back to full data.
+        var providerAndReservedSkills = currentProvider.bufferProvider  ;
+        //currentProvider.setcurrentProvider($scope.selectedProvider);
 
-        var providerAndReservedSkills = currentProvider.currentProvider;
 
+        var totalAmount = 0;
         for(var i = providerAndReservedSkills.skillsandprice.length; i--;) {
             if (!providerAndReservedSkills.skillsandprice[i].selected) {
+
                 providerAndReservedSkills.skillsandprice.splice(i, 1);
             }
+            else {
+                var intprice = Number(providerAndReservedSkills.skillsandprice[i].price);
+                totalAmount = totalAmount + intprice;
+            }
         }
+        $scope.reservation.status = 'En attente de confirmation';
         var bookingInfo = {
             providerInfo: providerAndReservedSkills,
             userInfo : $localStorage.profile,
             reservationInfo: $scope.reservation,
-            serviceInfo: providerAndReservedSkills.skillsandprice
+            serviceInfo: providerAndReservedSkills.skillsandprice,
+            totalamount: totalAmount
 
         };
         var profileok = false;
-        if ($scope.profile){
+        if (($scope.profile) && $scope.profile.profile){
             if ($scope.profile.profile.email){
                 if ($scope.profile.profile.email!==""){
                     profileok = true;
                     console.log("profile loaded.");
+
+                    //Profile loaded we ask for credit card info.
+                    //And we bill 10% of total.
+                    $scope.showAlertReserveOK();
+
 
                 }
             }
@@ -210,9 +288,10 @@ angular.module('izza.app.controllers', [])
         else {
             profileok = false;
             console.log("profile not loaded.");
+            $scope.showAlertNoProfile();
         }
 
-
+/*
         if (profileok){
             BookingsService.createBookingForProvider(bookingInfo);
             $state.go('app.book.home',{},{reload: true});
@@ -221,7 +300,7 @@ angular.module('izza.app.controllers', [])
         else
         {
             $state.go('app.profile.home');
-        }
+        }*/
 
 
     };
@@ -441,14 +520,109 @@ angular.module('izza.app.controllers', [])
 
 })
 
-.controller('BookCtrl', function($scope,  currentProvider,$state, BookingsService, $ionicModal,$ionicPopup,lodash,$filter) {
+.controller('BookCtrl', function($scope,  currentProvider,$state, BookingsService, $ionicModal,$ionicPopup,lodash,$filter, $ionicScrollDelegate) {
 //List of providers where one can book one
 
+
+    var iconselected = "ion-android-arrow-";
+    var iconunselected = "ion-android-arrow-down";
+
+    $scope.iconAllSelected = iconselected;
+    $scope.iconAllUnSelected = iconunselected;
+
+    $scope.iconHairSelected = iconselected;
+    $scope.iconHairUnSelected = iconunselected;
+
+    $scope.iconNailsSelected = iconselected;
+    $scope.iconNailsUnSelected = iconunselected;
+
+    $scope.iconMakeupSelected = iconselected;
+    $scope.iconMakeupSelected = iconunselected;
+
+
+    $scope.groups = [];
+
+    $scope.groups[0] = {
+        name: 'Coiffure',
+        items: ['Brushing', 'Chignon', 'Coupe',  'Décoloration/Coloration', 'Défrisage', 'Lissage brésilien']
+    };
+    $scope.groups[1] = {
+        name: 'Coiffure - Tresses',
+        items: ['Nattes', 'Nattes Collées', 'Vanilles', 'Piqué-laché', 'Locks', 'Fausses locks', 'Crochets']
+    };
+    $scope.groups[2] = {
+        name: 'Coiffure - Tissage et pose perruque',
+        items: ['Tissage Ouvert', 'Tissage Fermé','Tissage Invisible (américain)', 'Tissage U part', 'Pose de closure',
+        'Pose de closure élastic band', 'Pose Lace Frontale', 'Pose perruque', 'Retrait tissage']
+    };
+    $scope.groups[3] = {
+        name: 'Cils',
+        items: ['Extension de cils pose classique', 'Extension de cils pose mixte','Extension de cils pose volume russe',
+        'Remplissage classique','Remplissage mixte','Remplissage volume russe','Dépose extensions et faux cils']
+    };
+
+
+    $scope.groups[4] = {
+        name: 'Onglerie',
+        items: ['Pose de vernis simple (Mains)', 'Pose vernis semi permanent (Mains)','Pose gel avec capsule (Mains)','Extension au gel/chablon (Mains)','Nail art (Mains)',
+            'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)','Pose gel avec capsule (Pieds)','Extension au gel/chablon  (Pieds)','Nail art  (Pieds)']
+    };
+
+    $scope.groups[5] = {
+        name: 'Beauté des pieds',
+        items: ['Pose de vernis simple', 'Pose vernis semi permanent','Pose gel avec capsule','Extension au gel (chablon)','Nail art']
+    };
+
+    $scope.groups[6] = {
+        name: 'Maquillage',
+        items: ['Maquillage jour', 'Maquillage soir']
+    };
+
+    $scope.groups[7] = {
+        name: 'Henné',
+        items: ['Tatouage au henné naturel (une main, deux mains, autre partie du corps)', 'Tatouage au Jagua (une main, deux mains, autre partie du corps)','Mariage' ]
+    };
+
+/*    for (var i=0; i<10; i++) {
+        $scope.groups[i] = {
+            name: i,
+            items: []
+        };
+        for (var j=0; j<3; j++) {
+            $scope.groups[i].items.push(i + '-' + j);
+        }
+    }*/
+
+    /*
+     * if given group is the selected group, deselect it
+     * else, select the given group
+     */
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+    $scope.isGroupShown = function(group) {
+        return $scope.shownGroup === group;
+    };
+
+
+
+    $scope.active = 'Recherche';
+    $scope.setActive = function(type) {
+        $scope.active = type;
+    };
+    $scope.isActive = function(type) {
+        return type === $scope.active;
+    };
 
       $scope.filterCategory = "Toutes";
       $scope.providers = [];
       $scope.popular_providers = [];
       $scope.filteredServices =[];
+    $scope.workProvider=[];
 
 
         /* $scope.values=  [
@@ -464,8 +638,10 @@ angular.module('izza.app.controllers', [])
 
     $scope.bookPerService=function(provider) {
 // $scope.details_modal.show();
-        $scope.selectedProvider = provider;
+        $scope.selectedProvider = _.cloneDeep(provider);
         currentProvider.setcurrentProvider(provider);
+        currentProvider.setbufferProvider(provider);
+
 
         //debug;
         //var nb_skillset = $scope.selectedProvider.skillsandprice.length;
@@ -480,15 +656,17 @@ angular.module('izza.app.controllers', [])
         */
 
         //Added selected to skillset entries.
+        debugger;
 
-        for(var i = $scope.selectedProvider.skillsandprice.length; i--;) {
-            if ($scope.selectedProvider.skillsandprice[i].price === 0) {
-                $scope.selectedProvider.skillsandprice.splice(i, 1);
+        $scope.workProvider = currentProvider.bufferProvider;
+        for(var i = $scope.workProvider.skillsandprice.length; i--;) {
+            if ($scope.workProvider.skillsandprice[i].price === 0) {
+                $scope.workProvider.skillsandprice.splice(i, 1);
             }
         }
-        for (var i=0;i<$scope.selectedProvider.skillsandprice.length;i++)
+        for (var i=0;i<$scope.workProvider.skillsandprice.length;i++)
         {
-            $scope.selectedProvider.skillsandprice[i].selected = false;
+            $scope.workProvider.skillsandprice[i].selected = false;
         }
 
         $scope.myPopup = $ionicPopup.show(
@@ -512,8 +690,8 @@ angular.module('izza.app.controllers', [])
                                          contact_web_site_url:provider.web_site_url
                                      }
                                  );*///provider.contact_email
-
-                            return provider;
+                            currentProvider.setbufferProvider($scope.workProvider);
+                            return currentProvider.bufferProvider;
                          }
                      }
                 ]
@@ -553,8 +731,11 @@ angular.module('izza.app.controllers', [])
         $scope.selectedProvider = provider;
 
 
-        $scope.selectedProvider.filteredServices = $filter('filter')($scope.selectedProvider.skillsandprice, {data :{price:0}}, true);
-
+        for(var i = $scope.selectedProvider.skillsandprice.length; i--;) {
+            if ($scope.selectedProvider.skillsandprice[i].price === 0) {
+                $scope.selectedProvider.skillsandprice.splice(i, 1);
+            }
+        }
         $scope.myPopup = $ionicPopup.show(
             {
             cssClass: 'add-to-cart-popup',
@@ -617,7 +798,9 @@ angular.module('izza.app.controllers', [])
         $scope.details_modal.hide();
     };*/
     //Cleanup the modal when we're done with it!
-
+    $scope.scrollTop = function() {
+        $ionicScrollDelegate.scrollTop();
+    };
     $scope.updateQuery=function(category){
 
         BookingsService.getProviders(category).then(function(providers){
@@ -626,8 +809,17 @@ angular.module('izza.app.controllers', [])
             {
                 console.log("no providers");
             }
+            else
+            {
+                $scope.setActive('Résultat');
+                $scope.scrollTop();
+
+            }
         });
     };
+
+
+
 
     BookingsService.getProviders($scope.filterCategory).then(function(providers){
 

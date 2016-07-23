@@ -5,9 +5,9 @@
         </div>
     <div>
 
-        <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 500px">
+       <!-- <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 500px">-->
 
-        <ion-list ng-repeat="skill in selectedProvider.skillsandprice">
+        <ion-list ng-repeat="skill in workProvider.skillsandprice">
             <ion-item  class="item-borderless">
 
                 <ion-checkbox class="item-borderless" ng-model="skill.selected">
@@ -25,7 +25,7 @@
                 </ion-checkbox>
             </ion-item>
         </ion-list>
-        </ion-scroll>
+    <!--    </ion-scroll>-->
 
 
     </div>

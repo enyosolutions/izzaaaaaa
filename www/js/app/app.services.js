@@ -4,9 +4,9 @@ angular.module('izza.app.services', [])
 
 .service('RemoteDirectory', function() {
 
-      //this.api_url =  "http://001.izza.co";
+    //this.api_url =  "https://001.izza.co";
 
-      this.api_url =  'http://10.0.0.16:3000';
+    this.api_url =  'https://10.0.0.7:8443';
       //this.api_url =  'http://localhost:3000';
 
       this.getAPISrvURL = function() {
@@ -159,14 +159,31 @@ angular.module('izza.app.services', [])
 })
 .service('currentProvider', function() {
 
+  _.cloneDeep
+
+  this.bufferProvider = {};
   this.currentProvider = {};
 
+  this.bufferProvider = function() {
+    return _.cloneDeep(this.bufferProvider);
+  };
+
+  this.setbufferProvider = function(provider) {
+
+    this.bufferProvider = _.cloneDeep(provider);
+
+
+  };
+
   this.currentProvider = function() {
-    return this.currentProvider;
+    return _.cloneDeep(this.currentProvider);
   };
 
   this.setcurrentProvider = function(provider) {
-    this.currentProvider = provider;
+
+    this.currentProvider = _.cloneDeep(provider);
+
+
   };
 
 
@@ -223,6 +240,11 @@ angular.module('izza.app.services', [])
           if (database.error)
           {
               console.log("Error creating reservation: " + database.error);
+            dfd.resolve(database);
+          }
+          else if (database.status === 'error')
+          {
+              dfd.resolve(database);
           }
             else
           {
