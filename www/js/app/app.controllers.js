@@ -14,7 +14,7 @@ angular.module('izza.app.controllers', [])
             if ($scope.profile.profile.email){
                 if ($scope.profile.profile.email!==""){
                     profileok = true;
-                    BookService.getReservations($scope.profile.profile.email).then(function(reservations){
+                    BookingsService.getReservations($scope.profile.profile.email).then(function(reservations){
                         $scope.reservations = reservations;
                         console.log("got reservations from api server.");
 
@@ -45,11 +45,22 @@ angular.module('izza.app.controllers', [])
 )
 
 
-        .controller('BookingsController', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+      .controller('BookingsController', function($scope, currentProvider, BookingsService,$ionicPopup,$ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
-        $scope.profile = $localStorage.profile;
+            $scope.profile = $localStorage.profile;
+            $scope.isSelected = true;
 
-        $scope.doRefresh = function() {
+
+            $scope.switchCompleted = function(param,res_id) {
+                  $scope.isSelected = param;
+                  $scope.currentID = res_id;
+                    console.log (param);
+                    BookingsService.updateBookingCompleted(res_id,param);
+
+              };
+
+
+            $scope.doRefresh = function() {
 
             console.log("Refreshing reservations.");
             //getReservations
@@ -568,17 +579,17 @@ angular.module('izza.app.controllers', [])
             'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)','Pose gel avec capsule (Pieds)','Extension au gel/chablon  (Pieds)','Nail art  (Pieds)']
     };
 
-    $scope.groups[5] = {
+/*    $scope.groups[5] = {
         name: 'Beauté des pieds',
         items: ['Pose de vernis simple', 'Pose vernis semi permanent','Pose gel avec capsule','Extension au gel (chablon)','Nail art']
-    };
+    };*/
 
-    $scope.groups[6] = {
+    $scope.groups[5] = {
         name: 'Maquillage',
         items: ['Maquillage jour', 'Maquillage soir']
     };
 
-    $scope.groups[7] = {
+    $scope.groups[6] = {
         name: 'Henné',
         items: ['Tatouage au henné naturel (une main, deux mains, autre partie du corps)', 'Tatouage au Jagua (une main, deux mains, autre partie du corps)','Mariage' ]
     };
@@ -656,7 +667,7 @@ angular.module('izza.app.controllers', [])
         */
 
         //Added selected to skillset entries.
-        debugger;
+
 
         $scope.workProvider = currentProvider.bufferProvider;
         for(var i = $scope.workProvider.skillsandprice.length; i--;) {

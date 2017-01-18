@@ -9,16 +9,80 @@
 
 <!--
                     <img src="img/sample_images/people/2.jpeg">
--->                 <h2> Prise le: {{reservation.reservationInfo.createdon_ts_server.date }}/{{reservation.reservationInfo.createdon_ts_server.months }}/{{reservation.reservationInfo.createdon_ts_server.years }} à {{reservation.reservationInfo.createdon_ts_server.hours }}h:{{reservation.reservationInfo.createdon_ts_server.minutes }}m</h2>
-                    <h2> Avec: {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h2>
-                    <h2> Statut: {{reservation.reservationInfo.status }}</h2>
 
-                    <h2> Pour le: {{reservation.reservationInfo.reservation_date | date:'dd/MM/yyyy' }}
-                     {{(reservation.reservationInfo.betweenFrom === reservation.reservationInfo.betweenTo ? 'A: ' + reservation.reservationInfo.betweenFrom :  'Entre:' + reservation.reservationInfo.betweenFrom + ' Et: ' + reservation.reservationInfo.betweenTo)}} </h2>
-                    <h2> Prestations commandées:</h2>
-                            <div  ng-repeat="service in reservation.serviceInfo">
-                                <h3>{{service.description}} ({{service.price}} {{((service.cur === "") ? 'eur':'€')}})  </h3>
-                            </div>
+
+-->
+                    <div  style="text-align: right">
+                    <h2> {{reservation.reservationInfo.status }}</h2>
+                    </div>
+
+
+                    <h1> {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h1>
+
+
+
+                   <!-- <a class="button icon button-block button-calm icon-right"
+ ng-class="{'button-balanced': reservation.reservationInfo.status == 'open', 'button-assertive': reservation.reservationInfo.status  == 'closed'}">
+-->
+
+                    <div  style="text-align: right">
+                    <h2>{{reservation.reservationInfo.reservation_date | date:'dd/MM/yyyy' }}
+                     {{(reservation.reservationInfo.betweenFrom === reservation.reservationInfo.betweenTo ? '' +
+                        reservation.reservationInfo.betweenFrom :  'Entre:' + reservation.reservationInfo.betweenFrom
+                        + ' Et: ' + reservation.reservationInfo.betweenTo)}} </h2>
+
+                    </div>
+
+
+                    <div  style="text-align: left; font-family: Chalkboard; font-size: large">
+                        <!-- <h2> Pour:</h2> -->
+                        <div  ng-repeat="service in reservation.serviceInfo">
+                            <h3>{{service.description}} ({{service.price}} {{((service.cur === "") ? 'eur':'€')}})  </h3>
+                        </div>
+                    </div>
+
+
+                    <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="">
+                    <button  ng-click="switchCompleted(isSelected,reservation.reservationInfo.res_id)" class="button button-full button-clear">
+                        Prestation effectuée
+                    </button>
+                    </div>
+
+                    <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="">
+                        <button  ng-click="cancelBooking(reservation.reservationInfo.res_id)" class="button button-full button-clear" >
+                            Annuler réservation
+                        </button>
+                    </div>
+<!--
+                    <div class="">
+                        <ion-checkbox ng-change="switchCompleted(isSelected,reservation.reservationInfo.res_id)"
+                                      ng-model="reservation.reservationInfo.completed"
+                                      ng-if="reservation.reservationInfo.status === 'Confirmé'"
+                                      ng-checked="isSelected">
+                           Annuler
+                        </ion-checkbox>
+                        &lt;!&ndash;                        <button class="action-button icon-left button button">
+                                                    Prestation terminée
+                                                </button>&ndash;&gt;
+
+
+                    </div>
+
+                    <div class="">
+                        <ion-checkbox ng-change="switchCompleted(isSelected,reservation.reservationInfo.res_id)"
+                                      ng-model="reservation.reservationInfo.completed"
+                                      ng-if="reservation.reservationInfo.status === 'Confirmé'"
+                                      ng-checked="isSelected">
+                            Payer
+                        </ion-checkbox>
+                       <button class="action-button icon-left button button">
+
+                        </button>
+                    </div>-->
+
+                    <div  style="text-align: center">
+                        <span> Réservation faite le {{reservation.reservationInfo.createdon_ts_server.date }}/{{reservation.reservationInfo.createdon_ts_server.months }}/{{reservation.reservationInfo.createdon_ts_server.years }} à {{reservation.reservationInfo.createdon_ts_server.hours }}h:{{reservation.reservationInfo.createdon_ts_server.minutes }}m</span>
+                    </div>
                 </div>
             </div>
         </div>

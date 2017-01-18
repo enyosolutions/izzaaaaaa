@@ -3,11 +3,11 @@ angular.module('izza.app.services', [])
 
 
 .service('RemoteDirectory', function() {
-
+    this.api_url =  'https://localhost:8443';
     //this.api_url =  "https://001.izza.co";
 
-    this.api_url =  'https://10.0.0.7:8443';
-      //this.api_url =  'http://localhost:3000';
+    //this.api_url =  'https://192.168.1.2:8443';
+     // this.api_url =  'http://localhost:3000';
 
       this.getAPISrvURL = function() {
         return this.api_url;
@@ -222,6 +222,56 @@ angular.module('izza.app.services', [])
         return dfd.promise;
       };
 
+    this.cancelBooking = function(res_id){
+        var dfd = $q.defer();
+        var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/cancelres/' + encodeURIComponent(res_id);
+        console.log('Loading res from:' + url);
+        $http.get(url).success(function(database) {
+            dfd.resolve(database);
+            console.log("resolved database getting reservations.");
+        }).error(function(err){
+            console.log('Error loading reservations...' + err);
+        })
+
+        ;
+        return dfd.promise;
+    };
+
+
+  this.updateBookingCompleted = function (res_id,isCompleted)
+  {
+    var dfd = $q.defer();
+    //var toPost = JSON.stringify(bookingInfo);
+    var toPost =  {"completed":isCompleted,"res_id":res_id};
+
+    var url =   RemoteDirectory.getAPISrvURL() + '/api/reservations/compbook';
+
+    $http.post(url,toPost).success(function(database) {
+      if (database.error)
+      {
+        console.log("Error flagging reservation as completed: " + database.error);
+        dfd.resolve(database);
+      }
+      else if (database.status === 'error')
+      {
+        dfd.resolve(database);
+      }
+      else
+      {
+        dfd.resolve(database);
+      }
+
+    }).error(function(err){
+      if(err)
+      {
+        console.log("Error creating reservation: " + err.message);
+      }
+
+    });
+    return dfd.promise;
+
+  };
+
       this.createBookingForProvider = function (bookingInfo)
       {
         var dfd = $q.defer();
@@ -260,7 +310,7 @@ angular.module('izza.app.services', [])
         });
         return dfd.promise;
 
-      }
+      };
 
   /*
 
