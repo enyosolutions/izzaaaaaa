@@ -3,8 +3,8 @@ angular.module('izza.app.services', [])
 
 
 .service('RemoteDirectory', function() {
-    this.api_url =  'https://localhost:8443';
-    //this.api_url =  "https://001.izza.co";
+    //this.api_url =  'https://localhost:8443';
+    this.api_url =  "https://001.izza.co";
 
     //this.api_url =  'https://192.168.1.2:8443';
      // this.api_url =  'http://localhost:3000';
@@ -226,11 +226,20 @@ angular.module('izza.app.services', [])
         var dfd = $q.defer();
         var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/cancelres/' + encodeURIComponent(res_id);
         console.log('Loading res from:' + url);
-        $http.get(url).success(function(database) {
-            dfd.resolve(database);
-            console.log("resolved database getting reservations.");
+        $http.get(url).success(function(result) {
+            dfd.resolve(result);
+            console.log("cancelBooking api call OK.");
+            if (result.error)
+            {
+                console.log("cancelBooking api call NOK." +result.error );
+
+            }
+            else {
+                console.log('"cancelBooking api call OK...' + result);
+
+            }
         }).error(function(err){
-            console.log('Error loading reservations...' + err);
+            console.log('"cancelBooking api call NOK...' + err);
         })
 
         ;

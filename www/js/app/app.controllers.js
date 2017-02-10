@@ -49,13 +49,58 @@ angular.module('izza.app.controllers', [])
 
             $scope.profile = $localStorage.profile;
             $scope.isSelected = true;
-
-
+            //Turns the booking into status:completed
             $scope.switchCompleted = function(param,res_id) {
                   $scope.isSelected = param;
                   $scope.currentID = res_id;
                     console.log (param);
                     BookingsService.updateBookingCompleted(res_id,param);
+
+              };
+
+              //Turns the booking into status:canceled
+
+              $scope.cancelBooking = function(res_id) {
+
+
+                  $scope.showAlertReserveOK = function() {
+                      var alertPopup = $ionicPopup.confirm({
+                          title: 'Annulation',
+                          template: 'Attention vous allez annuler votre réservation.'
+                      });
+
+                      alertPopup.then(function(res) {
+
+                          if(res) {
+                              $scope.currentID = res_id;
+                              console.log("cancelling booking id: " + res_id);
+                              BookingsService.cancelBooking(res_id).then(function(res) {
+
+
+                                  console.log("returns: " + res);
+                                  $scope.doRefresh();
+                              });
+
+                          }
+                          else
+                          {
+                              var errorPrompt = $ionicPopup.alert({
+                                  title: 'Annulation',
+                                  template: 'La réservation na pas pu être annulée.'
+                              });
+
+                              errorPrompt.then(function(res) {
+
+
+                                  console.log("cancelling booking id: " + res_id);
+                              });
+
+                          }
+
+                      });
+                  };
+
+                  $scope.showAlertReserveOK();
 
               };
 

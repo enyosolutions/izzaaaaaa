@@ -48,7 +48,7 @@
                     </button>
                     </div>
 
-                    <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="">
+                    <div ng-if="(reservation.reservationInfo.status === 'Attente de confirmation') || (reservation.reservationInfo.status === 'Confirmé')" class="">
                         <button  ng-click="cancelBooking(reservation.reservationInfo.res_id)" class="button button-full button-clear" >
                             Annuler réservation
                         </button>
@@ -83,6 +83,9 @@
                     <div  style="text-align: center">
                         <span> Réservation faite le {{reservation.reservationInfo.createdon_ts_server.date }}/{{reservation.reservationInfo.createdon_ts_server.months }}/{{reservation.reservationInfo.createdon_ts_server.years }} à {{reservation.reservationInfo.createdon_ts_server.hours }}h:{{reservation.reservationInfo.createdon_ts_server.minutes }}m</span>
                     </div>
+<!--                    <div  style="text-align: center">
+                        <span> #: {{reservation.reservationInfo.res_id }}</span>
+                    </div>-->
                 </div>
             </div>
         </div>
