@@ -1,33 +1,186 @@
 <ion-view view-title="" class="book-home-view">
 
-<!--    <ion-header-bar class="bar bar-header bar-dark">
+<!--
+top: 45p
+
+
+<ion-header-bar class="bar bar-header bar-dark">
         <h1 class="title">Réserver</h1>
         <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
     </ion-header-bar>-->
 
-    <ion-content class="padding">
+
+
+
+
+<!--            <div class="row">
+                <div class="col col-20 col-offset-10"></div>
+                <div class="col col-60">
+
+                    <span> < </span>
+                    <span>Décembre</span>
+                    <span> > </span>
+                </div>
+                <div class="col col-20"></div>
+
+            </div>
+            <div class="row">
+                <div class="col col-10 col-offset-10"></div>
+                <div class="col col-80">
+
+
+                    <span>1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17</span>
+
+                </div>
+                <div class="col col-10"></div>
+
+            </div>-->
+
+
+<!--    <ion-header-bar class="bar-header bar-dark" style="margin-top: 60px;">
+
+        <h1>
+            Testing 1
+        </h1>
+        <h2>
+            Testing  2
+        </h2>
+&lt;!&ndash;
+        <div class="button-bar">
+            <a class="button" ng-click="setActive('Résultat')">-</a>
+            <a class="button" ng-click="setActive('Résultat')">Décembre</a>
+            <a class="button" ng-click="setActive('Résultat')">+</a>
+        </div>
+
+        <div class="button-bar">
+            <a class="button" ng-click="setActive('Résultat')">-</a>
+            <a class="button" ng-click="setActive('Résultat')">6</a>
+            <a class="button" ng-click="setActive('Résultat')">+</a>
+        </div>&ndash;&gt;
+    </ion-header-bar>-->
+
+
+    <ion-content>
+
 
         <div class="card">
+            <div class="item item-divider item-borderless">
+
+                <div class="button-bar">
+                    <a class="button" ng-click="">-</a>
+                    <a class="button" ng-click="">Décembre</a>
+                    <a class="button" ng-click="">+</a>
+                </div>
+
+                <div class="button-bar">
+                    <a class="button" ng-click="">-</a>
+                    <a class="button" ng-click="">6</a>
+                    <a class="button" ng-click="">+</a>
+                </div>
+            </div>
+            <div class="item item-text-wrap">
+                <ion-list class="list-borderless list-inset">
+
+                    <!--
+                                <ion-item class="item-remove-animate item-avatar item-icon-right" style="background-color: #C2A5A5 !important" ng-repeat="detail in details" type="item-text-wrap" ng-controller="ChatsCtrl"  ng-click="openShareModel(detail)">
+                                    <img ng-src="{{profilepic.profileimageurl}}">
+
+                                    <h2>{{detail.date | date :'fullDate'}}</h2>
+                                    <h2>{{detail.title}}</h2>
+                                    <p>{{detail.description}}</p>
+                                    <i class="icon ion-chevron-right icon-accessory"></i>
+
+                                    <ion-option-button class="button-assertive" ng-controller="ChatsCtrl" ng-click="remove(detail.id)">
+                                        Delete
+                                    </ion-option-button>
+                                     </ion-item>
+                    -->
+
+
+                    <ion-item>
+                        <ion-radio> 09:00 | 10:00</ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-radio> 10:00 | 11:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 10:00 | 11:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 10:00 | 11:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 11:00 | 12:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 12:00 | 13:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 13:00 | 14:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 14:00 | 15:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 15:00 | 16:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 16:00 | 17:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 17:00 | 18:00</ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio> 18:00 | 19:00</ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-radio> 19:00 | 20:00</ion-radio>
+                        </label>
+                    </ion-item>
+
+                </ion-list>
+            </div>
+            <div class="item item-divider">
+                Désolé aucun service après 20:00.
+            </div>
+        </div>
 
 
 
 
+            <!-- event-source="eventSource"-->
+            <!-- <calendar calendar-mode="mode" noEventsLabel="Réserver" event-source="" time-selected="onTimeSelected(selectedTime, events, disabled)" >
+             </calendar>
+ -->
 
- <!--       {{provider.title}} {{provider.firstname}} {{provider.lastname}}-->
-
-        <div class="list">
 
 
 
+  <!--       {{provider.title}} {{provider.firstname}} {{provider.lastname}}-->
+
+
+
+
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-full button-positive button-outline" ng-click="confirmBooking()">
+            Réserver
+        </button>
+    </ion-footer-bar>
+</ion-view>
+
+<!--
             <label class="item item-input">
                 <div class="row">
                     <div class="col">Date:</div>
                     <div class="col">{{showdate}}</div>
                     <div class="col"><button class="button button-small button-energized" ng-click="openDatePicker()">Choisir</button></div>
                 </div>
-            </label>
+            </label>-->
 
-            <label class="item item-input">
+<!--            <label class="item item-input">
                 <div class="row">
                     <div class="col">Entre:</div>
                     <div class="col">{{reservation.betweenFrom}}</div>
@@ -41,17 +194,4 @@
                     <div class="col">{{reservation.betweenTo}}</div>
                     <div class="col"><button class="button button-small button-energized" ng-click="openToTimePicker()">Choisir</button></div>
                 </div>
-            </label>
-
-
-
-            <div class="list">
-
-                <button class="button button-full button-primary" ng-click="confirmBooking()">Confirmer</button>
-            </div>
-
-        </div>
-            </div>
-    </ion-content>
-</ion-view>
-
+            </label>-->

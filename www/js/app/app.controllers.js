@@ -1,4 +1,4 @@
-angular.module('izza.app.controllers', [])
+angular.module('izza.app.controllers', ['ui.rCalendar'])
 
 
 .controller('test', function($scope, BookingsService,$localStorage) {
@@ -147,6 +147,11 @@ angular.module('izza.app.controllers', [])
         $scope.pickedServices = $scope.provider;
 
 
+    $scope.onTimeSelected = function (selectedTime, events, disabled) {
+        console.log('Selected time: ' + selectedTime + ', hasEvents: ' + (events !== undefined && events.length !== 0) + ', disabled: ' + disabled);
+    };
+
+
     $scope.ipObjFromTimePicker= {
         callback: function (val) {      //Mandatory
             console.log('Return value from the timepicker popup is : ' + val, new Date(val));
@@ -242,6 +247,8 @@ angular.module('izza.app.controllers', [])
         betweenTo:"",
 
     };
+
+
 
     $scope.confirmBooking = function(){
 
