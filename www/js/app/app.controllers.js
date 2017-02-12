@@ -144,6 +144,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
         $scope.params = $stateParams;
 
+        $scope.showday = "";
+        $scope.showmonth ="Choisir la date";
+
         $scope.pickedServices = $scope.provider;
 
 
@@ -205,6 +208,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 $scope.reservation.reservation_date = caldate;
                 //$scope.showdate =    caldate.toLocaleDateString("ar-EG");
                 $scope.showdate =  $filter('date')(caldate, 'dd/MM/yyyy');
+                $scope.showmonth =  $filter('date')(caldate, 'MMMM');
+                $scope.showday = $filter('date')(caldate, 'd');
 
 
             },
@@ -222,7 +227,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             inputDate: new Date(),      //Optional
             mondayFirst: true,          //Optional
             disableWeekdays: [0],       //Optional
-            closeOnSelect: false,       //Optional
+            closeOnSelect: true,       //Optional
             templateType: 'popup'       //Optional
         };
 
