@@ -165,6 +165,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 var selectedTimeFrom = new Date(val * 1000);
                 $scope.ipObjFromTimePicker.inputEpochTime = val;
                 $scope.reservation.betweenFrom = selectedTimeFrom.getUTCHours() +  'h' + (selectedTimeFrom.getUTCMinutes()?selectedTimeFrom.getUTCMinutes() +  'm':'') ;
+                // $scope.reservation.betweenTo = selectedTimeTo.getUTCHours() +  'h' + (selectedTimeTo.getUTCMinutes()?selectedTimeTo.getUTCMinutes() +  'm':'') ;
                 $scope.reservation.betweenTo = $scope.reservation.betweenFrom;
 
                 console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeFrom.getUTCHours(), 'H :', selectedTimeFrom.getUTCMinutes(), 'M');
@@ -244,7 +245,16 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
     $scope.profile = $localStorage.profile;
 
-    $filter('date')(Date(), 'dd/MM/yyyy')
+
+    $scope.selectTimeRange = function(from,to){
+
+        $scope.reservation.betweenFrom = from +  'h' + '00' +  'm' ;
+        $scope.reservation.betweenTo = to +  'h' + '00' +  'm' ;
+        // $scope.reservation.betweenTo = selectedTimeTo.getUTCHours() +  'h' + (selectedTimeTo.getUTCMinutes()?selectedTimeTo.getUTCMinutes() +  'm':'') ;
+
+    }
+
+    $filter('date')(Date(), 'dd/MM/yyyy');
 
     $scope.reservation ={
         reservation_date:Date(),
