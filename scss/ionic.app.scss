@@ -1,47 +1,47 @@
 // Include Sass mixins
-@import "scss/utils/mixins";
+@import "scss/utils/mixins.scss";
 
 // Include Theme variables
-@import "scss/common/theme.variables";
+@import "scss/common/theme.variables.scss";
 // Include Ionic override variables
-@import "scss/utils/override_variables";
+@import "scss/utils/override_variables.scss";
 
 // Include Bourbon
-@import "www/lib/bourbon/app/assets/stylesheets/_bourbon";
+@import "www/lib/bourbon/app/assets/stylesheets/_bourbon.scss";
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "www/lib/ionic/scss/ionic.scss";
 
 // Include Ionic override styles
-@import "scss/utils/override_styles";
+@import "scss/utils/override_styles.scss";
 
 // Include project Sass variables
-@import "scss/common/common.variables";
-@import "scss/auth/auth.variables";
-@import "scss/sidemenu/sidemenu.variables";
-@import "scss/post/post.variables";
-@import "scss/profile/profile.variables";
-@import "scss/profile/settings.variables";
-@import "scss/shop/shop.variables";
-@import "scss/feed/feed.variables";
-@import "scss/comments/comments.variables";
+@import "scss/common/common.variables.scss";
+@import "scss/auth/auth.variables.scss";
+@import "scss/sidemenu/sidemenu.variables.scss";
+@import "scss/post/post.variables.scss";
+@import "scss/profile/profile.variables.scss";
+@import "scss/profile/settings.variables.scss";
+@import "scss/shop/shop.variables.scss";
+@import "scss/feed/feed.variables.scss";
+@import "scss/comments/comments.variables.scss";
 
 // Include custom styles
-@import "scss/common/common.styles";
-@import "scss/auth/welcome.styles";
-@import "scss/auth/auth.styles";
-@import "scss/sidemenu/side-menu.styles";
-@import "scss/post/post.styles";
-@import "scss/profile/profile.styles";
-@import "scss/profile/settings.styles";
-@import "scss/feed/feed.styles";
-@import "scss/comments/comments.styles";
-@import "scss/comments/popup.comments.styles";
-@import "scss/shop/shop-cards.styles";
-@import "scss/shop/shop.styles";
-@import "scss/shop/shop-home.styles";
-@import "scss/shop/shop-popular.styles";
-@import "scss/shop/shop-sale.styles";
-@import "scss/shop/cart.styles";
-@import "scss/shop/product-details.styles";
-@import "scss/shop/shipping-address.styles";
-@import "scss/shop/checkout.styles";
+@import "scss/common/common.styles.scss";
+@import "scss/auth/welcome.styles.scss";
+@import "scss/auth/auth.styles.scss";
+@import "scss/sidemenu/side-menu.styles.scss";
+@import "scss/post/post.styles.scss";
+@import "scss/profile/settings.styles.scss";
+@import "scss/feed/feed.styles.scss";
+@import "scss/comments/comments.styles.scss";
+@import "scss/comments/popup.comments.styles.scss";
+@import "scss/shop/shop-cards.styles.scss";
+@import "scss/shop/shop.styles.scss";
+@import "scss/shop/shop-home.styles.scss";
+@import "scss/shop/shop-popular.styles.scss";
+@import "scss/shop/shop-sale.styles.scss";
+@import "scss/shop/cart.styles.scss";
+@import "scss/shop/product-details.styles.scss";
+@import "scss/shop/shipping-address.styles.scss";
+@import "scss/shop/checkout.styles.scss";
+//@import "scss/profile/profile.styles.scss";

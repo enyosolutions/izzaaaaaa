@@ -4,8 +4,8 @@
   {
     background: transparent;
     border: none;
-    color: rgba(darken($menu-color, 2%), .7);
-    border-left: 4px solid transparent;
+    color: rgba(darken($menu-color, 1%), .8);
+    border-left: 6px solid transparent;
 
     .item-content
     {
@@ -51,7 +51,7 @@
 
     .menu-text
     {
-      color: rgba(darken($menu-color, 2%), .7);
+      color: rgba(darken($menu-color, 2%), 2);
       margin-left: -5px;
     }
   }

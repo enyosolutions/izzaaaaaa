@@ -23,3 +23,5 @@ $button-dark-active-border:       darken($dark, 15%) !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+$font-family-base: "Montserrat", sans-serif !default;
