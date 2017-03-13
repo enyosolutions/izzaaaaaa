@@ -229,7 +229,10 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             mondayFirst: true,          //Optional
             disableWeekdays: [0],       //Optional
             closeOnSelect: true,       //Optional
-            templateType: 'popup'       //Optional
+            templateType: 'modal',       //Optional
+            closeLabel: 'Choisir',
+            titleLabel: 'Choisissez une date',
+            monthsList: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
         };
 
         $scope.openDatePicker = function(){

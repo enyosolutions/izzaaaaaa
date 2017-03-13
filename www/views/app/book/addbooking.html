@@ -68,7 +68,7 @@ top: 45p
 
                 <div class="button-bar">
                     <!--<a class="button" ng-click="">-</a>-->
-                    <a class="button" ng-click="openDatePicker()">{{showmonth}}</a>
+                    <a class="button button-outline button-assertive" ng-click="openDatePicker()">{{showmonth}}</a>
                     <!--<a class="button" ng-click="">+</a>-->
                 </div>
 
@@ -78,6 +78,8 @@ top: 45p
                     <!--<a class="button" ng-click="">+</a>-->
                 </div>
             </div>
+
+
             <div class="item item-text-wrap">
                 <ion-list class="list-borderless list-inset">
 
@@ -95,49 +97,59 @@ top: 45p
                                     </ion-option-button>
                                      </ion-item>
                     -->
-
-
                     <ion-item>
-                        <ion-radio ng-click="selectTimeRange(9,10)"> 09:00 | 10:00</ion-radio>
+                        <ion-radio ng-click="selectTimeRange(7,8)" > <h2 style="color: darkgrey"> 07:00 | 08:00 </h2> </ion-radio>
                     </ion-item>
 
                     <ion-item>
-                        <ion-radio ng-click="selectTimeRange(10,11)"> 10:00 | 11:00</ion-radio>
+                        <ion-radio ng-click="selectTimeRange(8,9)">  <h2 style="color: darkgrey"> 08:00 | 09:00 </h2></ion-radio>
                     </ion-item>
                     <ion-item>
-                        <ion-radio ng-click="selectTimeRange(11,12)"> 11:00 | 12:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(12,13)"> 12:00 | 13:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(13,14)"> 13:00 | 14:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(14,15)"> 14:00 | 15:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(15,16)"> 15:00 | 16:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(16,17)"> 16:00 | 17:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(17,18)"> 17:00 | 18:00</ion-radio>
-                    </ion-item>
-                    <ion-item>
-                        <ion-radio ng-click="selectTimeRange(18,19)"> 18:00 | 19:00</ion-radio>
+                        <ion-radio ng-click="selectTimeRange(9,10)">  <h2 style="color: darkgrey">09:00 | 10:00</h2></ion-radio>
                     </ion-item>
 
                     <ion-item>
-                        <ion-radio ng-click="selectTimeRange(19,20)"> 19:00 | 20:00</ion-radio>
+                        <ion-radio ng-click="selectTimeRange(10,11)">  <h2 style="color: darkgrey">10:00 | 11:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(11,12)">  <h2 style="color: darkgrey">11:00 | 12:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(12,13)">  <h2 style="color: darkgrey">12:00 | 13:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(13,14)">  <h2 style="color: darkgrey">13:00 | 14:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(14,15)">  <h2 style="color: darkgrey">14:00 | 15:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(15,16)">  <h2 style="color: darkgrey">15:00 | 16:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(16,17)">  <h2 style="color: darkgrey">16:00 | 17:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(17,18)">  <h2 style="color: darkgrey">17:00 | 18:00</h2></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(18,19)">  <h2 style="color: darkgrey">18:00 | 19:00</h2></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(19,20)">  <h2 style="color: darkgrey">19:00 | 20:00</h2></ion-radio>
+                        </label>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-radio ng-click="selectTimeRange(20,21)">  <h2 style="color: darkgrey">20:00 | 21:00</h2></ion-radio>
                         </label>
                     </ion-item>
 
                 </ion-list>
             </div>
             <div class="item item-divider">
-                Désolé aucun service après 20:00.
+                Désolé aucun service après 21:00.
             </div>
         </div>
 
@@ -159,8 +171,8 @@ top: 45p
 
     </ion-content>
     <ion-footer-bar>
-        <button class="button button-full button-positive button-outline" ng-click="confirmBooking()">
-            Réserver
+        <button class="button button-full button-assertive" style="bottom: 10px" ng-click="confirmBooking()">
+            Suivant
         </button>
     </ion-footer-bar>
 </ion-view>
