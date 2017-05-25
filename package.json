@@ -16,6 +16,8 @@
     "shelljs": "^0.3.0"
   },
   "devDependencies": {
+    "@ionic/cli-plugin-cordova": "1.1.2",
+    "@ionic/cli-plugin-ionic1": "1.1.2",
     "del": "^1.2.0",
     "gulp-flatten": "^0.1.1",
     "gulp-if": "^1.2.5",

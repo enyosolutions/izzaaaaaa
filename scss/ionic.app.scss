@@ -1,19 +1,15 @@
 // Include Sass mixins
 @import "scss/utils/mixins.scss";
-
 // Include Theme variables
 @import "scss/common/theme.variables.scss";
 // Include Ionic override variables
 @import "scss/utils/override_variables.scss";
-
 // Include Bourbon
 @import "www/lib/bourbon/app/assets/stylesheets/_bourbon.scss";
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic.scss";
-
 // Include Ionic override styles
 @import "scss/utils/override_styles.scss";
-
 // Include project Sass variables
 @import "scss/common/common.variables.scss";
 @import "scss/auth/auth.variables.scss";
@@ -24,7 +20,6 @@
 @import "scss/shop/shop.variables.scss";
 @import "scss/feed/feed.variables.scss";
 @import "scss/comments/comments.variables.scss";
-
 // Include custom styles
 @import "scss/common/common.styles.scss";
 @import "scss/auth/welcome.styles.scss";
