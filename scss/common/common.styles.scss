@@ -1,22 +1,35 @@
 ion-nav-bar
 {
-	ion-header-bar
-	{
-		background-color: $default-bar-bg !important;
-		background: $default-bar-bg !important;
-		border: none !important;
-		background-size: 0px !important; // To remove bottom border on header
-	}
+    ion-header-bar
+    {
+        background-color: $default-bar-bg !important;
+        background: $default-bar-bg !important;
+        border: none !important;
+        background-size: 0px !important; // To remove bottom border on header 
+        box-shadow: 5px 0 6px #ddd;
+        .title-image {
+            margin-top: 14px;
+            height: 16px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
 
-	*
-	{
-		color: $default-bar-color;
+    *
+    {
+        color: $default-bar-color;
 
-		.buttons button::before
-		{
-			color: $default-bar-color;
-		}
-	}
+        .buttons .button-left, .button-right::before
+        {
+            color: $default-bar-color;
+        }
+        .buttons button-right::before{
+            @include transform(scaleX(1.4));
+            margin-right: 10px;
+
+      }
+    }
+ 
 }
 
 // Preload images aux styles (ratios)
