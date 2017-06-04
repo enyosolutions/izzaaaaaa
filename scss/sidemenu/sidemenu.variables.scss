@@ -1,13 +1,14 @@
 // Menu - Colors
-$menu-active-bg: $theme-color-2;
-$menu-color: $theme-color-2;
+$menu-active-bg: $theme-color-4;
+$menu-color: $theme-color-4;
+$menu-profile-color: white; 
 
 // Menu - User image
-$menu-user-img-width: 10vw;
+$menu-user-img-width: 55%;
 $menu-user-img-ratio: 1 1;
 
 // Menu - Options
-$menu-top-options-height: 60vh;
+$menu-top-options-height: 40vh;
 
 // Merge maps
 $pre-img-ratios: append($pre-img-ratios, $menu-user-img-ratio);

@@ -24,7 +24,8 @@ $button-dark-active-border:       darken($dark, 15%) !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
-$font-family-base: "Montserrat", sans-serif !default;
+$font-family-base: "Avenir Next", sans-serif !default;
 body, span, button, h1, h2, h3, h4, h5, h6, p, ion-item, ion-title {
-  font-family: 'Montserrat' !important;
+  font-family: 'Avenir Next', sans-serif, !important;
+  letter-spacing: 1px;
 }

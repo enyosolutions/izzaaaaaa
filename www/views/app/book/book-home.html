@@ -1,26 +1,4 @@
 <ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
-<style>
-    body {
-        cursor: url('http://ionicframework.com/img/finger.png'), auto;
-    }
-
-    /*
-     * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
-     */
-    .list .item.item-accordion {
-        line-height: 38px;
-        padding-top: 0;
-        padding-bottom: 0;
-        transition: 0.09s all linear;
-    }
-    .list .item.item-accordion.ng-hide {
-        line-height: 0px;
-    }
-    .list .item.item-accordion.ng-hide-add,
-    .list .item.item-accordion.ng-hide-remove {
-        display: block !important;
-    }
-</style>
 <ion-content>
 
 
@@ -32,19 +10,30 @@
 
     <ion-list ng-show="isActive('Recherche')" >
 
+      
+        <ion-card ng-repeat="group in groups">
+          <img src={{group.img}}/>
+          <ion-card-content>
+            <ion-card-title>
+              {{group.name}}
+            </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      
+<!--
         <div ng-repeat="group in groups">
             <ion-item class="item-stable"
                       ng-click="toggleGroup(group)"
                       ng-class="{active: isGroupShown(group)}">
-                <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
 
                {{group.name}}
             </ion-item>
 
             <ion-item class="item-accordion"  ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
-                         {{item}}
+                     {{item}}
             </ion-item>
         </div>
+-->
 
 
 

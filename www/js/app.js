@@ -283,7 +283,16 @@ angular.module('izza', [
         }
       })
 
-
+      .state('app.legal.legal-notice', {
+        url: '/legal-notice',
+        views: {
+          'profile-home': {
+            templateUrl: "views/app/legal/legal-notice.html",
+            controller: "LegalCtrl"
+          }
+        }
+      })
+  
   .state('app.shop', {
     url: "/shop",
     abstract: true,

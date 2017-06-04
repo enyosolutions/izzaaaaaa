@@ -610,28 +610,30 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
         $scope.groups[0] = {
             name: 'Coiffure',
+            img: 'img/services/coiffure.jpg',
             items: ['Brushing', 'Chignon', 'Coupe', 'Décoloration/Coloration', 'Défrisage', 'Lissage brésilien']
         };
+//        $scope.groups[1] = {
+//            name: 'Coiffure - Tresses',
+//            items: ['Nattes', 'Nattes Collées', 'Vanilles', 'Piqué-laché', 'Locks', 'Fausses locks', 'Crochets']
+//        };
+//        $scope.groups[2] = {
+//            name: 'Coiffure - Tissage et pose perruque',
+//            items: ['Tissage Ouvert', 'Tissage Fermé', 'Tissage Invisible (américain)', 'Tissage U part', 'Pose de closure',
+//                'Pose de closure élastic band', 'Pose Lace Frontale', 'Pose perruque', 'Retrait tissage'
+//            ]
+//        };
+//        $scope.groups[3] = {
+//            name: 'Cils',
+//            items: ['Extension de cils pose classique', 'Extension de cils pose mixte', 'Extension de cils pose volume russe',
+//                'Remplissage classique', 'Remplissage mixte', 'Remplissage volume russe', 'Dépose extensions et faux cils'
+//            ]
+//        };
+
+
         $scope.groups[1] = {
-            name: 'Coiffure - Tresses',
-            items: ['Nattes', 'Nattes Collées', 'Vanilles', 'Piqué-laché', 'Locks', 'Fausses locks', 'Crochets']
-        };
-        $scope.groups[2] = {
-            name: 'Coiffure - Tissage et pose perruque',
-            items: ['Tissage Ouvert', 'Tissage Fermé', 'Tissage Invisible (américain)', 'Tissage U part', 'Pose de closure',
-                'Pose de closure élastic band', 'Pose Lace Frontale', 'Pose perruque', 'Retrait tissage'
-            ]
-        };
-        $scope.groups[3] = {
-            name: 'Cils',
-            items: ['Extension de cils pose classique', 'Extension de cils pose mixte', 'Extension de cils pose volume russe',
-                'Remplissage classique', 'Remplissage mixte', 'Remplissage volume russe', 'Dépose extensions et faux cils'
-            ]
-        };
-
-
-        $scope.groups[4] = {
             name: 'Onglerie',
+            img: 'img/services/onglerie.jpg',
             items: ['Pose de vernis simple (Mains)', 'Pose vernis semi permanent (Mains)', 'Pose gel avec capsule (Mains)', 'Extension au gel/chablon (Mains)', 'Nail art (Mains)',
                 'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)', 'Pose gel avec capsule (Pieds)', 'Extension au gel/chablon  (Pieds)', 'Nail art  (Pieds)'
             ]
@@ -642,15 +644,16 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 items: ['Pose de vernis simple', 'Pose vernis semi permanent','Pose gel avec capsule','Extension au gel (chablon)','Nail art']
             };*/
 
-        $scope.groups[5] = {
+        $scope.groups[2] = {
             name: 'Maquillage',
+            img: 'img/services/maquillage.jpg',
             items: ['Maquillage jour', 'Maquillage soir']
         };
 
-        $scope.groups[6] = {
-            name: 'Henné',
-            items: ['Tatouage au henné naturel (une main, deux mains, autre partie du corps)', 'Tatouage au Jagua (une main, deux mains, autre partie du corps)', 'Mariage']
-        };
+//        $scope.groups[6] = {
+//            name: 'Henné',
+//            items: ['Tatouage au henné naturel (une main, deux mains, autre partie du corps)', 'Tatouage au Jagua (une main, deux mains, autre partie du corps)', 'Mariage']
+//        };
 
         /*    for (var i=0; i<10; i++) {
                 $scope.groups[i] = {
@@ -981,5 +984,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.showPrivacyPolicy = function() {
         $scope.privacy_policy_modal.show();
     };
+
+})
+
+.controller('LegalCtrl', function($scope) {
 
 })

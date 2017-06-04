@@ -28,71 +28,47 @@ In NavBar
     </ion-side-menu-content>
 
   <ion-side-menu side="left">
+    <ion-header class="menu-profile">
+        <ion-img width="40%" src="img/profile_pic.jpg"></ion-img>
+    </ion-header>
     <ion-content has-bouncing="false" scroll="false" class="menu-outer left-menu">
-      <div multi-bg="['img/menu-bg-izza.jpeg']">
         <div class="row menu-top-options">
+          <ion-list>
+              <ion-item ui-sref-active="active"  menu-close ui-sref="app.profile">
+                <div class="avatar">
+                    <img class="user-image" ng-src="{{loggedUser.picture}}">
+                </div>
+                <h2 class="menu-text">{{loggedUser.name}}</h2>
+              </ion-item>
+            </ion-list>
+        </div>
+        <div class="row menu-bottom-options">
           <div class="col col-top">
             <ion-list>
-<!--              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.booking">
-                <i class="menu-icon icon ion-ios-world"></i>
-                <h2 class="menu-text">Feed</h2>
-              </ion-item>-->
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.book.home">
-                <i class="menu-icon icon ion-android-calendar"></i>
                 <h2 class="menu-text">Réserver</h2>
               </ion-item>
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.bookings.home">
-                <i class="menu-icon icon ion-ios-list-outline"></i>
                 <h2 class="menu-text">Mes Réservations</h2>
               </ion-item>
                 <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.home">
-                    <i class="menu-icon icon ion-person"></i>
                     <h2 class="menu-text">Profile</h2>
                 </ion-item>
               <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.settings.home">
-                <i class="menu-icon icon ion-ios-heart-outline"></i>
                 <h2 class="menu-text">A propos</h2>
               </ion-item>
-              <!-- <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.posts({userId:loggedUser._id})">
-                <i class="menu-icon icon ion-ios-cart"></i>
-                <h2 class="menu-text">Profil</h2>
-              </ion-item> -->
-<!--              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.shop.home">
-                <i class="menu-icon icon ion-bag"></i>
-                <h2 class="menu-text">Shop</h2>
-              </ion-item>
-              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.cart">
-                <i class="menu-icon icon ion-ios-cart"></i>
-                <h2 class="menu-text">Shopping cart</h2>
-              </ion-item>-->
             </ion-list>
           </div>
         </div>
-        <!--<div class="row menu-bottom-options">
-          <div class="col col-bottom">
+        <div class="row menu-legal-options">
+          <div class="col col-top">
             <ion-list>
-              <ion-item class="user-item" menu-close ui-sref="app.profile.posts({userId:loggedUser._id})">
-                &lt;!&ndash; We need a wrapper with width set for the preload image directive &ndash;&gt;
-                <div class="user-image-outer">
-                  <pre-img ratio="_1_1" helper-class="rounded-image">
-                    <img class="user-image" ng-src="{{loggedUser.picture}}" spinner-on-load>
-                	</pre-img>
-                </div>
-                <h2 class="menu-text">{{loggedUser.name}}</h2>
-                <div class="user-inbox">
-                  <i class="menu-icon icon ion-ios-filing"></i>
-                  <span class="inbox-unread">13</span>
-                </div>
+              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.legal.legal-notice">
+                <h2 class="menu-text">Mentions Légales</h2>
               </ion-item>
-&lt;!&ndash;              <ion-item class="full-width-item" menu-close ui-sref="app.shop.sale">
-                <button class="button button-full button-positive">
-                  Season Sale!
-                </button>
-              </ion-item>&ndash;&gt;
             </ion-list>
           </div>
-        </div>-->
-      </div>
+        </div>
     </ion-content>
   </ion-side-menu>
 
