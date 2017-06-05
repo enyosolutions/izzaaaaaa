@@ -11,13 +11,18 @@
     <ion-list ng-show="isActive('Recherche')" >
 
       
-        <ion-card ng-repeat="group in groups">
-          <img src={{group.img}}/>
+        <ion-card ng-repeat="group in groups" 
+                  ng-click="toggleGroup(group)"
+                  ng-class="{active: isGroupShown(group)}">
+          <img ng-src='{{group.img}}'/>
           <ion-card-content>
             <ion-card-title>
               {{group.name}}
             </ion-card-title>
           </ion-card-content>
+          <ion-item class="item-accordion"  ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+                     {{item}}
+          </ion-item>
         </ion-card>
       
 <!--
@@ -29,9 +34,6 @@
                {{group.name}}
             </ion-item>
 
-            <ion-item class="item-accordion"  ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
-                     {{item}}
-            </ion-item>
         </div>
 -->
 
