@@ -2,7 +2,9 @@
 <ion-content>
 
 
-
+    <div class="search-bar">
+        <input placeholder="Votre adresse"/>
+    </div>
     <div class="button-bar">
         <a class="button" ng-class="{'button-small': isActive('Recherche')}" ng-click="setActive('Recherche')">Recherche</a>
         <a class="button" ng-class="{'button-small': isActive('Résultat')}" ng-click="setActive('Résultat')">Résultat</a>
@@ -108,9 +110,9 @@
                 <option>Tatouage au Jagua</option>
                 <option>Mariage</option>
 
-            </select>-->
+            </select>
 
-    </div>
+    </div>-->
 
 <!--    <div ng-if="providers.length < 1">
         <div class="card" style="text-align:center">
@@ -131,45 +133,46 @@
 
               <div class="list card">
 
-                <div class="item item-avatar">
-                  <!--<img src="img/sample_images/people/2.jpeg">-->
-                  <h2>{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
-                  <!--<p>Inscription: {{provider.membersince}}</p>-->
+                <div class="item">
+                    <img src="{{provider.avatar}}">
+                    <div class="description">
+                      <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
+                    <!--<p>Inscription: {{provider.membersince}}</p>-->
 
+                      <h4 class="price">€€</h4>
+  <!--
+                      <div class="row" ng-repeat="pricing in provider.Pricing">
 
-                    <div class="row" ng-repeat="pricing in provider.Pricing">
+                          <h4>{{provider.Pricing.Price}}</h4>
 
-                        <h4>{{provider.Pricing.Price}}</h4>
+                      </div>
+  -->
 
-                    </div>
+                      <div class="row">
+                          <span class="name-text">{{provider.qualification1}} 
+                            {{provider.qualification1 ? '|' : ' '}}
+                            {{provider.qualification2}} 
+                            {{provider.qualification2 ? '|' : ' '}}
+                            {{provider.qualification3}} 
+                            {{provider.qualification3 ? '|' : ' '}}
+                            {{provider.qualification4}} 
+                          </span>
+                      </div>
+<!--
 
-                    <div class="row">
-                        <span class="name-text">{{provider.qualification1}}
-                          {{provider.qualification2}}
-                          {{provider.qualification3}}
-                          {{provider.qualification4}}
-                        </span>
-                    </div>
+                      <div class="row">
 
-                    <div class="row">
+                          <button class="button button-small" ng-click="showDetails(provider)">
+                              Détails
+                          </button>
 
-                        <button class="button button-small" ng-click="showDetails(provider)">
-                            Détails
-                        </button>
-
-                        <button class="button button-small button-positive" ng-click="bookPerService(provider)">
-                            Réserver
-                        </button>
-                    </div>
-
-<!--                    <div class="product-list-item" ng-repeat="skill in provider.skills">
-                        <p>{{skill}}</p>
-                    </div>-->
-
-
-
+                          <button class="button button-small button-positive" ng-click="bookPerService(provider)">
+                              Réserver
+                          </button>
+                      </div>
+-->
+                  </div>
                 </div>
-
 
                   <script id="details-modal.html" type="text/ng-template">// <![CDATA[
 
@@ -213,16 +216,12 @@
 
                   </ion-modal-view>
                   // ]]></script>
-
-                  <div class="item">
-                      <span class="name-text"> {{provider.profile}} </span>
-                  </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+ 
 
 <!--    <div class="list book-home-options-list">
 
