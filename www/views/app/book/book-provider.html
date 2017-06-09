@@ -1,8 +1,64 @@
+<ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
+    <div class="select-option-wrapper">
+        <div>
 
-<ion-view view-title="Réservation - Options">
-    <button class="button button-small button-positive" ng-click="pickDate()">
-        Calendrier
-    </button>
+            <ion-list ng-repeat="skill in workProvider.skillsandprice">
+                <ion-item  class="item-borderless">
+
+                    <ion-checkbox class="item-borderless" ng-model="skill.selected">
+
+                        <div class="card item-text-wrap item-borderless">
+                            <div class="item">
+                                {{skill.description}}
+                            </div>
+
+                            <div class="item">
+                                {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
+                            </div>
+                        </div>
+
+                    </ion-checkbox>
+                </ion-item>
+            </ion-list>
+        </div>
+      
+      <div class="list card">
+
+          <div class="item item-image">
+              <img ng-src="{{picture}}">
+          </div>
+
+          <div class="item item-body">
+            
+            <div class="col col-50">
+              <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
+
+              <p class="card-description">
+                <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
+                  <span class="card-avatar-image-outer">
+                    <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
+                      <img ng-src="{{post.user.picture}}" spinner-on-load>
+                    </pre-img>
+                  </span>
+
+                  <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
+                </a>
+                <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
+              </p>
+            </div>
+
+            <div class="col col-30">
+                <div class="card">
+                  <div class="item item-text-wrap">
+                    {{provider.profile}}
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+  </div>
+
 </ion-view>
 
 

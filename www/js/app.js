@@ -224,7 +224,7 @@ angular.module('izza', [
         }
       })
       .state('app.book.provider', {
-        url: "/book_provider",
+        url: "/book_provider/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
         views: {
           'book-home': {
             templateUrl: "views/app/book/book-provider.html",

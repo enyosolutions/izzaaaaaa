@@ -133,8 +133,8 @@
 
               <div class="list card">
 
-                <div class="item">
-                    <img src="{{provider.avatar}}">
+                <div class="item" ng-click="bookPerService(provider)">
+                    <img src="{{provider.picture}}">
                     <div class="description">
                       <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
                     <!--<p>Inscription: {{provider.membersince}}</p>-->
@@ -158,15 +158,15 @@
                             {{provider.qualification4}} 
                           </span>
                       </div>
-<!--
 
+<!--
                       <div class="row">
 
                           <button class="button button-small" ng-click="showDetails(provider)">
                               Détails
                           </button>
 
-                          <button class="button button-small button-positive" ng-click="bookPerService(provider)">
+                          <button class="button button-small button-positive" >
                               Réserver
                           </button>
                       </div>
@@ -279,43 +279,46 @@
                   </div>-->
 
 
-<!--  <div class="list card">
+<!--
+  <div class="list card">
 
       <div class="item item-image">
         <pre-img ratio="_16_15" helper-class="main-image">
           <img ng-src="{{provider.picture}}" spinner-on-load>
         </pre-img>
       </div>
-      -->
-<!--
-              <div class="item item-body">
-                <div class="col col-50">
+      
+      <div class="item item-body">
+        <div class="col col-50">
 
-                <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
+        <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
 
-                <p class="card-description">
-                  <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
-                    <span class="card-avatar-image-outer">
-                      <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
-                        <img ng-src="{{post.user.picture}}" spinner-on-load>
-                      </pre-img>
-                    </span>
+        <p class="card-description">
+          <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
+            <span class="card-avatar-image-outer">
+              <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
+                <img ng-src="{{post.user.picture}}" spinner-on-load>
+              </pre-img>
+            </span>
 
-                    <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
-                  </a>
-                  <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
-                </p>
+            <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
+          </a>
+          <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
+        </p>
 
 
-              </div>
+      </div>
 
-              <div class="col col-30">
-                  <div class="card">
-                    <div class="item item-text-wrap">
-                      {{provider.profile}}
-                    </div>
-                  </div>
-              </div>
-
+      <div class="col col-30">
+          <div class="card">
+            <div class="item item-text-wrap">
+              {{provider.profile}}
             </div>
-  -->
+          </div>
+      </div>
+
+    </div>
+  
+</div>
+  
+-->

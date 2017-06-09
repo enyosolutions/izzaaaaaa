@@ -1,23 +1,40 @@
 <div class="select-option-wrapper">
 
+  <div class="list card">
 
-    <div>
+      <div class="item item-image">
+          <img ng-src="{{workProvider.picture}}">
+      </div>
+      
+      <div class="item item-body">
+        <div class="provider-info">
+            <h2 class="card-title">{{workProvider.firstname}} {{workProvider.lastname}}</h2>
+
+            <p class="card-description">
+                <span class="name-text">
+                    {{workProvider.qualification1}} 
+                    {{workProvider.qualification1 ? '|' : ' '}}
+                    {{workProvider.qualification2}} 
+                    {{workProvider.qualification2 ? '|' : ' '}}
+                    {{workProvider.qualification3}} 
+                    {{workProvider.qualification3 ? '|' : ' '}}
+                    {{workProvider.qualification4}} 
+                </span>
+              <span class="post-likes"> + <b>{{ workProvider.likes }}</b></span>
+            </p>
         </div>
-    <div>
-
-       <!-- <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 500px">-->
-
-        <ion-list ng-repeat="skill in workProvider.skillsandprice">
+        <div class="skill-shop">
+           <ion-list ng-repeat="skill in workProvider.skillsandprice">
             <ion-item  class="item-borderless">
 
                 <ion-checkbox class="item-borderless" ng-model="skill.selected">
 
-                    <div class="card item-text-wrap item-borderless">
-                        <div class="item">
+                    <div class="item-borderless">
+                        <div class="skill-text skill-desc">
                             {{skill.description}}
                         </div>
 
-                        <div class="item">
+                        <div class="skill-text skill-price">
                             {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
                         </div>
                     </div>
@@ -25,20 +42,11 @@
                 </ion-checkbox>
             </ion-item>
         </ion-list>
-    <!--    </ion-scroll>-->
-
-
+        </div>
     </div>
-    <div class="col text-center">
-
-<!--        <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
-            Réserver
-        </button>-->
-    </div>
-<!--
-<span class="popup-product-title">Services proposés</span>
-<div class="separator-line"></div>
--->
+  
+</div>
+  
 
 
 
