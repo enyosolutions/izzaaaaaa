@@ -26,102 +26,9 @@
                      {{item}}
           </ion-item>
         </ion-card>
-      
-<!--
-        <div ng-repeat="group in groups">
-            <ion-item class="item-stable"
-                      ng-click="toggleGroup(group)"
-                      ng-class="{active: isGroupShown(group)}">
-
-               {{group.name}}
-            </ion-item>
-
-        </div>
--->
-
-
-
-
 
     </ion-list>
 
-
-
-
-    <!--  <div ng-model="filterCategory" ng-show="isActive('Recherche')" class="list">
-
-        <label class="item item-input item-select">
-            <div class="input-label">
-                Catégorie
-            </div>
-        </label>
-
-
-          <select  ng-model="filterCategory" ng-change="updateQuery(filterCategory)">
-                <option>Toutes</option>
-                <option>Coiffure </option>
-                <option>Manucure/Pédicure</option>
-                <option>Maquillage</option>
-                <option>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                <option>Brushing</option>
-                <option>Chignon</option>
-                <option>Coupe</option>
-                <option>Décoloration/Coloration</option>
-                <option>Défrisage</option>
-                <option>Lissage brésilien</option>
-                <option>Nattes</option>
-                <option>Nattes collées </option>
-                <option>Vanilles</option>
-                <option>Piqué-laché</option>
-                <option>Locks</option>
-                <option>Fausses locks</option>
-                <option>Crochets</option>
-                <option>Tissage Ouvert</option>
-                <option>Tissage Fermé</option>
-                <option>Tissage Invisible (américain)</option>
-                <option>Tissage U part</option>
-                <option>Pose de closure</option>
-                <option>Pose de closure élastic band</option>
-                <option>Pose Lace Frontale</option>
-                <option>Pose perruque</option>
-                <option>Retrait tissage</option>
-                <option>Extension de cils pose classique</option>
-                <option>Extension de cils pose mixte</option>
-                <option>Extension de cils pose volume russe</option>
-                <option>Remplissage classique</option>
-                <option>Remplissage mixte</option>
-                <option>Remplissage volume russe</option>
-                <option>Dépose extensions et faux cils</option>
-                <option>Manucure –pédicure simple</option>
-                <option>Manucure – pédicure semi permanent</option>
-                <option>Pose de vernis simple (Mains)</option>
-                <option>Pose vernis semi permanent (Mains)</option>
-                <option>Pose gel avec capsule (Mains)</option>
-                <option>Extension au gel (chablon) (Mains)</option>
-                <option>Nail art (Mains)</option>
-                <option>Pose de vernis simple (Pieds)</option>
-                <option>Pose vernis semi permanent (Pieds)</option>
-                <option>Pose gel avec capsule (Pieds)</option>
-                <option>Extension au gel (chablon) (Pieds)</option>
-                <option>Nail art (Pieds)</option>
-                <option>Maquillage jour</option>
-                <option>Maquillage soir</option>
-                <option>Tatouage au henné naturel</option>
-                <option>Tatouage au Jagua</option>
-                <option>Mariage</option>
-
-            </select>
-
-    </div>-->
-
-<!--    <div ng-if="providers.length < 1">
-        <div class="card" style="text-align:center">
-
-            <h3>Aucun prestaire.</h3>
-
-        </div>
-
-    </div>-->
 
     <div ng-show="isActive('Résultat')" ng-if="providers.length > 0">
       <div class="products-list">
@@ -159,18 +66,7 @@
                           </span>
                       </div>
 
-<!--
-                      <div class="row">
 
-                          <button class="button button-small" ng-click="showDetails(provider)">
-                              Détails
-                          </button>
-
-                          <button class="button button-small button-positive" >
-                              Réserver
-                          </button>
-                      </div>
--->
                   </div>
                 </div>
 
@@ -178,17 +74,6 @@
 
 
                   <ion-modal-view>
-
-
-                  <style>
-                      @media (max-width: 680px) {
-                          .active .modal-backdrop-bg {
-                              opacity: .5;
-                              transition: opacity 300ms ease-in-out;
-                              background-color: #000;
-                          }
-                      }
-                  </style>
 
                       <div class="container-fluid">
                           <div class="row">
@@ -223,102 +108,5 @@
       </div>
  
 
-<!--    <div class="list book-home-options-list">
-
-      <a class="item book-home-option-item" ui-sref="app.book.sale">
-        <div class="row">
-          <div class="col">
-            <pre-img ratio="_2_1" helper-class="shop-home-option-image-outer">
-              &lt;!&ndash; <img ng-src="http://lorempixel.com/300/150" spinner-on-load> &ndash;&gt;
-              <img ng-src="img/sale.png" spinner-on-load>
-            </pre-img>
-          </div>
-        </div>
-
-        <div class="row option-copy">
-          <div class="col col-75">
-            <span>Shop Now</span>
-          </div>
-          <div class="col col-25 option-icon">
-            <i class="icon ion-chevron-right"></i>
-          </div>
-        </div>
-      </a>
-    </div>-->
-
-
-
-
   </ion-content>
 </ion-view>
-<!--                  <div class="item item-actions">
-
-                    <button class="action-button icon-left ion-heart button button-small">
-                      Like
-                    </button>
-
-                    <button class="action-button button button-icon icon ion-android-more-vertical button-small">
-                    </button>
-
-                    <button class="right-button action-button button-icon icon ion-share button button-small">
-                    </button>
-
-                    <button ng-click="showComments(post)" class="right-button action-button icon-left ion-chatbox button button-small">
-                      {{ provider.comments }}
-                    </button>
-
-&lt;!&ndash;                     <button class="button button-small button-positive" ui-sref="app.book.addbooking">
-                          Réserver
-                      </button>&ndash;&gt;
-
-
-
-&lt;!&ndash;                    <button class="button button-small button-positive" ng-click="navigateToProviderSchedule(provider)">
-                        Réserver
-                    </button>&ndash;&gt;
-                  </div>-->
-
-
-<!--
-  <div class="list card">
-
-      <div class="item item-image">
-        <pre-img ratio="_16_15" helper-class="main-image">
-          <img ng-src="{{provider.picture}}" spinner-on-load>
-        </pre-img>
-      </div>
-      
-      <div class="item item-body">
-        <div class="col col-50">
-
-        <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
-
-        <p class="card-description">
-          <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
-            <span class="card-avatar-image-outer">
-              <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
-                <img ng-src="{{post.user.picture}}" spinner-on-load>
-              </pre-img>
-            </span>
-
-            <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
-          </a>
-          <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
-        </p>
-
-
-      </div>
-
-      <div class="col col-30">
-          <div class="card">
-            <div class="item item-text-wrap">
-              {{provider.profile}}
-            </div>
-          </div>
-      </div>
-
-    </div>
-  
-</div>
-  
--->

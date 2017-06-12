@@ -256,10 +256,11 @@ ion-nav-bar
 }
 .skill-desc{
   max-width: 75%;
+  font-size: 18px;
+  font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 400;
 }
 .skill-price{
   float: right;
