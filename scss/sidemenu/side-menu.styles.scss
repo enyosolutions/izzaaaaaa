@@ -1,173 +1,56 @@
-.menu-profile
-{
-  background: $theme-color-2;
-  height: 50px;
-}
-
-.menu-outer
-{
-  ion-item
-  {
+.item {
+  background: transparent;
+  border: none;
+  color: rgba(darken($menu-color, 1%), .8);
+  border-left: 3px solid transparent;
+  .item-content {
     background: transparent;
-    border: none;
-    color: rgba(darken($menu-color, 1%), .8);
-    border-left: 3px solid transparent;
 
-    .item-content
-    {
-      background: transparent;
-
-      &.activated
-      {
-        border-color: transparent;
-        background-color: transparent;
-        color: $menu-color;
-
-        .menu-text
-        {
-          color: $menu-profile-color;
-        }
-      }
-    }
-
-    &.active
-    {
+    &.activated {
       border-color: transparent;
       background-color: transparent;
-      border-left-color: $menu-active-bg;
-
-      .item-content
-      {
-        border-color: transparent !important;
-        background-color: transparent !important;
-        color: $menu-color !important;
-      }
-
-      .menu-text
-      {
-        color: $menu-color;
-        font-weight: 500;
-      }
-    }
-
-    .menu-icon
-    {
-      font-size: 22px;
-    }
-
-    .menu-text
-    {
-      color: rgba(darken($menu-color, 2%), 2);
-      margin-left: -5px;
-    }
-  }
-
-  .user-item
-  {
-    .item-content
-    {
-      padding: 8px 16px;
-    }
-
-    .user-image-outer
-    {
-      width: $menu-user-img-width;
-      margin: 0 auto;
-
-      .pre-img
-      {
-        overflow: hidden;
-        div
-        {
-          overflow: visible;  
-        }
-      }
-
-      .user-image
-      {
-        width: 100%;
-        border-radius: 50%;
-      }
-      
-    }
-
-    .menu-text
-    {
-      height: $menu-user-img-width;
-      line-height: $menu-user-img-width;
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-left: 6px;
-      margin-bottom: 0px;
-      color: $menu-profile-color;
-    }
-
-    .user-inbox
-    {
-      position: relative;
-      float: right;
-
-      .menu-icon
-      {
-        font-size: 34px;
-        margin-right: 10px;
-        right: 0px;
-        position: absolute;
-      }
-
-      .inbox-unread
-      {
-        right: 3px;
-        position: absolute;
-        top: -3px;
-        border-radius: 50%;
-        width: 16px;
-        height: 16px;
-        background-color: $menu-active-bg;
-        font-size: 11px;
-        text-align: center;
-        line-height: 16px;
-        font-weight: 600;
-      }
-    }
-  }
-
-  .full-width-item
-  {
-    border-left: none;
-
-    .item-content
-    {
-      padding: 0px;
-    }
-
-    .button
-    {
-      margin: 0px;
-      background-color: $menu-active-bg;
-      border-color: darken($menu-active-bg, 4);
       color: $menu-color;
-      padding: 0px 16px;
+
+      .menu-text {
+        color: $menu-profile-color;
+      }
     }
   }
 
-  .menu-top-options,
-  .menu-bottom-options,
-  .menu-legal-options
+  &.active {
+    border-color: transparent;
+    background-color: transparent;
+    border-left-color: $menu-active-bg;
+
+    .item-content {
+      border-color: transparent !important;
+      background-color: transparent !important;
+      color: $menu-color !important;
+    }
+
+    .menu-text {
+      color: $menu-color;
+      font-weight: 500;
+    }
+  }
+
+  .menu-text {
+    color: rgba(darken($menu-color, 2%), 2);
+    margin-left: -5px;
+  }
+}
+
+.menu-profile
+{
+  display: block;
+  background: $theme-color-2;
+  .menu-top-options
   {
     padding: 0px;
     margin: 0px;
-
-    .col
-    {
+    .col {
       padding: 0px;
     }
-  }
-
-  .menu-top-options
-  {
     height: $menu-top-options-height;
     background-color: $theme-color-2;
     ion-list
@@ -205,17 +88,34 @@
       }
     }
   }
+}
+
+.menu-outer {
+  position: relative;
+  display: block;
+  height: (100- $menu-top-options-height);
+  .menu-bottom-options,
+  .menu-legal-options
+  {
+    padding: 0px;
+    margin: 0px;
+
+    .col
+    {
+      padding: 0px;
+    }
+  }
 
   .menu-bottom-options
   {
-    height: (100 - $menu-top-options-height);
+    height: (80 - $menu-top-options-height);
     padding-top: 5vh;
   }
   
-  .menu-legal-options
-  {
-   position: absolute;
-   bottom: 20px;
+  .menu-legal-options {
+    position: absolute;
+    width: $menu-width;
+    bottom: 10px;
     .item-complex.item-icon-left .item-content
     {
       h2
