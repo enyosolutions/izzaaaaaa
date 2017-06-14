@@ -106,19 +106,19 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 "reservation_date": "2017-06-17",
                 "reservationFrom": "10:30",
                 "reservationTo": "11:00",
-                "serviceInfo": [
-                    {
-                      "description": "coiffure",
-                      "cur": "eur",
-                      "price": "30"
-                    },
-                    {
-                      "description": "chignon",
-                      "cur": "eur",
-                      "price": "20"
-                    }
-                ]
-            }
+            },
+            "serviceInfo": [
+                {
+                  "description": "coiffure",
+                  "cur": "eur",
+                  "price": "30"
+                },
+                {
+                  "description": "chignon",
+                  "cur": "eur",
+                  "price": "20"
+                }
+            ]
         };
   
     })

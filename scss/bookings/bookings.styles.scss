@@ -1,0 +1,57 @@
+.no-reservations {
+  position: absolute;
+  top: 100px;
+  .calendar {
+    padding: 0 80px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #b2b2b2;
+    text-align: center;
+  }
+}
+.product-list-item {
+  .list.card {
+    box-shadow: none;
+    padding: 10px;
+    .left-side {
+      padding-top: 5px;
+      width: 65%;
+      float: left;
+    }
+    .right-side {
+      padding-top: 5px;
+      width: 33%;
+      float: right;
+      text-align: right;
+    }
+    .provider-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .reservation-status {
+      border: solid 1px grey;
+      @include border-radius(5px);
+      margin-bottom: 10px;
+      text-align: center;
+      padding: 2px;
+      &.confirme {
+        color: #62b57e;
+        border-color: #62b57e;
+      }
+    }
+    .service-description, .time-date {
+      font-size: 14px;
+      color: #bfbfbf;
+      text-align: left;
+    }
+    .time-date {
+      text-align: right;
+    }
+  }
+  &.active .list.card {
+    border-left: solid 8px $theme-color-2;
+  }
+}
