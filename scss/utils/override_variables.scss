@@ -16,10 +16,21 @@ $assertive:                       $theme-color-2 !default;
 // $dark:                            #444 !default;
 $dark:                            lighten(#444, 45%) !default;
 
+/// Buttons
 $button-dark-bg:                  $dark !default;
 $button-dark-border:              darken($dark, 10%) !default;
 $button-dark-active-bg:           darken($dark, 5%) !default;
 $button-dark-active-border:       darken($dark, 15%) !default;
+
+/// Labels
+$label-ios-text-color: $theme-color-2;
+$text-input-md-background-color: $theme-color-2;
+$input-label-color: $theme-color-2;
+
+/// Toggles
+$on-border-color: $theme-color-2;
+$on-bg-color: $theme-color-2;
+$toggle-ios-background-color-on: $theme-color-2;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;

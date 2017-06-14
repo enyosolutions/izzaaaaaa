@@ -181,3 +181,82 @@ ion-spinner.spinner-on-load
 		font-weight: 500;
   }
 }
+.button-red {
+  background-color: $theme-color-2;
+  color: #FFF;
+  border-radius: 0px;
+  font-weight: 500;
+  min-height: 50px;
+  height: 50px;
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  margin-top: 5px;
+  &:hover {
+    color: #FFF;
+  }
+}
+
+.background-gray {
+  background-color: #efefef;
+  &.has-profile-pic{
+    padding-top: 40px;
+  }
+}
+
+.field-card {
+  padding: 5px 10px;
+  ion-list {
+    .list, form {
+      background-color: #FFF;
+      padding: 10px 20px;
+    }
+    ion-item, ion-toggle {
+      padding: 0;
+    }
+    .item {
+      padding: 0;
+    }
+    .input-label, p, a, i {
+      color: $theme-color-2;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .input-label {
+      width: 40%;
+    }
+    a.item {
+      padding: 8px 0;
+      i {
+        color: $theme-color-2;
+        font-weight: 100;
+      }
+    }
+    input {
+      color: #b2b2b2;
+      font-size: 13px;
+    }
+    .item-toggle {
+      padding: 12px 0;
+      .track {
+        width: 42px;
+        height: 26px;
+      }
+      .handle{
+        height: 21px;
+        width: 21px;
+        border-radius: 10px;
+        left: 8px;
+        top: 8px;
+      }
+      .toggle input:checked + .track {
+        border-color: $on-border-color;
+        background-color: $on-bg-color;
+          .handle {
+          -webkit-transform: translate3d(16px, 0, 0);
+          transform: translate3d(16px, 0, 0);
+          }
+      }
+    }
+  }
+}
