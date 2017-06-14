@@ -14,17 +14,28 @@
 .product-list-item {
   .list.card {
     box-shadow: none;
-    padding: 10px;
-    .left-side {
+    .item {
+      height: auto;
+    }
+    .reservation-info {
+      display: block;
+    }
+    .container-left-side {
       padding-top: 5px;
       width: 65%;
       float: left;
     }
-    .right-side {
+    .container-right-side {
       padding-top: 5px;
       width: 33%;
       float: right;
       text-align: right;
+    }
+    .reservation-info, 
+    .container-left-side, .container-right-side, 
+    .pay-container, .cancel-container {
+      @include clearfix;
+      box-sizing: content-box;
     }
     .provider-name {
       font-size: 18px;
@@ -33,10 +44,11 @@
     }
     .reservation-status {
       border: solid 1px grey;
+      color: grey;
       @include border-radius(5px);
       margin-bottom: 10px;
       text-align: center;
-      padding: 2px;
+      padding: 2px 5px;
       &.confirme {
         color: #62b57e;
         border-color: #62b57e;
@@ -46,9 +58,32 @@
       font-size: 14px;
       color: #bfbfbf;
       text-align: left;
+      text-transform: capitalize;
     }
     .time-date {
       text-align: right;
+    }
+    .reservation-button {
+      @extend .reservation-status;
+      display: inline-block;
+      float: right;
+      width: 40%;
+      min-height: 0;
+      line-height: inherit;
+      padding: 4px 8px;
+      margin: 5px 0;
+      font-weight: 600;
+      &:after {
+        content: none;
+      }
+      &.pay {
+        color: #62b57e;
+        border-color: #62b57e;        
+      }
+      &.cancel {
+        color: $theme-color-2;
+        border-color: $theme-color-2;        
+      }
     }
   }
   &.active .list.card {
