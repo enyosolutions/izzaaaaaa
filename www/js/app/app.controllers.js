@@ -1,5 +1,34 @@
 angular.module('izza.app.controllers', ['ui.rCalendar'])
 
+.controller('AppCtrl', function($scope, AuthService) {
+
+    //this will represent our logged user
+    var user = {
+        about: "J'aime quand mes ongles sont parfaitement manucurés.",
+        name: "Elisa Rookie",
+        picture: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+        _id: 0,
+        followers: 345,
+        following: 58
+    };
+
+    //save our logged user on the localStorage
+    AuthService.saveUser(user);
+    $scope.loggedUser = user;
+})
+
+
+.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
+
+    $localStorage = $localStorage.$default({
+        profile: {}
+    });
+    $scope.$storage = $localStorage.profile;
+    console.log($scope.$storage);
+    $scope.logOut = function() {
+        $scope.myPopup = $state.go('auth.login');
+    }
+})
 
 .controller('BookingsController', function($scope, currentProvider, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
@@ -122,6 +151,84 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         };
   
     })
+
+.controller('BookCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
+    $scope.groups = [];
+
+    $scope.groups[0] = {
+        name: 'Coiffure',
+        img: 'img/services/coiffure.jpg',
+        items: ['Brushing', 'Chignon', 'Coupe', 'Décoloration/Coloration', 'Défrisage', 'Lissage brésilien']
+    };
+
+    $scope.groups[1] = {
+        name: 'Onglerie',
+        img: 'img/services/onglerie.jpg',
+        items: ['Pose de vernis simple (Mains)', 'Pose vernis semi permanent (Mains)', 'Pose gel avec capsule (Mains)', 'Extension au gel/chablon (Mains)', 'Nail art (Mains)',
+            'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)', 'Pose gel avec capsule (Pieds)', 'Extension au gel/chablon  (Pieds)', 'Nail art  (Pieds)'
+        ]
+    };
+
+    $scope.groups[2] = {
+        name: 'Maquillage',
+        img: 'img/services/maquillage.jpg',
+        items: ['Maquillage jour', 'Maquillage soir']
+    };
+
+    $scope.openGroup = function(group)  {
+        $scope.myPopup = $state.go('app.book.category',{groupInfo:group});
+    }
+        
+    var myPopup;
+    $scope.showFiltersPopup = function() {
+        $scope.filter = {};
+        myPopup = $ionicPopup.show({
+            cssClass: 'filter-popup',
+            templateUrl: 'views/app/book/partials/filters_popup.html',
+            scope: $scope,
+        });
+        myPopup.then(function(res) {
+            if (res) {
+                console.log('Filters applied', res);
+                myPopup.close();
+            } else {
+                console.log('Popup closed');
+                myPopup.close();
+            }
+        });
+    };
+    $scope.closePopup = function() {
+      myPopup.close();
+    }
+    $scope.applyFilter = function() {
+      myPopup.close();
+    }
+})
+
+.controller('CategoryCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
+  
+        $scope.subgroups = [];
+
+        $scope.subgroups[0] = {
+            name: 'Coupe',
+            img: 'img/subgroups/coupe.jpg'
+        };
+        $scope.subgroups[1] = {
+            name: 'Tresses',
+            img: 'img/subgroups/tresses.jpg'
+        };
+        $scope.subgroups[2] = {
+            name: 'Brushing',
+            img: 'img/subgroups/brushing.jpg'
+        };
+  
+  
+        $scope.openSubgroup = function(subgroup)  {
+          
+            $scope.myPopup = $state.go('app.book.providers_list',{subgroupInfo:subgroup});
+        }
+})
+
 .controller("PickBookingTimeCtrl", function($scope, currentProvider, PostService, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory) {
 
     $scope.params = $stateParams;
@@ -356,25 +463,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 //            $scope.showAlertNoProfile();
 //        }
     };
-//
-//    $scope.navigateToProviderSchedule = function(provider) {
-//        //commentsPopup.close();
-//        //$ionicHistory.currentView($ionicHistory.backView());
-//        //$ionicHistory.nextViewOptions({ disableAnimate: true,historyRoot: true });
-//        //$state.go('app.profile.posts', {userId: 123});
-//        //book_addbooking/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url
-//        $state.go('app.book.addbooking', {
-//            provider_data: provider,
-//            title: provider.title,
-//            firstname: provider.firstname,
-//            lastname: provider.lastname,
-//            contact_email: provider.contact_email,
-//            contact_mobilenb: provider.contact_mobilenb,
-//            contact_web_site_url: provider.web_site_url
-//        }, { reload: true }); //provider.contact_email
-//
-//
-//    };
 })
 
 .controller('BookProviderCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
@@ -396,120 +484,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
           currentProvider.setbufferProvider($scope.workProvider);
           return currentProvider.bufferProvider;
       }
-})
-
-
-.controller('AppCtrl', function($scope, AuthService) {
-
-    //this will represent our logged user
-    var user = {
-        about: "J'aime quand mes ongles sont parfaitement manucurés.",
-        name: "Elisa Rookie",
-        picture: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
-        _id: 0,
-        followers: 345,
-        following: 58
-    };
-
-    //save our logged user on the localStorage
-    AuthService.saveUser(user);
-    $scope.loggedUser = user;
-})
-
-
-.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
-
-    $localStorage = $localStorage.$default({
-        profile: {}
-    });
-    $scope.$storage = $localStorage.profile;
-    console.log($scope.$storage);
-    $scope.logOut = function() {
-        $scope.myPopup = $state.go('auth.login');
-    }
-})
-
-
-.controller('BookCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
-    $scope.groups = [];
-
-    $scope.groups[0] = {
-        name: 'Coiffure',
-        img: 'img/services/coiffure.jpg',
-        items: ['Brushing', 'Chignon', 'Coupe', 'Décoloration/Coloration', 'Défrisage', 'Lissage brésilien']
-    };
-
-    $scope.groups[1] = {
-        name: 'Onglerie',
-        img: 'img/services/onglerie.jpg',
-        items: ['Pose de vernis simple (Mains)', 'Pose vernis semi permanent (Mains)', 'Pose gel avec capsule (Mains)', 'Extension au gel/chablon (Mains)', 'Nail art (Mains)',
-            'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)', 'Pose gel avec capsule (Pieds)', 'Extension au gel/chablon  (Pieds)', 'Nail art  (Pieds)'
-        ]
-    };
-
-    $scope.groups[2] = {
-        name: 'Maquillage',
-        img: 'img/services/maquillage.jpg',
-        items: ['Maquillage jour', 'Maquillage soir']
-    };
-
-    $scope.openGroup = function(group)  {
-
-        $scope.myPopup = $state.go('app.book.category',{groupInfo:group});
-    }
-        
-    $scope.showFiltersPopup = function() {
-        $scope.filter = {};
-        console.log('kek');
-        var myPopup = $ionicPopup.show({
-            cssClass: 'filter-popup',
-            templateUrl: 'views/app/book/partials/filters_popup.html',
-            title: 'Filtre',
-            scope: $scope,
-//            buttons: [
-//                { text: '', type: 'close-popup ion-ios-close-outline' }, {
-//                    text: 'Add to cart',
-//                    onTap: function(e) {
-//                        return $scope.data;
-//                    }
-//                }
-//            ]
-        });
-//        myPopup.then(function(res) {
-//            if (res) {
-//                $ionicLoading.show({ template: '<ion-spinner icon="ios"></ion-spinner><p style="margin: 5px 0 0 0;">Adding to cart</p>', duration: 1000 });
-//                ShopService.addProductToCart(res.product);
-//                console.log('Item added to cart!', res);
-//            } else {
-//                console.log('Popup closed');
-//            }
-//        });
-    };
-})
-
-
-.controller('CategoryCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
-  
-        $scope.subgroups = [];
-
-        $scope.subgroups[0] = {
-            name: 'Coupe',
-            img: 'img/subgroups/coupe.jpg'
-        };
-        $scope.subgroups[1] = {
-            name: 'Tresses',
-            img: 'img/subgroups/tresses.jpg'
-        };
-        $scope.subgroups[2] = {
-            name: 'Brushing',
-            img: 'img/subgroups/brushing.jpg'
-        };
-  
-  
-        $scope.openSubgroup = function(subgroup)  {
-          
-            $scope.myPopup = $state.go('app.book.providers_list',{subgroupInfo:subgroup});
-        }
 })
   
 

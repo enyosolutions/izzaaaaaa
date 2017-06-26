@@ -134,6 +134,10 @@
 .button-fb {
   @extend .button-theme;
   background-color: #3b5998;
+  &:active,
+  &.activated {
+    background-color: tint(#3b5998, 20%);
+  }
 }
 .title-wrapper {
   padding-top: 50px;

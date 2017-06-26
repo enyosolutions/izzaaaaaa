@@ -34,18 +34,15 @@ body {
     cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
 
-
-.search-bar
-{
-  padding: 0 20px;
-  input
-  {
-    //border: none;
-    height: 32px;
-    font-size: 14px;
-  }
+.address-search {
+  width: 86%;
+  margin: 0;
+  float: left;
 }
-
+.icon-filter {
+  margin-top: 12px;
+  margin-left: 5px;
+}
 ion-card
 { 
   img 
@@ -142,6 +139,16 @@ provider-list-item {
 /*
  * Filters popup 
  */
+.popup-container .popup {
+  background-color: #FFF;
+  top: 44px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  .popup-head {
+    display: none;
+  }
+}
 
 .top-button {
   padding: 5px 5px;
