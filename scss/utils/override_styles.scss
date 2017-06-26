@@ -1,1 +1,65 @@
-// Override Ionic styles
+/// Override Ionic styles
+
+// Datepicker colors override
+.ionic_datepicker_modal {
+  .bar-header,
+  .selected_date_full,
+  .selected_date,
+  .popup-buttons .button {
+    background-color: $date-picker-colour !important;
+  }
+  .month_select,
+  .year_select,
+  .today {
+    border-color: $date-picker-colour !important;
+  }
+  .bar-footer,
+  .button-block {
+    background-color: $date-picker-colour !important;
+  }
+  .icon, .item-select:after {
+    color: $date-picker-colour !important;
+  }
+}
+
+// Fix list-inset margin to 0
+.list-inset {
+  margin: 0 !important;
+}
+
+.button-icon,
+.button-icon:hover,
+.button-icon:active {
+  color: $theme-color-2;
+}
+
+.ion-ios-calendar-outline {
+  width: 30px;
+  &:before {
+    height: 28px;
+    width: 28px;
+    content: ' ' !important;
+    background-image: url("../img/icons/calendar-theme.svg");
+    background-size: cover;
+  }
+}
+.ion-ios-clock-outline {
+  width: 30px;
+  &:before {
+    height: 28px;
+    width: 28px;
+    content: ' ' !important;
+    background-image: url("../img/icons/clock-theme.svg");
+    background-size: cover;
+  }
+}
+.ion-social-euro {
+  width: 30px;
+  &:before {
+    height: 28px;
+    width: 28px;
+    content: ' ' !important;
+    background-image: url("../img/icons/euro-theme.svg");
+    background-size: cover;
+  }
+}

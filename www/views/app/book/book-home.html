@@ -1,20 +1,19 @@
 <ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
+
 <ion-content >
 
+    <label class="item item-input">
+      <form class="container">
+        <input type="text" placeholder="Votre adresse">
+      </form>
+      <button class="icon icon-filter" ng-click="showFiltersPopup()"></button>
+    </label>
 
-    <div class="search-bar">
-        <input placeholder="Votre adresse"/>
-    </div>
-    <div class="button-bar">
-        <a class="button" ng-class="{'button-small': isActive('Recherche')}" ng-click="setActive('Recherche')">Recherche</a>
-        <a class="button" ng-class="{'button-small': isActive('Résultat')}" ng-click="setActive('Résultat')">Résultat</a>
-    </div>
-
-    <ion-list ng-show="isActive('Recherche')" >
+    <ion-list>
 
       
         <ion-card ng-repeat="group in groups" 
-                  ng-click="toggleGroup(group)"
+                  ng-click="openGroup(group)"
                   ng-class="{active: isGroupShown(group)}">
           <img ng-src='{{group.img}}'/>
           <ion-card-content>
@@ -27,86 +26,7 @@
           </ion-item>
         </ion-card>
 
-    </ion-list>
-
-
-    <div ng-show="isActive('Résultat')" ng-if="providers.length > 0">
-      <div class="products-list background-gray">
-
-
-        <div class="product-list-item" ng-repeat="provider in providers">
-
-          <div class="card-4" ng-controller="PickBookingTimeCtrl">
-
-              <div class="list card">
-
-                <div class="item" ng-click="bookPerService(provider)">
-                    <img src="{{provider.picture}}">
-                    <div class="description">
-                      <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
-                    <!--<p>Inscription: {{provider.membersince}}</p>-->
-
-                      <h4 class="price">€€</h4>
-  <!--
-                      <div class="row" ng-repeat="pricing in provider.Pricing">
-
-                          <h4>{{provider.Pricing.Price}}</h4>
-
-                      </div>
-  -->
-
-                      <div class="row">
-                          <span class="name-text">{{provider.qualification1}} 
-                            {{provider.qualification1 ? '|' : ' '}}
-                            {{provider.qualification2}} 
-                            {{provider.qualification2 ? '|' : ' '}}
-                            {{provider.qualification3}} 
-                            {{provider.qualification3 ? '|' : ' '}}
-                            {{provider.qualification4}} 
-                          </span>
-                      </div>
-
-
-                  </div>
-                </div>
-
-                  <script id="details-modal.html" type="text/ng-template">// <![CDATA[
-
-
-                  <ion-modal-view>
-
-                      <div class="container-fluid">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="list-group">
-                                      <a href="#" class="list-group-item active">Home</a>
-                                      <div class="list-group-item">
-                                          List header
-                                      </div>
-                                      <div class="list-group-item">
-                                          <h4 class="list-group-item-heading">
-                                              List group item heading
-                                          </h4>
-                                          <p class="list-group-item-text">
-                                              ...
-                                          </p>
-                                      </div>
-                                      <div class="list-group-item">
-                                          <span class="badge">14</span>Help
-                                      </div> <a class="list-group-item active"><span class="badge">14</span>Help</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                  </ion-modal-view>
-                  // ]]></script>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
- 
+    </ion-list> 
 
   </ion-content>
 </ion-view>

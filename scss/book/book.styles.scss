@@ -1,20 +1,40 @@
+/*
+ * Book base styles
+ */
+.item-borderless {
+  padding: 5px 0;
+}
+.item-checkbox {
+  padding-left: 0px;
+  padding-right: 50px;
+}
+.checkbox {
+  padding-right: 0;
+}
+.checkbox-icon 
+{
+  float: right;
+}
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before
+  {
+    background-color: $theme-color-2;
+    border-color: $theme-color-2;
+  }
+.item-text {
+  display: inline-block;
+  vertical-align: middle;
+  color: $provider-qualification-color;
+}
+
+/*
+ * Book home styles
+ */
+
 body {
     cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
 
-.list .item.item-accordion {
-    line-height: 38px;
-    padding-top: 0;
-    padding-bottom: 0;
-    transition: 0.09s all linear;
-}
-.list .item.item-accordion.ng-hide {
-    line-height: 0px;
-}
-.list .item.item-accordion.ng-hide-add,
-.list .item.item-accordion.ng-hide-remove {
-    display: block !important;
-}
+
 .search-bar
 {
   padding: 0 20px;
@@ -33,7 +53,9 @@ ion-card
     height: 140px;
     width: 100vw;
     object-fit: cover;
-    margin: 10px 0;
+  }
+  ion-card-content {
+    padding: 10px 0;
   }
 }
 ion-card-title
@@ -114,4 +136,399 @@ ion-card-title
 }
 provider-list-item {
   
+}
+
+
+/*
+ * Filters popup 
+ */
+
+.top-button {
+  padding: 5px 5px;
+  button {
+    font-size: 18px;
+  }
+}
+.title-filtre {
+  margin-top: 15px;
+}
+.filters-wrapper {
+  padding: 10px 30px;
+  @include clearfix;
+  h2 {
+    display: inline-block;
+    color: $theme-color-2;
+    font-size: 22px;
+    font-weight: 300;
+    text-align: left;
+    text-transform: capitalize;
+    letter-spacing: 3px;
+    padding-left: 10px;
+  }
+  i {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    &:before {
+      width: 18px;
+      height: 18px;
+      margin-bottom: 4px;
+    }
+  }
+  .item-borderless {
+    padding: 0;
+  }
+}
+.filter-container {
+  padding: 5px 20px;
+}
+.group-container {
+  padding: 10px 0 10px 35px;
+  width: 100%;
+  white-space: normal;
+}
+.checkbox-container {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  .filter-checkbox {
+    display: inline-block;
+    padding: 4px 6px;
+    border: 1px solid tint($theme-grey, 30%);
+    @include border-radius(15px);
+    color: $theme-grey;
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
+  input {
+    display: none;
+  }
+  input:checked + .filter-checkbox {
+    color: $theme-color-2;
+    border-color: tint($theme-color-2, 30%);
+  }
+}
+$slider-radius: 26px;
+.group-container.price {
+  padding-left: 25px;
+  padding-right: 10px;
+}
+.price-range {
+  box-sizing: border-box;
+  width: 100%;
+  td {
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    padding: 2px 0;
+    width: 33%;
+    z-index: 1;
+    label {
+      color: $theme-grey;
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 16px;
+      &.container {
+        position: relative;
+      }
+    }
+  }
+  .s1 .container{
+    padding-left: 8px;
+  }
+  .s3{
+    padding-right: 8px;
+  }
+  input {
+    display: none;
+  }
+}
+.state {
+  position: relative;
+  background-color: transparent;
+  border-radius: 50%;
+  width: $slider-radius;
+  height: $slider-radius;
+  text-align: center;
+  font-weight: 400;
+  z-index: 200;
+  input:checked + & {
+    background-color: $theme-color-2;
+  }
+}
+.line {
+  position: absolute;
+  border-bottom: 2px solid tint($theme-grey, 80%);
+  width: 100%;
+  top: 50%;
+  @include transform(translateY(-50%));
+  z-index: 1;
+}
+.s2 .state {
+  margin: 0 auto;
+}
+.s3 .state {
+  float: right;
+}
+.label-row .s1 {
+  text-align: left;
+}
+.label-row .s3 {
+  text-align: right;
+  padding-right: 0
+}
+/*
+ * Book provider
+ */
+
+.add-to-cart-popup, .book-provider {
+  .popup {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    top: 0;
+    left:0;
+    background-color: #FFF;
+    border-radius: 4px;
+    position: relative;
+    @include border-radius(0px);
+  }
+
+  .popup-head {
+    padding: 0px;
+    height: 60px; 
+    border: 0;
+  }
+  .popup-title {
+    color: $theme-color-2;
+  }
+ .title-image  {
+    margin-top: 14px;
+    height: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .item-body
+  {
+    padding: 0;
+  }
+  .provider-info
+  {
+    padding: 18px 12px 34px;
+  }
+  .card-title
+  {
+    font-weight: 600;
+    color: $theme-color-2;
+    font-size: 20px;  
+    margin: 0;
+  }
+  .card-description
+  {
+    color: #b2b2b2;
+    font-size: 14px;
+    line-height: 16px;
+    white-space: normal;
+    margin: 7px 0;
+  }
+  .popup-body {
+    padding: 0;
+    .list.card {
+      margin: 0;
+      .item-image {
+          max-height: 200px;
+          @include border-radius(0px);
+      }
+    }
+  } 
+  .list.card {
+    margin: 0;
+  }
+}
+.skill-shop {
+  padding: 10px 12px;
+  border-top: solid 1px lighten(#b2b2b2, 20%);
+}
+.skill-desc {
+  max-width: 75%;
+  font-size: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skill-price {
+  float: right;
+  font-weight: 600;
+}
+.popup-buttons {
+  min-height: 50px;
+  padding: 0;
+  .button {
+    background-color: $theme-color-2;
+    color: #FFF;
+    border-radius: 0px;
+    font-weight: 500;
+    min-height: 50px;
+    height: 50px;
+    font-size: 14px;
+    border: none;
+  }
+  .close-popup {
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    background-color: #FFF;
+    color: $theme-color-2; //lighten($shop-text-color, 15%);;
+    border: none;
+    padding: 8px;
+    min-width: 0px;
+    min-height: 0px;
+    margin: 0px;
+    margin-top: -3px;
+    display: inline-block;
+    font-family: "Ionicons";
+    font-size: 26px;
+  }
+}
+
+/*
+ * Add Booking (datepicker)
+ */
+.book-home-view {
+  .list-inset {
+    padding: 0;
+    * {
+      border-left-width: 0;
+      border-right-width: 0;
+      border-top-width: 0;
+    }
+  }
+  .list {
+    padding: 0;
+  }
+  .item-text {
+    font-weight: 500;
+  }
+  
+}
+.item-date {
+  padding: 0;
+  .button-bar-month {
+    border-bottom: 1px solid #CCC;
+  }
+  .button-bar .button {
+    background-color: transparent;
+  }
+}
+.item-time {
+  background-color: #f1f0f0;
+  .item-radio {
+    border-bottom: 2px solid #d1d1d1;
+  }
+  @include border-radius(0px !important);
+  * {
+    background-color: transparent !important;
+  }
+}
+.item-radio input,
+.radio-icon {
+  position: absolute !important;
+  top: 25% !important;
+  right: 16px !important;
+  width: $checkbox-width !important;
+  height: $checkbox-height !important;
+  display: block !important;
+  border: 0 !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  -webkit-appearance: none !important;
+  float: right !important;
+
+  &:before {
+    // what the checkbox looks like when its not checked
+    display: table !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-width: 0 !important;
+    border-style: solid !important;
+    border-radius: $checkbox-border-radius !important;
+    background: $theme-color-2 !important;
+    content: ' ' !important;
+    @include transition(background-color 20ms ease-in-out);
+  }
+}
+
+.item-radio input:checked:before,
+input:checked + .radio-icon:before {
+  border-width: $checkbox-border-width + 1 !important;
+}
+
+// the checkmark within the box
+.item-radio input:after,
+.radio-icon:after {
+  @include transition(opacity .05s ease-in-out);
+  @include rotate(-45deg);
+  position: absolute !important;
+  top: 33% !important;
+  left: 25% !important;
+  display: table !important;
+  width: ($checkbox-width / 2) !important;
+  height: ($checkbox-width / 4) - 1 !important;
+  border: $checkbox-check-width solid $checkbox-check-color !important;
+  border-top: 0 !important;
+  border-right: 0 !important;
+  content: ' ' !important;
+  opacity: 0 !important;
+}
+.unchecked-radio {
+  position: absolute !important;
+  top: 25% !important;
+  right: 16px !important;
+  width: $checkbox-width !important;
+  height: $checkbox-height !important;
+  display: block !important;
+  border: 1px solid #b2b2b2 !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  -webkit-appearance: none !important;
+  float: right !important;
+  border-radius: $checkbox-border-radius;
+}
+
+/*
+ * Recap
+ */
+
+.recap-wrapper {
+  padding-top: 150px;
+  h2 {
+    color: $theme-color-2;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    h1 + & {
+      margin-top: 20px;
+    }
+  }
+  h3 {
+    color: $theme-grey;
+    font-size: 17px;
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h4 {
+    @extend h3;
+    text-transform: capitalize;
+    margin: 0 !important;
+  }
 }

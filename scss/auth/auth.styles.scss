@@ -4,7 +4,6 @@
 
 	ion-view
 	{
-		background-color: transparent;
 		box-shadow: none !important; // Need to set this with important to prevent awefull vertical line when transitioning
 	}
 
@@ -130,4 +129,48 @@
       font-weight: 500;
     }
   }
+}
+
+.button-fb {
+  @extend .button-theme;
+  background-color: #3b5998;
+}
+.title-wrapper {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+.auth-logo {  
+  display: block;
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+.auth-title{
+  @extend .title-theme;
+}
+label.field {
+  border-bottom: 1px solid tint($auth-grey, 40%);
+  padding: 1px 0;
+  margin: 0 0 10px !important;
+  input {
+    height: 28px;
+  }
+  input[type="telephone"] {
+    border: none;
+    padding-left: 0;
+  }
+}
+.login-link {
+  padding-top: 30px;
+}
+.center {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  color: $auth-grey
+}
+.auth-description {
+  color: $auth-grey;
+  text-align: center;
 }

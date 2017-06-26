@@ -180,22 +180,77 @@ angular.module('izza', [
       }
     })
   
+    .state('app.book.category', {
+      url: "/category/{groupInfo:json}",
+      views: {
+        'book-home': {
+          templateUrl: "views/app/book/categories.html",
+          controller: 'CategoryCtrl',
+          params: {
+            providerInfo: null
+          }
+        }
+      }
+    })
+  
+    .state('app.book.providers_list', {
+      url: "/providers/{subgroupInfo:json}",
+      views: {
+        'book-home': {
+          templateUrl: "views/app/book/providers.html",
+          controller: 'ProvidersCtrl',
+          params: {
+            providerInfo: null
+          }
+        }
+      }
+    })
+  
     .state('app.book.provider', {
-      url: "/book_provider/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
+      url: "/book_provider/{providerInfo:json}",
       views: {
         'book-home': {
           templateUrl: "views/app/book/book-provider.html",
-          controller: 'BookProviderCtrl'
+          controller: 'BookProviderCtrl',
+          params: {
+            providerInfo: null
+          }
         }
       }
     })
   
     .state('app.book.addbooking', {
-      url: "/book_addbooking/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
+      url: "/book_addbooking/{providerInfo:json}",
       views: {
         'book-home': {
           templateUrl: "views/app/book/addbooking.html",
           controller: 'PickBookingTimeCtrl',
+          params: {
+            obj: null
+          }
+        }
+      }
+    })
+  
+    .state('app.book.address', {
+      url: "/book_address/{reservationInfo:json}",
+      views: {
+        'book-home': {
+          templateUrl: "views/app/book/book_address.html",
+          controller: 'BookAddressCtrl',
+          params: {
+            obj: null
+          }
+        }
+      }
+    })
+  
+    .state('app.book.recap', {
+      url: "/book_recap/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
+      views: {
+        'book-home': {
+          templateUrl: "views/app/book/book_recap.html",
+          controller: 'BookRecapCtrl',
           params: {
             obj: null
           }
@@ -281,6 +336,12 @@ angular.module('izza', [
       url: '/signup',
       templateUrl: "views/auth/signup.html",
       controller: 'SignUpCtrl'
+    })
+  
+    .state('auth.signup_info', {
+      url: '/signup_info',
+      templateUrl: "views/auth/signup_info.html",
+      controller: 'SignUpInfoCtrl'
     })
 
     .state('auth.forgot-password', {

@@ -20,21 +20,20 @@
                     {{workProvider.qualification3 ? '|' : ' '}}
                     {{workProvider.qualification4}} 
                 </span>
-              <span class="post-likes"> + <b>{{ workProvider.likes }}</b></span>
             </p>
         </div>
         <div class="skill-shop">
-           <ion-list ng-repeat="skill in workProvider.skillsandprice">
-            <ion-item  class="item-borderless">
+           <ion-list>
+            <ion-item  class="item-borderless" ng-repeat="skill in workProvider.skillsandprice">
 
                 <ion-checkbox class="item-borderless" ng-model="skill.selected">
 
                     <div class="item-borderless">
-                        <div class="skill-text skill-desc">
+                        <div class="item-text skill-desc">
                             {{skill.description}}
                         </div>
 
-                        <div class="skill-text skill-price">
+                        <div class="item-text skill-price">
                             {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
                         </div>
                     </div>

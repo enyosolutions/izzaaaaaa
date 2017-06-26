@@ -1,45 +1,46 @@
-.item {
-  background: transparent;
-  border: none;
-  color: rgba(darken($menu-color, 1%), .8);
-  border-left: 3px solid transparent;
-  .item-content {
+ion-side-menu {  
+  .item {
     background: transparent;
+    border: none;
+    color: rgba(darken($menu-color, 1%), .8);
+    border-left: 3px solid transparent;
+    .item-content {
+      background: transparent;
 
-    &.activated {
-      border-color: transparent;
-      background-color: transparent;
-      color: $menu-color;
+      &.activated {
+        border-color: transparent;
+        background-color: transparent;
+        color: $menu-color;
 
-      .menu-text {
-        color: $menu-profile-color;
+        .menu-text {
+          color: $menu-profile-color;
+        }
       }
     }
-  }
 
-  &.active {
-    border-color: transparent;
-    background-color: transparent;
-    border-left-color: $menu-active-bg;
+    &.active {
+      border-color: transparent;
+      background-color: transparent;
+      border-left-color: $menu-active-bg;
 
-    .item-content {
-      border-color: transparent !important;
-      background-color: transparent !important;
-      color: $menu-color !important;
+      .item-content {
+        border-color: transparent !important;
+        background-color: transparent !important;
+        color: $menu-color !important;
+      }
+
+      .menu-text {
+        color: $menu-color;
+        font-weight: 500;
+      }
     }
 
     .menu-text {
-      color: $menu-color;
-      font-weight: 500;
+      color: rgba(darken($menu-color, 2%), 2);
+      margin-left: -5px;
     }
   }
-
-  .menu-text {
-    color: rgba(darken($menu-color, 2%), 2);
-    margin-left: -5px;
-  }
 }
-
 .menu-profile
 {
   display: block;

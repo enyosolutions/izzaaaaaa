@@ -1,63 +1,57 @@
 <ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
-    <div class="select-option-wrapper">
-        <div>
+  <ion-nav-header></ion-nav-header>
+  <ion-content>
+    <div class="book-provider select-option-wrapper">
 
-            <ion-list ng-repeat="skill in workProvider.skillsandprice">
-                <ion-item  class="item-borderless">
+      <div class="list card">
+
+          <div class="item item-image">
+              <img ng-src="{{provider.picture}}">
+          </div>
+
+          <div class="item item-body">
+            <div class="provider-info">
+                <h2 class="card-title">{{provider.firstname}} {{provider.lastname}}</h2>
+
+                <p class="card-description">
+                    <span class="name-text">
+                        {{provider.qualification1}} 
+                        {{provider.qualification1 ? '|' : ' '}}
+                        {{provider.qualification2}} 
+                        {{provider.qualification2 ? '|' : ' '}}
+                        {{provider.qualification3}} 
+                        {{provider.qualification3 ? '|' : ' '}}
+                        {{provider.qualification4}} 
+                    </span>
+                </p>
+            </div>
+            <div class="skill-shop">
+               <ion-list>
+                <ion-item  class="item-borderless" ng-repeat="skill in provider.skillsandprice">
 
                     <ion-checkbox class="item-borderless" ng-model="skill.selected">
 
-                        <div class="card item-text-wrap item-borderless">
-                            <div class="item">
+                        <div class="item-borderless">
+                            <div class="item-text skill-desc">
                                 {{skill.description}}
                             </div>
 
-                            <div class="item">
+                            <div class="item-text skill-price">
                                 {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
                             </div>
                         </div>
 
                     </ion-checkbox>
                 </ion-item>
-            </ion-list>
-        </div>
-      
-      <div class="list card">
-
-          <div class="item item-image">
-              <img ng-src="{{picture}}">
-          </div>
-
-          <div class="item item-body">
-            
-            <div class="col col-50">
-              <h2 class="card-title">{{provider.title}} {{provider.firstname}} {{provider.lastname}}</h2>
-
-              <p class="card-description">
-                <a class="card-user-name" ui-sref="app.profile.posts({userId:provider.email})">
-                  <span class="card-avatar-image-outer">
-                    <pre-img ratio="_1_1" helper-class="avatar-image rounded-image">
-                      <img ng-src="{{post.user.picture}}" spinner-on-load>
-                    </pre-img>
-                  </span>
-
-                  <span class="name-text">{{provider.qualification1}} {{provider.qualification2}} {{provider.qualification3}} {{provider.qualification4}}</span>
-                </a>
-                <span class="post-likes"> + <b>{{ provider.likes }}</b></span>
-              </p>
-            </div>
-
-            <div class="col col-30">
-                <div class="card">
-                  <div class="item item-text-wrap">
-                    {{provider.profile}}
-                  </div>
-                </div>
+              </ion-list>
             </div>
         </div>
       </div>
-
-  </div>
+    </div>
+  </ion-content>
+    <button class="button button-theme fixed" ng-click="continuetoDate()">
+        Suivant
+    </button>
 
 </ion-view>
 

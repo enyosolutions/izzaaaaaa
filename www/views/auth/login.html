@@ -3,15 +3,14 @@
     <ion-nav-back-button>
     </ion-nav-back-button>
     <ion-nav-title>
-      <span>Log In with Email</span>
+      <span><img class="title-image" src="img/logo.png" /></span>
     </ion-nav-title>
-    <ion-nav-buttons side="right">
-      <a class="button button-clear button-light" ui-sref="app.book">
-        Skip
-      </a>
-    </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content class="padding">
+  <ion-content>
+    <div class="title-wrapper">
+        <img class="auth-logo" src="img/auth_logo.png"/>
+        <h1 class="auth-title">Inscription</h1>
+    </div>
     <div class="row related-navigation">
       <div class="col">
         <a class="nav-left button button-clear" ui-sref="auth.forgot-password">
@@ -27,18 +26,25 @@
         <form name="login_form" class="" novalidate>
           <div class="form-fields-outer list list-inset">
             <label class="item item-input">
-              <input type="email" placeholder="Email" name="email" ng-model="user.email" required>
+              <input type="email" placeholder="Adresse mail" name="email" ng-model="user.email" required>
             </label>
             <label class="item item-input" show-hide-container>
-              <input type="password" placeholder="Password" name="password" ng-model="user.password" required show-hide-input>
+              <input type="password" placeholder="Mot de passe" name="password" ng-model="user.password" required show-hide-input>
             </label>
           </div>
-          <button type="submit" class="log-in button button-block" ng-click="doLogIn()" ng-disabled="login_form.$invalid">
-            Log In
-          </button>
+
           <p ng-show="error" class="message error">{{error}}</p>
         </form>
       </div>
     </div>
+    <div class="login-btns fixed">
+        <a class="link login-link center" ui-sref="auth.signup">
+              Mot de passe oublié
+          </a>
+        <button type="submit" class="log-in button button-theme" ng-click="doLogIn()" ng-disabled="login_form.$invalid">
+                Se connecter
+        </button>
+    </div>
   </ion-content>
+
 </ion-view>

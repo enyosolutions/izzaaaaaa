@@ -1,0 +1,101 @@
+<div class="filters-popup-wrapper">
+
+    <div class="top-button">
+        <button class="button button-left button-icon ion-chevron-left"  ui-sref="app.bookings.home">
+        </button> 
+    </div>
+    <h1 class="title-theme title-filtre">Filtre</h1>
+    <form name="login_form" class="container" novalidate>
+      <div class="filters-wrapper">
+          <ion-list>
+              <ion-item class="item-borderless">
+                  <div>
+                      <i class="ion-ios-calendar-outline " ></i>
+                      <h2>Date</h2>
+                  </div>
+                  <div class="group-container">
+                      <div class="checkbox-container">
+                          <input type="checkbox" id="today">
+                          <label class="filter-checkbox" for="today">
+                              Aujourd'hui
+                          </label>
+                      </div>
+                      <div class="checkbox-container">
+                          <input type="checkbox" id="tomorrow">
+                          <label class="filter-checkbox" for="tomorrow">
+                              Demain
+                          </label>
+                      </div>
+                      <div class="checkbox-container">
+                          <input type="checkbox" id="next_week">
+                          <label class="filter-checkbox" for="next_week">
+                              La semaine prochaine
+                          </label>
+                      </div>
+                  </div>
+              </ion-item>
+              <ion-item class="item-borderless">
+                  <div>
+                      <i class="ion-ios-clock-outline " ></i>
+                      <h2>Heure</h2>
+                  </div>
+                  <div class="group-container">
+                      <div class="checkbox-container">
+                          <input type="checkbox" id="morning">
+                          <label class="filter-checkbox" for="morning">
+                              Matin
+                          </label>
+                      </div>
+                      <div class="checkbox-container">
+                          <input type="checkbox" id="afternoon">
+                          <label class="filter-checkbox" for="afternoon">
+                              Après-midi
+                          </label>
+                      </div>
+                  </div>
+              </ion-item>
+              <ion-item class="item-borderless">
+                  <div>
+                      <i class="ion-social-euro" ></i>
+                      <h2>Prix</h2>
+                  </div>
+                  <div class="group-container price">
+                    <table class="price-range">
+                        <tr>
+                            <td class="s1"> 
+                              <label class="container">
+                                <input type="radio" name="price" value="1" checked>
+                                <div class="state"></div><!--
+                             --><div class="line"></div>
+                              </label>
+                            </td>
+                            <td class="s2">
+                              <label class="container">
+                                <div class="line"></div>
+                                <input type="radio" name="price" value="2">
+                                <div class="state"></div>
+                              </label>
+                            </td>
+                            <td class="s3"> 
+                              <label class="container">
+                                <div class="line"></div>
+                                <input type="radio" name="price" value="3">
+                                <div class="state"></div>
+                              </label>
+                            </td>
+                        </tr>
+                        <tr class="label-row">
+                            <td class="s1"><label>€</label></td>
+                            <td class="s2"></td>
+                            <td class="s3"><label>€€€</label></td>
+                        </tr>
+                    </table>
+                  </div>
+              </ion-item>
+          </ion-list>
+      </div>
+      <button type="submit" class="button button-theme fixed" ng-click="applyFilter()">
+           Valider
+      </button>
+    </form>
+</div>

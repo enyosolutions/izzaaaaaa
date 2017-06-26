@@ -59,6 +59,13 @@ angular.module('izza.auth.controllers', [])
 
 .controller('SignUpCtrl', function($scope, $state){
 	$scope.doSignUp = function(){
+		console.log("continuing to supplementary info");
+		$state.go('auth.signup_info');
+	};
+})
+
+.controller('SignUpInfoCtrl', function($scope, $state){
+	$scope.doSignUp = function(){
 		console.log("doing sign up");
 		$state.go('app.book.home');
 	};
@@ -66,7 +73,7 @@ angular.module('izza.auth.controllers', [])
 
 .controller('ForgotPasswordCtrl', function($scope, $state){
 	$scope.requestNewPassword = function() {
-    console.log("requesting new password");
+                console.log("requesting new password");
 		$state.go('app.book.home');
   };
 })
