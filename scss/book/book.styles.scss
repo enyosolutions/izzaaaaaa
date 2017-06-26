@@ -462,7 +462,7 @@ $slider-radius: 26px;
     height: 100% !important;
     border-width: 0 !important;
     border-style: solid !important;
-    border-radius: $checkbox-border-radius !important;
+    border-radius: 50% !important;
     background: $theme-color-2 !important;
     content: ' ' !important;
     @include transition(background-color 20ms ease-in-out);
@@ -472,6 +472,7 @@ $slider-radius: 26px;
 .item-radio input:checked:before,
 input:checked + .radio-icon:before {
   border-width: $checkbox-border-width + 1 !important;
+  margin-right: -1px;
 }
 
 // the checkmark within the box
@@ -494,7 +495,7 @@ input:checked + .radio-icon:before {
 .unchecked-radio {
   position: absolute !important;
   top: 25% !important;
-  right: 16px !important;
+  right: 17px !important;
   width: $checkbox-width !important;
   height: $checkbox-height !important;
   display: block !important;
@@ -504,7 +505,7 @@ input:checked + .radio-icon:before {
   padding: 0 !important;
   -webkit-appearance: none !important;
   float: right !important;
-  border-radius: $checkbox-border-radius;
+  border-radius: 50% !important;
 }
 
 /*

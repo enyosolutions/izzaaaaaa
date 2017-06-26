@@ -12,8 +12,7 @@
     <ion-list>
    
         <ion-card ng-repeat="subgroup in subgroups" 
-                  ng-click="openSubgroup(subgroup)"
-                  ng-class="{active: isGroupShown(group)}">
+                  ng-click="openSubgroup(subgroup)">
           
             <img ng-src='{{subgroup.img}}'/>
             <ion-card-content>

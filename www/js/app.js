@@ -233,7 +233,7 @@ angular.module('izza', [
     })
   
     .state('app.book.address', {
-      url: "/book_address/{reservationInfo:json}",
+      url: "/book_address/{providerInfo:json}",
       views: {
         'book-home': {
           templateUrl: "views/app/book/book_address.html",
