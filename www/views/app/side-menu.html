@@ -1,62 +1,59 @@
-<ion-side-menus enable-menu-with-back-views="true">
-    <ion-side-menu-content>
-      
-        <ion-nav-view name="menuContent" ><ion-header></ion-header> </ion-nav-view>
-        <ion-nav-bar align-title="center" class="bar bar-header">
-
-              <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
-
-              <ion-nav-buttons side="left">
-                    <button class="button button-left button-icon button-clear ion-ios-calendar-outline"  ui-sref="app.bookings.home">
-                    </button>
-              </ion-nav-buttons>
-          
-              <ion-nav-buttons side="right">
-                    <button class="button button-right button-icon button-clear ion-navicon" menu-toggle="left">
-                    </button>
-              </ion-nav-buttons>
-          
-        </ion-nav-bar>
-    </ion-side-menu-content>
-
-  <ion-side-menu side="left">
-    <ion-header class="menu-profile">
-        <div class="row menu-top-options">
-          <ion-list>
-              <ion-item ui-sref-active="active"  menu-close ui-sref="app.profile">
-                <div class="avatar">
-                    <img class="user-image" ng-src="{{loggedUser.picture}}">
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu side="left">
+        <ion-header class="menu-profile">
+            <div class="row menu-top-options">
+                <ion-list>
+                    <ion-item ui-sref-active="active" menu-close ui-sref="app.profile">
+                        <div class="avatar">
+                            <img class="user-image" ng-src="{{loggedUser.picture}}">
+                        </div>
+                        <h2 class="menu-text">{{loggedUser.name}}</h2>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-header>
+        <ion-content has-bouncing="false" scroll="false" class="menu-outer left-menu">
+            <div class="row menu-bottom-options">
+                <div class="col col-top">
+                    <ion-list>
+                        <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.book.home">
+                            <h2 class="menu-text">Réserver</h2>
+                        </ion-item>
+                        <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.bookings.home">
+                            <h2 class="menu-text">Mes Réservations</h2>
+                        </ion-item>
+                        <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.home">
+                            <h2 class="menu-text">Profile</h2>
+                        </ion-item>
+                    </ion-list>
                 </div>
-                <h2 class="menu-text">{{loggedUser.name}}</h2>
-              </ion-item>
-            </ion-list>
-        </div>
-    </ion-header>
-    <ion-content has-bouncing="false" scroll="false" class="menu-outer left-menu">
-        <div class="row menu-bottom-options">
-          <div class="col col-top">
-            <ion-list>
-              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.book.home">
-                <h2 class="menu-text">Réserver</h2>
-              </ion-item>
-              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.bookings.home">
-                <h2 class="menu-text">Mes Réservations</h2>
-              </ion-item>
-                <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.profile.home">
-                    <h2 class="menu-text">Profile</h2>
-                </ion-item>
-            </ion-list>
-          </div>
-        </div>
-        <div class="row menu-legal-options">
-          <div class="col col-top">
-            <ion-list>
-              <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.legal.legal-notice">
-                <h2 class="menu-text">Mentions Légales</h2>
-              </ion-item>
-            </ion-list>
-          </div>
-        </div>
-    </ion-content>
-  </ion-side-menu>
+            </div>
+            <div class="row menu-legal-options">
+                <div class="col col-top">
+                    <ion-list>
+                        <ion-item ui-sref-active="active" class="item-icon-left" menu-close ui-sref="app.legal.legal-notice">
+                            <h2 class="menu-text">Mentions Légales</h2>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </div>
+        </ion-content>
+    </ion-side-menu>
+    <ion-side-menu-content>
+        <ion-nav-bar align-title="center" class="bar bar-header">
+            <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-right button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+            <ion-nav-title align-title="center">
+                <img class="title-image" src="img/logo.png" />
+            </ion-nav-title>
+            <ion-nav-buttons side="right">
+                <button class="button button-left button-icon button-clear ion-ios-calendar-outline" ui-sref="app.bookings.home">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
 </ion-side-menus>

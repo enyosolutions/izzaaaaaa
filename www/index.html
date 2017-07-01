@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
     <title></title>
-
-
-
     <link href="css/ionic.app.css" rel="stylesheet">
     <link href="css/calendar.css" rel="stylesheet">
-    <link rel="stylesheet" href="lib/ionic-calendar/dist/css/calendar.min.css"/>
-
+    <link rel="stylesheet" href="lib/ionic-calendar/dist/css/calendar.min.css" />
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script>
-      // require this script before your document is done loading
-      ;(function () {
+    // require this script before your document is done loading
+    ;
+    (function() {
         var isDroid = navigator.userAgent.match(/Android/)
         var isiOS = navigator.userAgent.match(/(iPhone|iPod|iPad)/)
 
         if (isDroid) {
-          console.log("Connect from Droid");
-          $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
-        }
-        else if (isiOS) {
-          console.log("Connect from iOS");
-          $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+            console.log("Connect from Droid");
+            $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+        } else if (isiOS) {
+            console.log("Connect from iOS");
+            $('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
 
-        }
-        else {
-          console.log("Connect from Browser");
-          //$('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
+        } else {
+            console.log("Connect from Browser");
+            //$('head').append('<script type="text/javascript" src="cordova.js">' + '<\/script>');
 
 
 
         }
-      })();
-
+    })();
     </script>
-
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
     <script src="lib/moment/moment.js"></script>
@@ -48,19 +42,20 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/routes.js"></script>
     <script src="js/common/common.directives.js"></script>
     <script src="js/auth/auth.controllers.js"></script>
     <script src="js/app/app.controllers.js"></script>
     <script src="js/app/app.services.js"></script>
-    <script src="js/views.js"></script>
     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
     <script src="lib/ngstorage/ngStorage.js"></script>
     <script src="lib/ng-lodash/build/ng-lodash.min.js"></script>
     <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
     <script src="lib/ionic-calendar/dist/js/calendar-tpls.min.js"></script>
-  </head>
-  <body ng-app="izza">
-    <ion-nav-view view-title='<img class="title-image" src="img/logo.png" />'></ion-nav-view>
+</head>
 
-  </body>
+<body ng-app="izza">
+    <ion-nav-view view-title='<img class="title-image" src="img/logo.png" />'></ion-nav-view>
+</body>
+
 </html>

@@ -1,32 +1,30 @@
-<ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-address">
-
+<ion-view class="book-address">
     <ion-content>
         <div class="background-gray has-profile-pic">
-        <div class="field-card tall">
-            <!--  <ion-scroll direction="y" >-->
-            <ion-list>
-                <ion-item>
-                    <label class="item item-input" name="adresse">
-                        <span class="input-label">Adresse</span>
-                        <textarea  class="field address-text"cols="23" rows="4" type="text" placeholder="Entrez votre adresse" value="{{$storage.profile.street1}} {{$storage.profile.street2}} {{$storage.profile.city}} {{$storage.profile.codepostal}}" ng-model="$booking.address" tabindex="1" required></textarea>
-                    </label>
-                </ion-item>
-            </ion-list>
-          </div>
-
-          <div class="field-card tall">
-              <ion-list>
-                <ion-item>
-                    <label class="item item-input" name="Message">
-                        <span class="input-label">Message</span>
-                        <textarea class="field message-text"  cols="23" rows="6" type="text" placeholder="Laisser un message au préstataire" value="" ng-model="$booking.message" tabindex="2" required></textarea>
-                    </label>
-                </ion-item>
-              </ion-list>
-          </div>
-      </div>
-    </ion-content>  
+            <div class="field-card tall">
+                <!--  <ion-scroll direction="y" >-->
+                <ion-list>
+                    <ion-item>
+                        <label class="item item-input" name="adresse">
+                            <span class="input-label">Adresse</span>
+                            <textarea class="field address-text" cols="23" rows="4" type="text" placeholder="Entrez votre adresse" value="{{$storage.profile.street1}} {{$storage.profile.street2}} {{$storage.profile.city}} {{$storage.profile.codepostal}}" ng-model="$booking.address" tabindex="1" required></textarea>
+                        </label>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="field-card tall">
+                <ion-list>
+                    <ion-item>
+                        <label class="item item-input" name="Message">
+                            <span class="input-label">Message</span>
+                            <textarea class="field message-text" cols="23" rows="6" type="text" placeholder="Laisser un message au préstataire" value="" ng-model="$booking.message" tabindex="2" required></textarea>
+                        </label>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
     <button class="button button-full button-theme fixed" ng-click="confirmBooking()">
-      Suivant
+        Suivant
     </button>
 </ion-view>

@@ -5,7 +5,8 @@ angular.module('izza.app.services', [])
 .service('RemoteDirectory', function() {
     //this.api_url =  'https://localhost:8443';
     //this.api_url = "https://001.izza.co";
-    this.api_url = "http://dev.olivierlinsicheng.com:8094";
+    // this.api_url = "http://dev.olivierlinsicheng.com:8093";
+    this.api_url = "http://alphalabx.com:3000";
 
     //this.api_url =  'https://192.168.1.2:8443';
     // this.api_url =  'http://localhost:3000';
@@ -228,6 +229,19 @@ angular.module('izza.app.services', [])
 
         ;
         return dfd.promise;
+    };
+    this.getCategories = function() {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/categories';
+        console.log('Loading res from:' + url);
+        var dfd = $http.get(url);
+        dfd.success(function(database) {
+            console.log("resolved database getting categories.");
+        }).error(function(err) {
+            console.log('Error loading categories...' + err);
+        })
+
+        ;
+        return dfd;
     };
 
     this.getProviders = function(categoryName) {

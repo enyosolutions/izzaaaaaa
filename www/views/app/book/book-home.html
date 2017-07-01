@@ -1,32 +1,32 @@
-<ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
-
-<ion-content >
-
-    <label class="item item-input address-search">
-      <form class="container">
-        <input type="text" placeholder="Votre adresse">
-      </form>
-    </label>
-    <button type="button" class="icon icon-filter" ng-click="showFiltersPopup()"></button>
-
-    <ion-list>
-
-      
-        <ion-card ng-repeat="group in groups" 
-                  ng-click="openGroup(group)"
-                  ng-class="{active: isGroupShown(group)}">
-          <img ng-src='{{group.img}}'/>
-          <ion-card-content>
-            <ion-card-title>
-              {{group.name}}
-            </ion-card-title>
-          </ion-card-content>
-          <ion-item class="item-accordion"  ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
-                     {{item}}
-          </ion-item>
-        </ion-card>
-
-    </ion-list> 
-
-  </ion-content>
+<ion-view class="book-home-view">
+    <ion-nav-view>
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-clear icon ion-navicon"></button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button header-item button-clear" menu-toggle="right"><i class="ionicons ion-more energized"></i>
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-view>
+    <ion-content>
+        <label class="item item-input address-search">
+            <form class="container">
+                <input type="text" placeholder="Votre adresse">
+            </form>
+        </label>
+        <button type="button" class="icon icon-filter" ng-click="showFiltersPopup()"></button>
+        <ion-list>
+            <ion-card ng-repeat="group in groups" ng-click="openGroup(group)" ng-class="{active: isGroupShown(group)}">
+                <img ng-src='{{group.img}}' />
+                <ion-card-content>
+                    <ion-card-title>
+                        {{group.name}}
+                    </ion-card-title>
+                </ion-card-content>
+                <ion-item class="item-accordion" ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+                    {{item}}
+                </ion-item>
+            </ion-card>
+        </ion-list>
+    </ion-content>
 </ion-view>

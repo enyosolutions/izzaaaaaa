@@ -1,59 +1,47 @@
-<ion-view view-title='<img class="title-image" src="img/logo.png" />' class="book-home-view">
-  <ion-nav-header></ion-nav-header>
-  <ion-content>
-    <div class="book-provider select-option-wrapper">
-
-      <div class="list card">
-
-          <div class="item item-image">
-              <img ng-src="{{provider.picture}}">
-          </div>
-
-          <div class="item item-body">
-            <div class="provider-info">
-                <h2 class="card-title">{{provider.firstname}} {{provider.lastname}}</h2>
-
-                <p class="card-description">
-                    <span class="name-text">
-                        {{provider.qualification1}} 
+<ion-view class="book-home-view">
+    <ion-nav-header></ion-nav-header>
+    <ion-content>
+        <div class="book-provider select-option-wrapper">
+            <div class="list card">
+                <div class="item item-image">
+                    <img ng-src="{{provider.picture}}">
+                </div>
+                <div class="item item-body">
+                    <div class="provider-info">
+                        <h2 class="card-title">{{provider.firstname}} {{provider.lastname}}</h2>
+                        <p class="card-description">
+                            <span class="name-text">
+                        {{provider.qualification1}}
                         {{provider.qualification1 ? '|' : ' '}}
-                        {{provider.qualification2}} 
+                        {{provider.qualification2}}
                         {{provider.qualification2 ? '|' : ' '}}
-                        {{provider.qualification3}} 
+                        {{provider.qualification3}}
                         {{provider.qualification3 ? '|' : ' '}}
-                        {{provider.qualification4}} 
+                        {{provider.qualification4}}
                     </span>
-                </p>
-            </div>
-            <div class="skill-shop">
-               <ion-list>
-                <ion-item  class="item-borderless" ng-repeat="skill in provider.skillsandprice">
-
-                    <ion-checkbox class="item-borderless" ng-model="skill.selected">
-
-                        <div class="item-borderless">
-                            <div class="item-text skill-desc">
-                                {{skill.description}}
-                            </div>
-
-                            <div class="item-text skill-price">
-                                {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
-                            </div>
-                        </div>
-
-                    </ion-checkbox>
-                </ion-item>
-              </ion-list>
+                        </p>
+                    </div>
+                    <div class="skill-shop">
+                        <ion-list>
+                            <ion-item class="item-borderless" ng-repeat="skill in provider.skillsandprice">
+                                <ion-checkbox class="item-borderless" ng-model="skill.selected">
+                                    <div class="item-borderless">
+                                        <div class="item-text skill-desc">
+                                            {{skill.description}}
+                                        </div>
+                                        <div class="item-text skill-price">
+                                            {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
+                                        </div>
+                                    </div>
+                                </ion-checkbox>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
-    </div>
-  </ion-content>
+    </ion-content>
     <button class="button-theme fixed" ng-click="continuetoDate(provider)">
         Suivant
     </button>
-
 </ion-view>
-
-
-

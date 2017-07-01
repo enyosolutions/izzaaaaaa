@@ -9,7 +9,8 @@
   ],
   "watchPatterns": [
     "www/**/*",
-    "!www/lib/**/*"
+    "!www/lib/**/*",
+    "scss/**/*"
   ],
   "documentRoot": "www",
   "type": "ionic1"

@@ -1,38 +1,29 @@
-<ion-view view-title='<img class="title-image" src="img/logo.png" />' class="providers-list-view">   
-  
-<ion-content>
-
-    <div class="products-list background-gray">
-      <div class="product-list-item" ng-repeat="provider in providers">
-
-          <div class="card-4" ng-controller="PickBookingTimeCtrl">
-
-              <div class="list card">
-
-                <div class="item" ng-click="bookPerService(providers[0])">
-                    <img src="{{provider.picture}}">
-                    <div class="description">
-                      <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
-
-                      <h4 class="price">€€</h4>
-
-                      <div class="row">
-                          <span class="name-text">{{provider.qualification1}} 
-                            {{provider.qualification1 ? '|' : ' '}}
-                            {{provider.qualification2}} 
+<ion-view class="providers-list-view">
+    <ion-content>
+        <div class="products-list background-gray">
+            <div class="product-list-item" ng-repeat="provider in providers">
+                <div class="card-4" ng-controller="PickBookingTimeCtrl">
+                    <div class="list card">
+                        <div class="item" ng-click="bookPerService(providers[0])">
+                            <img src="{{provider.picture}}">
+                            <div class="description">
+                                <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
+                                <h4 class="price">€€</h4>
+                                <div class="row">
+                                    <span class="name-text">{{provider.qualification1}}
                             {{provider.qualification2 ? '|' : ' '}}
-                            {{provider.qualification3}} 
+                            {{provider.qualification2}}
                             {{provider.qualification3 ? '|' : ' '}}
-                            {{provider.qualification4}} 
+                            {{provider.qualification3}}
+                            {{provider.qualification4 ? '|' : ' '}}
+                            {{provider.qualification4}}
                           </span>
-                      </div>
-
-                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-    
-  </ion-content>
+    </ion-content>
 </ion-view>
