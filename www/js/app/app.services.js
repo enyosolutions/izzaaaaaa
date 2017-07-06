@@ -19,8 +19,6 @@ angular.module('izza.app.services', [])
         this.api_url = url;
     };
 
-
-
 })
 
 .service('AuthService', function() {
@@ -40,173 +38,32 @@ angular.module('izza.app.services', [])
 
 })
 
-.service('PostService', function($http, $q) {
+.service('currentProvider', function() {
 
-        this.getPostComments = function(post) {
-            var dfd = $q.defer();
+    _.cloneDeep
 
-            $http.get('database.json').success(function(database) {
-                var comments_users = database.users;
+    this.bufferProvider = {};
+    this.currentProvider = {};
 
-                // Randomize comments users array
-                comments_users = window.knuthShuffle(comments_users.slice(0, post.comments));
+    this.bufferProvider = function() {
+        return _.cloneDeep(this.bufferProvider);
+    };
 
-                var comments_list = [];
-                // Append comment text to comments list
-                comments_list = _.map(comments_users, function(user) {
-                    var comment = {
-                        user: user,
-                        text: database.comments[Math.floor(Math.random() * database.comments.length)].comment
-                    };
-                    return comment;
-                });
+    this.setbufferProvider = function(provider) {
 
-                dfd.resolve(comments_list);
-            });
+        this.bufferProvider = _.cloneDeep(provider);
 
-            return dfd.promise;
-        };
+    };
 
-        this.getUserDetails = function(userId) {
-            var dfd = $q.defer();
+    this.currentProvider = function() {
+        return _.cloneDeep(this.currentProvider);
+    };
 
-            $http.get('database.json').success(function(database) {
-                //find the user
-                var user = _.find(database.users, function(user) {
-                    return user._id == userId;
-                });
-                dfd.resolve(user);
-            });
+    this.setcurrentProvider = function(provider) {
 
-            return dfd.promise;
-        };
-
-        this.getUserPosts = function(userId) {
-            var dfd = $q.defer();
-
-            $http.get('database.json').success(function(database) {
-
-                //get user posts
-                var userPosts = _.filter(database.posts, function(post) {
-                    return post.userId == userId;
-                });
-                //sort posts by published date
-                var sorted_posts = _.sortBy(userPosts, function(post) {
-                    return new Date(post.date);
-                });
-
-                //find the user
-                var user = _.find(database.users, function(user) {
-                    return user._id == userId;
-                });
-
-                //add user data to posts
-                var posts = _.each(sorted_posts.reverse(), function(post) {
-                    post.user = user;
-                    return post;
-                });
-
-                dfd.resolve(posts);
-            });
-
-            return dfd.promise;
-        };
-
-        this.getUserLikes = function(userId) {
-            var dfd = $q.defer();
-
-            $http.get('database.json').success(function(database) {
-                //get user likes
-                //we will get all the posts
-                var slicedLikes = database.posts.slice(0, 4);
-                // var sortedLikes =  _.sortBy(database.posts, function(post){ return new Date(post.date); });
-                var sortedLikes = _.sortBy(slicedLikes, function(post) {
-                    return new Date(post.date);
-                });
-
-                //add user data to posts
-                var likes = _.each(sortedLikes.reverse(), function(post) {
-                    post.user = _.find(database.users, function(user) {
-                        return user._id == post.userId;
-                    });
-                    return post;
-                });
-
-                dfd.resolve(likes);
-
-            });
-
-            return dfd.promise;
-
-        };
-
-        this.getFeed = function(page) {
-
-            var pageSize = 5, // set your page size, which is number of records per page
-                skip = pageSize * (page - 1),
-                totalPosts = 1,
-                totalPages = 1,
-                dfd = $q.defer();
-
-            $http.get('database.json').success(function(database) {
-
-                totalPosts = database.posts.length;
-                totalPages = totalPosts / pageSize;
-
-                var sortedPosts = _.sortBy(database.posts, function(post) {
-                        return new Date(post.date);
-                    }),
-                    postsToShow = sortedPosts.slice(skip, skip + pageSize);
-
-                //add user data to posts
-                var posts = _.each(postsToShow.reverse(), function(post) {
-                    post.user = _.find(database.users, function(user) {
-                        return user._id == post.userId;
-                    });
-                    return post;
-                });
-
-                dfd.resolve({
-                    posts: posts,
-                    totalPages: totalPages
-                });
-            });
-
-            return dfd.promise;
-        };
-    })
-    .service('currentProvider', function() {
-
-        _.cloneDeep
-
-        this.bufferProvider = {};
-        this.currentProvider = {};
-
-        this.bufferProvider = function() {
-            return _.cloneDeep(this.bufferProvider);
-        };
-
-        this.setbufferProvider = function(provider) {
-
-            this.bufferProvider = _.cloneDeep(provider);
-
-
-        };
-
-        this.currentProvider = function() {
-            return _.cloneDeep(this.currentProvider);
-        };
-
-        this.setcurrentProvider = function(provider) {
-
-            this.currentProvider = _.cloneDeep(provider);
-
-
-        };
-
-
-
-    })
+        this.currentProvider = _.cloneDeep(provider);
+    };
+})
 
 
 .service('BookingsService', function($http, $q, _, RemoteDirectory) {

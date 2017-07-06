@@ -18,7 +18,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 })
 
 
-.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, PostService, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
+.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
 
     $localStorage = $localStorage.$default({
         profile: {}
@@ -227,7 +227,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     }
 })
 
-.controller("PickBookingTimeCtrl", function($scope, currentProvider, PostService, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory) {
+.controller("PickBookingTimeCtrl", function($scope, currentProvider, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory) {
 
     $scope.params = $stateParams;
 
@@ -381,6 +381,24 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
+.controller('BookAddressCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
+
+    $scope.provider = $stateParams.providerInfo;
+
+    $scope.confirmBooking = function(provider) {
+        $state.go('app.book.recap', { providerInfo: provider });
+    };
+})
+
+.controller('BookRecapCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
+
+    $scope.provider = $stateParams.providerInfo;
+
+    $scope.confirmBooking = function(provider) {
+        console.log("Appointment successfully ");
+        $state.go('app.book.home');
+    };
+})
 
 .controller('ProvidersCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
 
