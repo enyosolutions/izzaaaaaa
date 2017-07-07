@@ -88,26 +88,21 @@ angular.module('izza.app.services', [])
         return dfd.promise;
     };
     this.getCategories = function() {
-        var url = RemoteDirectory.getAPISrvURL() + '/api/categories';
-        console.log('Loading res from:' + url);
-        var dfd = $http.get(url);
-        dfd.success(function(database) {
-            console.log("resolved database getting categories.");
-        }).error(function(err) {
-            console.log('Error loading categories...' + err);
-        })
-
-        ;
-        return dfd;
+          var url = RemoteDirectory.getAPISrvURL() + '/api/categories';
+          var cats= $http.get(url);
+          return cats;
     };
-
-    this.getProviders = function(categoryName) {
-        var dfd = $q.defer();
-        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/bycategory/' + encodeURIComponent(categoryName);
-        $http.get(url).success(function(database) {
-            dfd.resolve(database);
-        });
-        return dfd.promise;
+  
+    this.getAllProviders = function() {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/providers';
+        provs = $http.get(url);
+        return provs;
+    };
+  
+    this.getProviders = function(subcategoryName) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/bysubcategory/' + encodeURIComponent(subcategoryName);
+        provs = $http.get(url);
+        return provs;
     };
 
     this.cancelBooking = function(res_id) {

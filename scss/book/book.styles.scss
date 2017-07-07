@@ -139,10 +139,10 @@ provider-list-item {
 /*
  * Filters popup 
  */
-.popup-container .popup {
+.filter-popup.popup-container .popup {
   background-color: #FFF;
   top: 44px;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0;
   .popup-head {

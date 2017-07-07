@@ -32,6 +32,13 @@
 .button-icon:active {
   color: $theme-color-2;
 }
+.button-positive.activated {
+    background-color: $theme-color-2 !important;
+}
+.button.button-positive.activated {
+    background-color: $theme-color-2 !important;
+}
+
 
 .ion-ios-calendar-outline {
   width: 30px;

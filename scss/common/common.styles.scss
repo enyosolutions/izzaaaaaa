@@ -226,6 +226,9 @@ ion-spinner.spinner-on-load
     left: 0;
     width: 100%;
     z-index: 999;
+    &:after {
+      content: none !important;
+    }
   }
 }
 .fixed {
@@ -240,7 +243,7 @@ ion-spinner.spinner-on-load
 }
 .background-gray {
   background-color: #efefef;
-  //height: 100%;
+  min-height: 100vh;
   &.has-profile-pic{
     padding-top: 40px;
   }
@@ -252,6 +255,9 @@ ion-spinner.spinner-on-load
 .field-card {
   padding: 5px 10px;
   ion-list {
+    .toggle-small.item-toggle .toggle{
+      top: 10px;
+    }
     .list, form {
       background-color: #FFF;
       padding: 10px 20px;
@@ -303,8 +309,9 @@ ion-spinner.spinner-on-load
         border-color: $on-border-color;
         background-color: $on-bg-color;
           .handle {
-          -webkit-transform: translate3d(16px, 0, 0);
-          transform: translate3d(16px, 0, 0);
+            -webkit-transform: translate3d(16px, 0, 0);
+            transform: translate3d(16px, 0, 0);
+            background-color: #FFF;
           }
       }
     }

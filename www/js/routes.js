@@ -98,7 +98,7 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "views/app/book/addbooking.html",
                 controller: 'PickBookingTimeCtrl',
                 params: {
-                    obj: null
+                    providerInfo: null
                 }
             }
         }
@@ -111,20 +111,20 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "views/app/book/book_address.html",
                 controller: 'BookAddressCtrl',
                 params: {
-                    obj: null
+                    providerInfo: null
                 }
             }
         }
     })
 
     .state('app.book.recap', {
-        url: "/book_recap/:title/:firstname/:lastname/:contact_email/:contact_mobilenb/:contact_web_site_url",
+        url: "/book_recap/{providerInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book_recap.html",
                 controller: 'BookRecapCtrl',
                 params: {
-                    obj: null
+                    providerInfo: null
                 }
             }
         }

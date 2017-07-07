@@ -17,10 +17,10 @@
         <button type="button" class="icon icon-filter" ng-click="showFiltersPopup()"></button>
         <ion-list>
             <ion-card ng-repeat="group in groups" ng-click="openGroup(group)" ng-class="{active: isGroupShown(group)}">
-                <img ng-src='{{group.img}}' />
+                <img ng-src='http://alphalabx.com:3000/{{group.pic}}' />
                 <ion-card-content>
                     <ion-card-title>
-                        {{group.name}}
+                        {{group.title}}
                     </ion-card-title>
                 </ion-card-content>
                 <ion-item class="item-accordion" ng-click="updateQuery(item)" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
