@@ -2,10 +2,10 @@
     <ion-content>
         <div class="recap-wrapper">
             <h1 class="title-theme">Recap</h1>
-            <h2 class="service-title">Coiffure</h2>
-            <h3>{{provider.firstname}} {{provider.lastname}}</h3>
-            <h4>Mercredi 3 Décembre,</h4>
-            <h4>à 9h30.</h4>
+            <h2 class="service-title">{{reservation.service}}</h2>
+            <h3>{{reservation.provider}}</h3>
+            <h4>{{reservation.date | date: 'EEEE, d MMMM'}},</h4>
+            <h4>à {{reservation.betweenFrom}}.</h4>
         </div>
     </ion-content>
     <button class="button button-theme fixed" ng-click="confirmBooking()">

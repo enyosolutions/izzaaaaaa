@@ -21,20 +21,28 @@
       <div class="col">
           <div class="form-fields-outer list list-inset">
             <label class="item item-input field">
-              <input type="telephone" placeholder="Numéro de téléphone" name="Téléphone" ng-model="user.mobile" required>
+              <input type="text" placeholder="Prénom" name="Prénom" ng-model="newUser.firstname" required>
             </label>
             <label class="item item-input field">
-              <input type="text" placeholder="Adresse" name="Adresse" ng-model="user.street1" required >
+              <input type="text" placeholder="Nom" name="Nom" ng-model="newUser.lastname" required>
             </label>
+            <label class="item item-input field">
+              <input type="telephone" placeholder="Numéro de téléphone" name="Téléphone" ng-model="newUser.phone" required>
+            </label>
+            <label class="item item-input field">
+              <input type="text" placeholder="Adresse" name="Adresse" ng-model="newUser.address" required >
+            </label>
+            <label class="item item-input field">
+              <input type="text" placeholder="Complément d'adresse" name="Adresse cont." ng-model="newUser.address2" required >
+            </label>
+<!--
             <label class="item item-input field" >
-              <input type="text" placeholder="Code postal" name="Code Postal" ng-model="user.codepostal" required >
+              <input type="text" placeholder="Code postal" name="Code Postal" ng-model="newUser.codepostal" required >
             </label>
             <label class="item item-input field">
-              <input type="text" placeholder="Ville" name="Ville" ng-model="user.city" required >
+              <input type="text" placeholder="Ville" name="Ville" ng-model="newUser.city" required >
             </label>
-            <label class="item item-input field">
-              <input type="text" placeholder="Complément d'adresse" name="Complément d'adresse" ng-model="user.street2" required >
-            </label>
+-->
           </div>
           <p ng-show="error" class="message error">{{error}}</p>
   

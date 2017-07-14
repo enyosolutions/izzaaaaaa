@@ -132,7 +132,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         "reservationInfo": {
             "res_id": "1234567789091yeee",
             "status": "Confirmé",
-            "reservation_date": "2017-06-17",
+            "date": "2017-06-17",
             "reservationFrom": "10:30",
             "reservationTo": "11:00",
         },
@@ -263,7 +263,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 .controller("PickBookingTimeCtrl", function($scope, currentProvider, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory) {
 
     $scope.params = $stateParams;
-
+    $scope.reservation = $stateParams.reservationInfo;
+  
     var caldate = new Date();
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
     $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
@@ -282,79 +283,16 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         }
         return input;
     };
-
-    $scope.onTimeSelected = function(selectedTime, events, disabled) {
-        console.log('Selected time: ' + selectedTime + ', hasEvents: ' + (events !== undefined && events.length !== 0) + ', disabled: ' + disabled);
-    };
-
-
-    $scope.ipObjFromTimePicker = {
-        callback: function(val) { //Mandatory
-            console.log('Return value from the timepicker popup is : ' + val, new Date(val));
-
-            if (typeof(val) === 'undefined') {
-                console.log('Time not selected');
-            } else {
-                var selectedTimeFrom = new Date(val * 1000);
-                $scope.ipObjFromTimePicker.inputEpochTime = val;
-                $scope.reservation.betweenFrom = selectedTimeFrom.getUTCHours() + 'h' + (selectedTimeFrom.getUTCMinutes() ? selectedTimeFrom.getUTCMinutes() + 'm' : '');
-                $scope.reservation.betweenTo = $scope.reservation.betweenFrom;
-
-                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeFrom.getUTCHours(), 'H :', selectedTimeFrom.getUTCMinutes(), 'M');
-            }
-        },
-        inputTime: 50400, //Optional
-        format: 24, //Optional
-        step: 15, //Optional
-        setLabel: 'Choisir' //Optional
-    };
-
-    $scope.ipObjToTimePicker = {
-        callback: function(val) { //Mandatory
-            console.log('Return value from the timepicker popup is : ' + val, new Date(val));
-            if (typeof(val) === 'undefined') {
-
-                console.log('Time not selected');
-
-            } else {
-                var selectedTimeTo = new Date(val * 1000);
-                $scope.ipObjToTimePicker.inputEpochTime = val;
-                $scope.reservation.betweenTo = selectedTimeTo.getUTCHours() + 'h' + (selectedTimeTo.getUTCMinutes() ? selectedTimeTo.getUTCMinutes() + 'm' : '');
-                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeTo.getUTCHours(), 'H :', selectedTimeTo.getUTCMinutes(), 'M');
-                console.log('Selected epoch is : ', val, 'and the time is ', selectedTimeTo.getUTCHours(), 'H :', selectedTimeTo.getUTCMinutes(), 'M');
-            }
-        },
-        inputTime: 50400, //Optional
-        format: 24, //Optional
-        step: 15, //Optional
-        setLabel: 'Choisir' //Optional
-    };
-
-
-
-
     $scope.ipObjDatePicker = {
         callback: function(val) { //Mandatory
-            console.log('Return value from the datepicker popup is : ' + val, new Date(val));
-            //var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"}; ,options
             var caldate = new Date(val);
-            $scope.reservation.reservation_date = caldate;
-            //$scope.showdate =    caldate.toLocaleDateString("ar-EG");
+            console.log('Return value from the datepicker popup is : ' + caldate);
+            $scope.reservation.date = caldate;
+            console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
             $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
             $scope.showday = $filter('date')(caldate, ' EEEE, d');
-
-
         },
-        disabledDates: [ //Optional
-            /*        new Date(2016, 2, 16),
-             new Date(2015, 3, 16),
-             new Date(2015, 4, 16),
-             new Date(2015, 5, 16),
-             new Date('Wednesday, August 12, 2015'),
-             new Date("08-16-2016"),
-             new Date(1439676000000)*/
-        ],
         //from: new Date(2012, 1, 1), //Optional
         //to: new Date(2016, 10, 30), //Optional
         inputDate: new Date(), //Optional
@@ -364,6 +302,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         templateType: 'modal', //Optional
         closeLabel: 'Choisir',
         titleLabel: 'Choisissez une date',
+        weeksList: ["D", "L", "M", "M", "J", "V", "S"],
         monthsList: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
     };
 
@@ -371,78 +310,82 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         ionicDatePicker.openDatePicker($scope.ipObjDatePicker);
     };
 
-    $scope.openFromTimePicker = function() {
-        ionicTimePicker.openTimePicker($scope.ipObjFromTimePicker);
-    };
-    $scope.openToTimePicker = function() {
-        ionicTimePicker.openTimePicker($scope.ipObjToTimePicker);
-    };
-
     $scope.profile = $localStorage.profile;
-
 
     $scope.selectTimeRange = function(from, to) {
 
-        $scope.reservation.betweenFrom = from + 'h' + '00' + 'm';
-        $scope.reservation.betweenTo = to + 'h' + '00' + 'm';
-        // $scope.reservation.betweenTo = selectedTimeTo.getUTCHours() +  'h' + (selectedTimeTo.getUTCMinutes()?selectedTimeTo.getUTCMinutes() +  'm':'') ;
+        $scope.reservation.betweenFrom = from + 'h' + '00';
+        $scope.reservation.betweenTo = to + 'h' + '00';
 
     }
 
     $filter('date')(Date(), 'dd/MM/yyyy');
-
-    //    $scope.reservation = {
-    //        reservation_date: Date(),
-    //        betweenFrom: "",
-    //        betweenTo: "",
-    //
-    //    };
-
     $scope.provider = $stateParams.providerInfo;
 
     $scope.confirmBooking = function(provider) {
-        $state.go('app.book.address', { providerInfo: provider });
+        $state.go('app.book.address', { providerInfo: provider, reservationInfo: $scope.reservation });
     };
 })
 
 .controller('BookProviderCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
 
     $scope.provider = $stateParams.providerInfo;
-
+    $scope.reservation = $stateParams.reservationInfo;
+    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
+    console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
-        $state.go('app.book.addbooking', { providerInfo: provider });
+        $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation });
     };
 })
 
 .controller('BookAddressCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
 
     $scope.provider = $stateParams.providerInfo;
+    $scope.reservation = $stateParams.reservationInfo;
+    
 
     $scope.confirmBooking = function(provider) {
-        $state.go('app.book.recap', { providerInfo: provider });
+        $state.go('app.book.recap', { providerInfo: provider, reservationInfo: $scope.reservation });
     };
 })
 
 .controller('BookRecapCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
 
     $scope.provider = $stateParams.providerInfo;
-
+    $scope.reservation = $stateParams.reservationInfo;
+    $scope.reservation_send = {
+        service: $scope.reservation.service,
+        date: $scope.reservation.date,
+        hour: $scope.reservation.betweenFrom,
+    };
+    console.log("Appointment successfully" + $scope.reservation_send.service);
+    var kek;
+  
     $scope.confirmBooking = function(provider) {
-        console.log("Appointment successfully ");
-        $state.go('app.book.home');
+        BookingsService.createReservation($scope.reservation_send);
+        //$state.go('app.book.home');
     };
 })
 
 .controller('ProvidersCtrl', function($scope, currentProvider, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
   
     $scope.subcategory = $stateParams.subgroupInfo;
+    $scope.reservation = {
+        service: $scope.subcategory.title,
+        provider: "",
+        date: Date(),
+        betweenFrom: "",
+        betweenTo: "",
+        message: ""
+    };
+  console.log($scope.reservation);
   BookingsService.getAllProviders().then(function(response) {
         $scope.providers = response.data;
     })
 
     $scope.bookPerService = function(provider) {
         console.log(provider);
-        $state.go('app.book.provider', { providerInfo: provider });
+        $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation});
     };
 })
 

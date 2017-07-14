@@ -21,7 +21,7 @@ angular.module('izza.app.services', [])
 
 })
 
-.service('AuthService', function() {
+.service('AuthService', function($http, $q, _, RemoteDirectory) {
 
     //For
     // - Saving a user
@@ -35,6 +35,23 @@ angular.module('izza.app.services', [])
         return (window.localStorage.izza_user) ?
             JSON.parse(window.localStorage.izza_user) : null;
     };
+    this.authenticateUser = function(user) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/customer/signin';
+        return $http.post(url, user).then(this.handleSuccess, this.handleError);
+    }
+    this.createUser = function(user) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/customer/signup';
+        return $http.post(url, user).then(this.handleSuccess, this.handleError);
+    }
+    this.handleSuccess = function(response) {
+        //console.log(res);
+        return {success: true, status: response.status, data: response.data};
+    }
+
+    this.handleError = function(response) {
+        //console.log(res);
+        return {success: false, status: response.status, data: response.data};
+    }
 
 })
 
@@ -104,7 +121,18 @@ angular.module('izza.app.services', [])
         provs = $http.get(url);
         return provs;
     };
-
+    this.createReservation = function(reservation) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/appointment';
+        $http.post(url, reservation)
+            .then(
+                function(response){
+                    console.log("Success!"); 
+                },
+                function(response){
+                    console.log("Failed!");
+                }
+            );
+    }
     this.cancelBooking = function(res_id) {
         var dfd = $q.defer();
         var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/cancelres/' + encodeURIComponent(res_id);
@@ -154,7 +182,7 @@ angular.module('izza.app.services', [])
         return dfd.promise;
 
     };
-
+  
     this.createBookingForProvider = function(bookingInfo) {
         var dfd = $q.defer();
         var toPost = JSON.stringify(bookingInfo);

@@ -16,8 +16,8 @@
                 <ion-list>
                     <ion-item>
                         <label class="item item-input" name="Message">
-                            <span class="input-label">Message</span>
-                            <textarea class="field message-text" cols="23" rows="6" type="text" placeholder="Laisser un message au préstataire" value="" ng-model="$booking.message" tabindex="2" required></textarea>
+                            <span class="input-label">Message {{reservation.message}}</span>
+                            <textarea class="field message-text" cols="23" rows="6" type="text" placeholder="Laisser un message au préstataire" value="" ng-model="reservation.message" tabindex="2" required></textarea>
                         </label>
                     </ion-item>
                 </ion-list>

@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "IZZA.CO: Application pour le service IZZA.CO",
   "dependencies": {
+    "angular-cookies": "^1.6.5",
     "async": "^1.4.0",
     "bower": "^1.3.3",
     "cordova-ios": "^4.4.0",

@@ -79,52 +79,56 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
     })
 
     .state('app.book.provider', {
-        url: "/book_provider/{providerInfo:json}",
+        url: "/book_provider/{providerInfo:json}/{reservationInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book-provider.html",
                 controller: 'BookProviderCtrl',
                 params: {
-                    providerInfo: null
+                    providerInfo: null,
+                    reservationInfo: null
                 }
             }
         }
     })
 
     .state('app.book.addbooking', {
-        url: "/book_addbooking/{providerInfo:json}",
+        url: "/book_addbooking/{providerInfo:json}/{reservationInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/addbooking.html",
                 controller: 'PickBookingTimeCtrl',
                 params: {
-                    providerInfo: null
+                    providerInfo: null,
+                    reservationInfo: null
                 }
             }
         }
     })
 
     .state('app.book.address', {
-        url: "/book_address/{providerInfo:json}",
+        url: "/book_address/{providerInfo:json}/{reservationInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book_address.html",
                 controller: 'BookAddressCtrl',
                 params: {
-                    providerInfo: null
+                    providerInfo: null,
+                    reservationInfo: null
                 }
             }
         }
     })
 
     .state('app.book.recap', {
-        url: "/book_recap/{providerInfo:json}",
+        url: "/book_recap/{providerInfo:json}/{reservationInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book_recap.html",
                 controller: 'BookRecapCtrl',
                 params: {
-                    providerInfo: null
+                    providerInfo: null,
+                    reservationInfo: null
                 }
             }
         }
@@ -201,19 +205,28 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
     .state('auth.login', {
         url: '/login',
         templateUrl: "views/auth/login.html",
-        controller: 'LogInCtrl'
+        controller: 'LogInCtrl',
+        params: {
+            obj: null
+        }
     })
 
     .state('auth.signup', {
         url: '/signup',
         templateUrl: "views/auth/signup.html",
-        controller: 'SignUpCtrl'
+        controller: 'SignUpCtrl',
+        params: {
+            userInfo: null
+        }
     })
 
     .state('auth.signup_info', {
-        url: '/signup_info',
+        url: '/signup_info/{userInfo:json}',
         templateUrl: "views/auth/signup_info.html",
-        controller: 'SignUpInfoCtrl'
+        controller: 'SignUpInfoCtrl',
+        params: {
+            userInfo: null
+        }
     })
 
     .state('auth.forgot-password', {

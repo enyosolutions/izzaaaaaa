@@ -536,7 +536,10 @@ input:checked + .radio-icon:before {
   }
   h4 {
     @extend h3;
-    text-transform: capitalize;
     margin: 0 !important;
+    text-transform: capitalize;
+    &:last-child {
+      text-transform: lowercase;
+    }
   }
 }

@@ -1,4 +1,4 @@
-angular.module('izza.auth.controllers', [])
+angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 
 .controller('AuthCtrl', function($scope){
 
@@ -17,22 +17,12 @@ angular.module('izza.auth.controllers', [])
 		$state.go('app.book.home');
 	};
 
-	$scope.googleSignIn = function(){
-		console.log("doing google sign in");
-		$state.go('app.book.home');
-	};
-
-	$scope.twitterSignIn = function(){
-		console.log("doing twitter sign in");
-		$state.go('app.book.home');
-	};
-
 	$ionicModal.fromTemplateUrl('views/app/legal/privacy-policy.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.privacy_policy_modal = modal;
-  });
+            scope: $scope,
+            animation: 'slide-in-up'
+          }).then(function(modal) {
+            $scope.privacy_policy_modal = modal;
+          });
 
 	$ionicModal.fromTemplateUrl('views/app/legal/terms-of-service.html', {
     scope: $scope,
@@ -50,28 +40,59 @@ angular.module('izza.auth.controllers', [])
   };
 })
 
-.controller('LogInCtrl', function($scope, $state){
+.controller('LogInCtrl', function($scope, $state, $stateParams, $localStorage, AuthService){
+        $scope.user = {email: '', password: ''};
 	$scope.doLogIn = function(){
-		console.log("doing log in");
-		$state.go('app.book.home');
+                console.log($scope.user);
+                AuthService.authenticateUser($scope.user).then(function(response){ 
+                if (response.success) {
+                    $localStorage.token = response.data.token;
+                    console.log($localStorage);
+                    $state.go('app.book.home');
+                } else {
+                    console.log("Error " + response.status);
+                }
+            });
+            //$state.go('app.book.home');
 	};
 })
 
-.controller('SignUpCtrl', function($scope, $state){
+.controller('SignUpCtrl', function($scope, $state, $q, $stateParams, AuthService){
+        $scope.newUser = {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            address: "",
+            address2: "",
+            phone: "",
+            platform: "",
+            deviceid: ""
+        };
+        $scope.newUser.platform = ionic.Platform.platform();
+        $scope.newUser.deviceid = '12345foo';
 	$scope.doSignUp = function(){
-		console.log("continuing to supplementary info");
-		$state.go('auth.signup_info');
+            $state.go('auth.signup_info', { userInfo: $scope.newUser});
 	};
 })
 
-.controller('SignUpInfoCtrl', function($scope, $state){
-	$scope.doSignUp = function(){
-		console.log("doing sign up");
-		$state.go('app.book.home');
+.controller('SignUpInfoCtrl', function($scope, $state, $q, $stateParams, AuthService){
+        $scope.newUser = $stateParams.userInfo;
+        console.log($scope.newUser);
+        $scope.doSignUp = function(){
+            console.log($scope.newUser);
+            AuthService.createUser($scope.newUser).then(function(response){ 
+                if (response.success) {
+                    console.log("Yay, you're signed up!" + response.data);
+                    $state.go('auth.login', {obj: {email: $scope.newUser.email}});
+                } else {
+                    console.log("Error " + response.status);
+                }
+            });
 	};
 })
 
-.controller('ForgotPasswordCtrl', function($scope, $state){
+.controller('ForgotPasswordCtrl', function($scope, $state, $q){
 	$scope.requestNewPassword = function() {
                 console.log("requesting new password");
 		$state.go('app.book.home');
