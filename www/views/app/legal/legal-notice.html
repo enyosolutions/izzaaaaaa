@@ -1,3 +1,25 @@
-<p class="legal-notice">
-	En vous inscrivant vous acceptez les <a ng-click="showTerms()">Conditions d'utilisations</a> et  <a ng-click="showPrivacyPolicy()">la Politique de Confidentialité</a>
-</p>
+
+<ion-view class="legal-notice">
+  <ion-nav-header></ion-nav-header>
+  <ion-content>
+    <div class="list">
+
+
+      <div class="item item-divider title">
+        Account
+      </div>
+      <a class="item item-icon-left settings-option" ng-click="showTerms()">
+        <i class="icon ion-ios-information-outline"></i>
+        Conditions d'utilisation
+      </a>
+      <a class="item item-icon-left settings-option" ng-click="showPrivacyPolicy()">
+        <i class="icon ion-ios-locked-outline"></i>
+        Politique de confidentialité
+      </a>
+      <a class="item item-icon-left settings-option">
+        <i class="icon ion-ios-help-outline"></i>
+        Aide
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

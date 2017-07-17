@@ -12,4 +12,6 @@
     border: solid 2px white;
   }
 }
-
+.background-gray.has-profile-pic.profile > .field-card:first-child {
+  margin-top: calc(0.35 *(100vw - 380px));
+}

@@ -135,6 +135,23 @@ provider-list-item {
   
 }
 
+/*
+ * Subcategories
+ */
+ion-card .item.item-accordion {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.09s all linear;
+}
+ion-card .item.item-accordion.ng-hide {
+    line-height: 0px;
+}
+ion-card .item.item-accordion.ng-hide-add,
+ion-card .item.item-accordion.ng-hide-remove {
+    display: block !important;
+}
+
 
 /*
  * Filters popup 
@@ -449,6 +466,7 @@ $slider-radius: 26px;
   height: $checkbox-height !important;
   display: block !important;
   border: 0 !important;
+  margin-right: 1px !important;
   background: transparent !important;
   cursor: pointer !important;
   padding: 0 !important;
@@ -457,6 +475,7 @@ $slider-radius: 26px;
 
   &:before {
     // what the checkbox looks like when its not checked
+    margin-right: 1px;
     display: table !important;
     width: 100% !important;
     height: 100% !important;
@@ -472,25 +491,18 @@ $slider-radius: 26px;
 .item-radio input:checked:before,
 input:checked + .radio-icon:before {
   border-width: $checkbox-border-width + 1 !important;
-  margin-right: -1px;
 }
 
 // the checkmark within the box
 .item-radio input:after,
 .radio-icon:after {
-  @include transition(opacity .05s ease-in-out);
-  @include rotate(-45deg);
   position: absolute !important;
-  top: 33% !important;
-  left: 25% !important;
+  font-size: 26px !important;
+  top: -4px !important;
+  left: 5px !important;
   display: table !important;
-  width: ($checkbox-width / 2) !important;
-  height: ($checkbox-width / 4) - 1 !important;
-  border: $checkbox-check-width solid $checkbox-check-color !important;
-  border-top: 0 !important;
-  border-right: 0 !important;
-  content: ' ' !important;
-  opacity: 0 !important;
+  content: '+' !important;
+  color: white;
 }
 .unchecked-radio {
   position: absolute !important;

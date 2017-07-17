@@ -4,33 +4,27 @@
         <div class="book-provider select-option-wrapper">
             <div class="list card">
                 <div class="item item-image">
-                    <img ng-src="{{provider.picture}}">
+                    <img ng-src="http://alphalabx.com:3000/{{provider.picture}}">
                 </div>
                 <div class="item item-body">
                     <div class="provider-info">
                         <h2 class="card-title">{{provider.firstname}} {{provider.lastname}}</h2>
                         <p class="card-description">
-                            <span class="name-text">
-                        {{provider.qualification1}}
-                        {{provider.qualification1 ? '|' : ' '}}
-                        {{provider.qualification2}}
-                        {{provider.qualification2 ? '|' : ' '}}
-                        {{provider.qualification3}}
-                        {{provider.qualification3 ? '|' : ' '}}
-                        {{provider.qualification4}}
-                    </span>
+                            <span ng-repeat="single_service in provider.services" class="name-text">
+                              {{single_service.service.title}} |
+                            </span>
                         </p>
                     </div>
                     <div class="skill-shop">
                         <ion-list>
-                            <ion-item class="item-borderless" ng-repeat="skill in provider.skillsandprice">
+                            <ion-item class="item-borderless" ng-repeat="single_service in provider.services">
                                 <ion-checkbox class="item-borderless" ng-model="skill.selected">
                                     <div class="item-borderless">
                                         <div class="item-text skill-desc">
-                                            {{skill.description}}
+                                            {{single_service.service.title}}
                                         </div>
                                         <div class="item-text skill-price">
-                                            {{skill.price}} {{(skill.cur==='eur'?'€':'$')}}
+                                            {{single_service.price}} €
                                         </div>
                                     </div>
                                 </ion-checkbox>

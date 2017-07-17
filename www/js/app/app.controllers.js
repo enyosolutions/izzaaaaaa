@@ -28,6 +28,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.logOut = function() {
         $scope.myPopup = $state.go('auth.login');
     }
+    $scope.gotoLegal = function() {
+        $state.go("app.legal.legal-notice");
+    };
 })
 
 .controller('BookingsController', function($scope, currentProvider, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
@@ -230,10 +233,22 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 //        name: 'Brushing',
 //        img: 'img/subgroups/brushing.jpg'
 //    };
-
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+    $scope.isGroupShown = function(group) {
+        return $scope.shownGroup === group;
+    };
+  
+  
     $scope.openSubgroup = function(subgroup) {
         $state.go('app.book.providers_list', { subgroupInfo: subgroup });
     }
+    
     var myPopup;
     $scope.showFiltersPopup = function() {
         $scope.filter = {};
@@ -389,8 +404,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
-.controller('SettingsCtrl', function($scope, $ionicModal) {
 
+.controller('LegalCtrl', function($scope, $ionicModal) {
+    //$ionicConfigProvider.backButton.previousTitleText() = false;
     $ionicModal.fromTemplateUrl('views/app/legal/terms-of-service.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -412,9 +428,4 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.showPrivacyPolicy = function() {
         $scope.privacy_policy_modal.show();
     };
-
-})
-
-.controller('LegalCtrl', function($scope) {
-
 })

@@ -5,19 +5,14 @@
                 <div class="card-4">
                     <div class="list card">
                         <div class="item" ng-click="bookPerService(provider)">
-                            <img src="{{provider.picture}}">
+                            <img src="http://alphalabx.com:3000/{{provider.picture}}">
                             <div class="description">
                                 <h2 class="name">{{provider.firstname}} {{provider.lastname}}</h2>
                                 <h4 class="price">€€</h4>
                                 <div class="row">
-                                    <span class="name-text">{{provider.qualification1}}
-                            {{provider.qualification2 ? '|' : ' '}}
-                            {{provider.qualification2}}
-                            {{provider.qualification3 ? '|' : ' '}}
-                            {{provider.qualification3}}
-                            {{provider.qualification4 ? '|' : ' '}}
-                            {{provider.qualification4}}
-                          </span>
+                                    <span ng-repeat="single_service in provider.services" class="name-text">
+                                      {{single_service.service.title}} | &nbsp;
+                                    </span>
                                 </div>
                             </div>
                         </div>

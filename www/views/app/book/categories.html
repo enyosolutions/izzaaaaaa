@@ -1,19 +1,18 @@
 <ion-view class="book-home-view">
     <ion-content>
-        <label class="item item-input address-search">
-            <form class="container">
-                <input type="text" placeholder="Votre adresse">
-            </form>
-        </label>
-        <button type="button" class="icon icon-filter" ng-click="showFiltersPopup()"></button>
+
         <ion-list>
-            <ion-card ng-repeat="subgroup in subgroups" ng-click="openSubgroup(subgroup)">
+            <ion-card ng-repeat="subgroup in subgroups" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
                 <img ng-src='http://alphalabx.com:3000/{{subgroup.pic}}' />
                 <ion-card-content>
                     <ion-card-title>
                         {{subgroup.title}}
                     </ion-card-title>
                 </ion-card-content>
+                <ion-item class="item-accordion"  ng-click="openSubgroup(subgroup)" ng-repeat="item in subgroup.services" ng-show="isGroupShown(group)">
+                      Placeholder
+                </ion-item>
+
             </ion-card>
         </ion-list>
     </ion-content>

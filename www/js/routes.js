@@ -153,35 +153,25 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
             }
         }
     })
-
-    .state('app.settings', {
-            url: "/settings",
-            abstract: true,
-            views: {
-                'menuContent': {
-                    templateUrl: "views/app/settings/settings.html"
-                }
-            }
-        })
-        .state('app.settings.home', {
-            url: "/settings-home",
-            views: {
-                'settings-home': {
-                    templateUrl: "views/app/settings/settings-home.html",
-                    controller: 'SettingsCtrl'
-                }
-            }
-        })
-
-    .state('app.legal.legal-notice', {
-        url: '/legal-notice',
+  
+    .state('app.legal', {
+        url: '/legal',
+        abstract: true,
         views: {
-            'profile-home': {
-                templateUrl: "views/app/legal/legal-notice.html",
-                controller: "LegalCtrl"
+            'menuContent': {
+                templateUrl: "views/app/legal/legal.html"
             }
         }
     })
+        .state('app.legal.legal-notice', {
+            url: '/legal-notice',
+            views: {
+                'legal-notice': {
+                    templateUrl: "views/app/legal/legal-notice.html",
+                    controller: "LegalCtrl"
+                }
+            }
+        })
 
     /////////AUTH ROUTES//////////
     .state('auth', {
