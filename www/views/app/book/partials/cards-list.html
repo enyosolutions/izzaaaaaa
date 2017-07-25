@@ -1,0 +1,47 @@
+<ion-modal-view class="modal-view cards-list">
+    <ion-header-bar>
+        <h1 class="title modal-title">Choisir une carte</h1>
+        <a class="button button-clear close-modal" ng-click="cards_list_modal.hide()">
+            <i class="icon ion-android-close"></i>
+        </a>
+    </ion-header-bar>
+    <ion-content class="">
+        <div>
+            <ion-list class="list-inset cards-select">
+                <ion-item class="item-time no-padding">
+                    <ion-radio ng-click="selectCard(n)" > 
+                        <div class="item-text">
+                            <div class="card-info card-name">
+                              John Doe
+                            </div>
+                            <div class="card-info card-num"> 
+                              XXXX XXXX XXXX 1234 
+                            </div> 
+                        </div>
+                        <i class=unchecked-radio></i>
+                    </ion-radio>
+                </ion-item>
+                <ion-item class="item-time no-padding">
+                    <ion-radio ng-click="selectCard(n)" > 
+                        <div class="item-text">
+                            <div class="card-info card-name">
+                              Dane Johnson
+                            </div>
+                            <div class="card-info card-num"> 
+                              XXXX XXXX XXXX 5678 
+                            </div> 
+                        </div>
+                        <i class=unchecked-radio></i>
+                    </ion-radio>
+                </ion-item>
+                <ion-item class="item-time no-padding add-card" ng-click="addCard(n)">
+                    <div class="item-text"> Ajouter une carte </div> 
+                    <i class="ion-chevron-right"></i>
+                </ion-item>
+            </ion-list>
+        </div>
+        <button type="submit" class="button button-theme fixed" ng-click="applyFilter()">
+               Valider
+        </button>
+    </ion-content>
+</ion-modal-view>

@@ -2,15 +2,15 @@
     <ion-content>
 
         <ion-list>
-            <ion-card ng-repeat="subgroup in subgroups" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+            <ion-card ng-repeat="subgroup in subgroups" ng-click="toggleGroup(subgroup)" ng-class="{active: isGroupShown(subgroup)}">
                 <img ng-src='http://alphalabx.com:3000/{{subgroup.pic}}' />
                 <ion-card-content>
                     <ion-card-title>
                         {{subgroup.title}}
                     </ion-card-title>
                 </ion-card-content>
-                <ion-item class="item-accordion"  ng-click="openSubgroup(subgroup)" ng-repeat="item in subgroup.services" ng-show="isGroupShown(group)">
-                      Placeholder
+                <ion-item class="item-accordion"  ng-click="openSubgroup(item)" ng-repeat="item in subgroup.services" ng-show="isGroupShown(subgroup)">
+                      {{item.title}}
                 </ion-item>
 
             </ion-card>

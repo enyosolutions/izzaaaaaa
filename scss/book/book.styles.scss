@@ -554,4 +554,77 @@ input:checked + .radio-icon:before {
       text-transform: lowercase;
     }
   }
+  .payment {
+    display: table;
+    padding: 10px;
+    margin: 0 auto;
+  }
+  .card-container {
+    display: table-cell;
+    padding: 5px;
+    font-size: 13px;
+    vertical-align: middle;
+    &.left {
+      width: 65%; 
+      color: grey;
+      i {
+        font-size: 20px;
+      }
+    }
+    &.right {
+      width: 35%; 
+    }
+  }
+  .change-card {
+    border: solid 1px #aaaaaa;
+    color: grey;
+    @include border-radius(5px);
+    text-align: center;
+    padding: 2px 5px;
+    display: inline-block;
+    min-height: 0;
+    line-height: inherit;
+    padding: 3px 4px;
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: 400;
+    &:after {
+      content: none;
+    }
+  }
+}
+
+/*
+ * Cards-list modal
+ */
+
+.cards-list {
+  background-color: white !important;
+  ion-header-bar {
+    background-color: white !important;
+    h1 {
+      color: $theme-color-2;
+    }
+  }
+  .close-modal {
+    i {
+      color: $theme-color-2;      
+    }
+  }
+  .cards-select {
+    & * {
+      background-color: white !important;
+      border: none;
+    }
+  }
+  .card-info {
+    font-size: 14px;
+    color: #111;
+  }
+  .add-card {
+    padding: 16px;
+    i {
+      float: right;
+    }
+  }
 }

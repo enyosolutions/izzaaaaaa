@@ -87,4 +87,8 @@
     <plugin name="cordova-plugin-transport-security" spec="^0.1.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
     <plugin name="ionic-plugin-keyboard" spec="git+https://github.com/driftyco/ionic-plugins-keyboard.git" />
+    <plugin name="phonegap-facebook-plugin" spec="file://phonegap-facebook-plugin">
+        <variable name="APP_ID" value="2134947170065622" />
+        <variable name="APP_NAME" value="izza-mobile" />
+    </plugin>
 </widget>

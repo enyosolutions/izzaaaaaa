@@ -6,6 +6,20 @@
             <h3>{{reservation.provider}}</h3>
             <h4>{{reservation.date | date: 'EEEE, d MMMM'}},</h4>
             <h4>à {{reservation.betweenFrom}}.</h4>
+            <div class="payment">
+                <div class="card-container left">
+                    <i class="ion-card"></i>
+                    <span>XXXX.XXXX.XXXX.1234</span>
+                </div>
+                <div class="card-container right">
+                  <button ng-click="showCards()" class="button button-full change-card">
+                      Modifier
+                  </button>
+                </div>
+            </div>
+            <form id="payment-form" style="display:none;">
+                
+            </form>
         </div>
     </ion-content>
     <button class="button button-theme fixed" ng-click="confirmBooking()">

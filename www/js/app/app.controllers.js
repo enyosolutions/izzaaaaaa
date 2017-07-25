@@ -152,7 +152,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
 })
 
-.controller('BookCtrl', function($scope, $http, currentProvider, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
+.controller('BookCtrl', function($scope, $http, currentProvider, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
 
     $scope.groups = [];
 //
@@ -217,7 +217,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     }
 })
 
-.controller('SubCategoryCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate) {
+.controller('SubCategoryCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
     $scope.group = $stateParams.groupInfo;
     $scope.subgroups = $scope.group.subcategories;
 
@@ -243,39 +243,73 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.isGroupShown = function(group) {
         return $scope.shownGroup === group;
     };
-  
-  
-    $scope.openSubgroup = function(subgroup) {
-        $state.go('app.book.providers_list', { subgroupInfo: subgroup });
-    }
     
-    var myPopup;
-    $scope.showFiltersPopup = function() {
-        $scope.filter = {};
-        myPopup = $ionicPopup.show({
-            cssClass: 'filter-popup',
-            templateUrl: 'views/app/book/partials/filters_popup.html',
-            scope: $scope,
-        });
-        myPopup.then(function(res) {
-            if (res) {
-                console.log('Filters applied', res);
-                myPopup.close();
-            } else {
-                console.log('Popup closed');
-                myPopup.close();
-            }
-        });
-    };
-    $scope.closePopup = function() {
-        myPopup.close();
+    $scope.openSubgroup = function(service) {
+        $state.go('app.book.providers_list', { serviceInfo: service });
     }
-    $scope.applyFilter = function() {
-        myPopup.close();
-    }
+//    
+//    var myPopup;
+//    $scope.showFiltersPopup = function() {
+//        $scope.filter = {};
+//        myPopup = $ionicPopup.show({
+//            cssClass: 'filter-popup',
+//            templateUrl: 'views/app/book/partials/filters_popup.html',
+//            scope: $scope,
+//        });
+//        myPopup.then(function(res) {
+//            if (res) {
+//                console.log('Filters applied', res);
+//                myPopup.close();
+//            } else {
+//                console.log('Popup closed');
+//                myPopup.close();
+//            }
+//        });
+//    };
+//    $scope.closePopup = function() {
+//        myPopup.close();
+//    }
+//    $scope.applyFilter = function() {
+//        myPopup.close();
+//    }
 })
 
-.controller("PickBookingTimeCtrl", function($scope, currentProvider, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory) {
+.controller('ProvidersCtrl', function($scope, currentProvider, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+  
+    $scope.subcategory = $stateParams.subgroupInfo;
+    $scope.reservation = {
+        service: "596c3201380d8c716c5d7d53",
+        customer: "596c9836380d8c716c5d7d6d",
+        date: Date(),
+        hour: "",
+        status: "In Progress",
+        address: "",
+        note: "",
+        token: $localStorage.token
+    };
+  console.log($scope.reservation);
+  BookingsService.getAllProviders().then(function(response) {
+        $scope.providers = response.data;
+    })
+
+    $scope.bookPerService = function(provider) {
+        console.log(provider);
+        $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation});
+    };
+})
+
+.controller('BookProviderCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
+
+    $scope.provider = $stateParams.providerInfo;
+    $scope.reservation = $stateParams.reservationInfo;
+//    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
+    console.log($scope.reservation);
+    $scope.continuetoDate = function(provider) {
+        $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation });
+    };
+})
+
+.controller("PickBookingTimeCtrl", function($scope, currentProvider, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory, $localStorage) {
 
     $scope.params = $stateParams;
     $scope.reservation = $stateParams.reservationInfo;
@@ -329,7 +363,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
     $scope.selectTimeRange = function(from, to) {
 
-        $scope.reservation.betweenFrom = from + 'h' + '00';
+        $scope.reservation.hour = from + 'h' + '00';
         $scope.reservation.betweenTo = to + 'h' + '00';
 
     }
@@ -342,18 +376,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
-.controller('BookProviderCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
-
-    $scope.provider = $stateParams.providerInfo;
-    $scope.reservation = $stateParams.reservationInfo;
-    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
-    console.log($scope.reservation);
-    $scope.continuetoDate = function(provider) {
-        $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation });
-    };
-})
-
-.controller('BookAddressCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
+.controller('BookAddressCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -364,46 +387,118 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
-.controller('BookRecapCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams) {
+.controller('BookRecapCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.reservation_send = {
         service: $scope.reservation.service,
         date: $scope.reservation.date,
-        hour: $scope.reservation.betweenFrom,
+        hour: $scope.reservation.hour,
     };
-    console.log("Appointment successfully" + $scope.reservation_send.service);
-    var kek;
-  
+    console.log("Appointment successfully");
+    console.log($scope.reservation);
+    
+    $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.cards_list_modal = modal;
+    });
+
+    $scope.showCards = function() {
+        $scope.cards_list_modal.show();
+    };  
+    
+/////// STRIPE RESPONSE HANDLER ////// 
+    var stripeResponseHandler = function(status, response) {
+            $ionicLoading.hide();
+            $scope.isCreditCardUpdating = false;
+            // Grab the form:
+            if (response.error) { // Problem!
+                // Show the errors on the form:
+                //$form.find('.payment-errors').text(response.error.message);
+                //$form.find('.submit').prop('disabled', false); // Re-enable submission
+                var key;
+                if (response.error.type) {
+                    key = 'STRIPE_' + response.error.type;
+                }
+                if (response.error.code) {
+                    key = response.error.code ? ('STRIPE_' + response.error.code +
+                        (response.error.decline_code ? '_' + response.error.decline_code : '')) : response.error.code;
+                }
+
+                $scope.paymentFormNotif = $translate(key);
+                $ionicPopup.alert({
+                    title: "Erreur",
+                    template: $scope.paymentFormNotif,
+                    okType: 'button-energized',
+                    "okText": 'Ok',
+                    "cancelText": 'Annuler'
+                });
+            } else { // Token was created!
+
+                // Get the token ID:
+                var token = response.id;
+
+                // Insert the token ID into the form so it gets submitted to the server:
+                $scope.paymentToken = token;
+
+                $scope.reservation = {};
+                $scope.reservation.status = "pending";
+                $scope.reservation.userId = $rootScope.user._id;
+                $scope.reservation.userEmail = $rootScope.user.email;
+                $scope.reservation.token = token;
+
+                $scope.paymentFormNotif = "";
+                $ionicLoading.show({
+                    template: '<ion-spinner icon="dots"></ion-spinner>',
+                    duration: 10000,
+                    hideOnStateChange: true
+                });
+                var card = new UserCardService({
+                    token: token,
+                    userId: $rootScope.user._id,
+                    email: $rootScope.user.email,
+                    currency: 'eur'
+                });
+                card.$save().then(function(res) {
+                        $scope.creditCardModal.hide();
+                        $ionicLoading.hide();
+                        UserService.Refresh();
+                        $scope.userCards = UserCardService.query({
+                            userId: $rootScope.user._id + ""
+                        });
+                    },
+                    function(err) {
+                        $ionicLoading.hide();
+                        var key;
+                        if (err && err.data && err.data.error && err.data.error.code) {
+                            key = 'STRIPE_' + err.data.error.code;
+                        } else {
+                            key = 'error_card_adding_failed';
+                        }
+                        $ionicPopup.alert({
+                            title: "Erreur",
+                            template: $translate(err.code || "error_card_adding_failed"),
+                            okType: 'button-energized',
+                            "okText": 'Ok',
+                            "cancelText": 'Annuler'
+                        });
+
+                        $scope.creditCardModal.hide();
+                    }
+                );
+            }
+        };
+///////       END         ////// 
     $scope.confirmBooking = function(provider) {
         BookingsService.createReservation($scope.reservation_send);
         //$state.go('app.book.home');
+        //Stripe.card.createToken(document.getElementById("payment-form"), stripeResponseHandler);
+        
     };
 })
-
-.controller('ProvidersCtrl', function($scope, currentProvider, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate) {
-  
-    $scope.subcategory = $stateParams.subgroupInfo;
-    $scope.reservation = {
-        service: $scope.subcategory.title,
-        provider: "",
-        date: Date(),
-        betweenFrom: "",
-        betweenTo: "",
-        message: ""
-    };
-  console.log($scope.reservation);
-  BookingsService.getAllProviders().then(function(response) {
-        $scope.providers = response.data;
-    })
-
-    $scope.bookPerService = function(provider) {
-        console.log(provider);
-        $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation});
-    };
-})
-
 
 .controller('LegalCtrl', function($scope, $ionicModal) {
     //$ionicConfigProvider.backButton.previousTitleText() = false;
