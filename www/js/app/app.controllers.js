@@ -396,8 +396,11 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         date: $scope.reservation.date,
         hour: $scope.reservation.hour,
     };
-    console.log("Appointment successfully");
-    console.log($scope.reservation);
+    
+    $scope.cards = [
+        {name: "John Doe", last4: "1234"},
+        {name: "Jane Doe", last4: "5678"}
+    ];
     
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
@@ -409,89 +412,121 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.showCards = function() {
         $scope.cards_list_modal.show();
     };  
+  
+    $ionicModal.fromTemplateUrl('views/app/book/partials/new-card.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.new_card_modal = modal;
+    });
     
-/////// STRIPE RESPONSE HANDLER ////// 
-    var stripeResponseHandler = function(status, response) {
-            $ionicLoading.hide();
-            $scope.isCreditCardUpdating = false;
-            // Grab the form:
-            if (response.error) { // Problem!
-                // Show the errors on the form:
-                //$form.find('.payment-errors').text(response.error.message);
-                //$form.find('.submit').prop('disabled', false); // Re-enable submission
-                var key;
-                if (response.error.type) {
-                    key = 'STRIPE_' + response.error.type;
-                }
-                if (response.error.code) {
-                    key = response.error.code ? ('STRIPE_' + response.error.code +
-                        (response.error.decline_code ? '_' + response.error.decline_code : '')) : response.error.code;
-                }
+    $scope.newCardForm = {};
+    $scope.newCard = function() {
+        $scope.new_card_modal.show();
+      
+        console.log('Modal is shown!');
+///////   STRIPE ELEMENTS   ////// 
+        var stripe = Stripe('pk_test_KxHM84wFfVzsFP7NBIloYPTo');
+        var elements = stripe.elements();
+        
+        var style = {
+          base: {
+            iconColor: '#666EE8',
+            color: '#31325F',
+            lineHeight: '40px',
+            fontWeight: 300,
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSize: '15px',
+            '::placeholder': {
+              color: '#bec7d0',
+            },
+          },
+          invalid: {
+            iconColor: '#e85746',
+            color: '#e85746',
+          }
+        }
+        var classes = {
+          focus: 'is-focused',
+          empty: 'is-empty',
+        }
+        var cardNumber = elements.create('cardNumber', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardNumber.mount('#cardNumber-element');
+        
+        var cardExpiry = elements.create('cardExpiry', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardExpiry.mount('#cardExpiry-element');
+      
+        var cardCvc = elements.create('cardCvc', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardCvc.mount('#cardCvc-element');
 
-                $scope.paymentFormNotif = $translate(key);
-                $ionicPopup.alert({
-                    title: "Erreur",
-                    template: $scope.paymentFormNotif,
-                    okType: 'button-energized',
-                    "okText": 'Ok',
-                    "cancelText": 'Annuler'
-                });
-            } else { // Token was created!
-
-                // Get the token ID:
-                var token = response.id;
-
-                // Insert the token ID into the form so it gets submitted to the server:
-                $scope.paymentToken = token;
-
-                $scope.reservation = {};
-                $scope.reservation.status = "pending";
-                $scope.reservation.userId = $rootScope.user._id;
-                $scope.reservation.userEmail = $rootScope.user.email;
-                $scope.reservation.token = token;
-
-                $scope.paymentFormNotif = "";
-                $ionicLoading.show({
-                    template: '<ion-spinner icon="dots"></ion-spinner>',
-                    duration: 10000,
-                    hideOnStateChange: true
-                });
-                var card = new UserCardService({
-                    token: token,
-                    userId: $rootScope.user._id,
-                    email: $rootScope.user.email,
-                    currency: 'eur'
-                });
-                card.$save().then(function(res) {
-                        $scope.creditCardModal.hide();
-                        $ionicLoading.hide();
-                        UserService.Refresh();
-                        $scope.userCards = UserCardService.query({
-                            userId: $rootScope.user._id + ""
-                        });
-                    },
-                    function(err) {
-                        $ionicLoading.hide();
-                        var key;
-                        if (err && err.data && err.data.error && err.data.error.code) {
-                            key = 'STRIPE_' + err.data.error.code;
-                        } else {
-                            key = 'error_card_adding_failed';
-                        }
-                        $ionicPopup.alert({
-                            title: "Erreur",
-                            template: $translate(err.code || "error_card_adding_failed"),
-                            okType: 'button-energized',
-                            "okText": 'Ok',
-                            "cancelText": 'Annuler'
-                        });
-
-                        $scope.creditCardModal.hide();
-                    }
-                );
+        var inputs = document.querySelectorAll('input.field');
+        Array.prototype.forEach.call(inputs, function(input) {
+          input.addEventListener('focus', function() {
+            input.classList.add('is-focused');
+          });
+          input.addEventListener('blur', function() {
+            input.classList.remove('is-focused');
+          });
+          input.addEventListener('keyup', function() {
+            if (input.value.length === 0) {
+              input.classList.add('is-empty');
+            } else {
+              input.classList.remove('is-empty');
             }
+          });
+        });
+
+        function setOutcome(result) {
+          var errorElement = document.querySelector('.error');
+          errorElement.classList.remove('visible');
+
+          if (result.token) {
+            // Use the token to create a charge or a customer
+            // https://stripe.com/docs/charges
+            console.log(result.token.id);
+            $scope.new_card_modal.hide();
+            $scope.cards.push({name: $scope.newCardForm.name, last4: '0000'})
+          } else if (result.error) {
+            console.log(result.error.message);
+            errorElement.textContent = result.error.message;
+            errorElement.classList.add('visible');
+          }
+        }
+
+        cardNumber.on('change', function(event) {
+          setOutcome(event);
+        });
+        cardExpiry.on('change', function(event) {
+          setOutcome(event);
+        });
+        cardCvc.on('change', function(event) {
+          setOutcome(event);
+        });
+        
+        $scope.addCard = function(){
+          var form = document.querySelector('form');
+          var extraDetails = {
+            name: $scope.newCardForm.name.$modelValue,
+          }; 
+          stripe.createToken(cardNumber, extraDetails).then(setOutcome);
         };
 ///////       END         ////// 
+    };  
+
+  
+/////// Confirm booking ////// 
     $scope.confirmBooking = function(provider) {
         BookingsService.createReservation($scope.reservation_send);
         //$state.go('app.book.home');

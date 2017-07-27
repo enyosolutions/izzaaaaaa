@@ -8,19 +8,20 @@
     <ion-content class="">
         <div>
             <ion-list class="list-inset cards-select">
-                <ion-item class="item-time no-padding">
+                <ion-item class="item-time no-padding" ng-repeat="card in cards">
                     <ion-radio ng-click="selectCard(n)" > 
                         <div class="item-text">
                             <div class="card-info card-name">
-                              John Doe
+                              {{card.name}}
                             </div>
                             <div class="card-info card-num"> 
-                              XXXX XXXX XXXX 1234 
+                              XXXX XXXX XXXX {{card.last4}} 
                             </div> 
                         </div>
                         <i class=unchecked-radio></i>
                     </ion-radio>
                 </ion-item>
+<!--
                 <ion-item class="item-time no-padding">
                     <ion-radio ng-click="selectCard(n)" > 
                         <div class="item-text">
@@ -34,13 +35,14 @@
                         <i class=unchecked-radio></i>
                     </ion-radio>
                 </ion-item>
-                <ion-item class="item-time no-padding add-card" ng-click="addCard(n)">
+-->
+                <ion-item class="item-time no-padding add-card" ng-click="newCard()">
                     <div class="item-text"> Ajouter une carte </div> 
                     <i class="ion-chevron-right"></i>
                 </ion-item>
             </ion-list>
         </div>
-        <button type="submit" class="button button-theme fixed" ng-click="applyFilter()">
+        <button type="submit" class="button button-theme fixed" ng-click="applyCard()">
                Valider
         </button>
     </ion-content>

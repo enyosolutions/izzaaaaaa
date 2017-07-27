@@ -1,0 +1,39 @@
+<ion-modal-view class="modal-view new-card">
+    <ion-header-bar>
+        <h1 class="title modal-title">Ajouter une carte</h1>
+        <a class="button button-clear close-modal" ng-click="new_card_modal.hide()">
+            <i class="icon ion-android-close"></i>
+        </a>
+    </ion-header-bar>
+    <ion-content class="background-gray">
+        <form>
+          <div class="container padding group">
+            <div class="card-line">
+                <label name="cardholder-name" class="cardholder-name">
+                  <input name="cardholder-name" class="field" placeholder="Full Name" ng-model="newCardForm.name" />
+                </label>
+            </div>  
+            <div class="card-line">
+                <label for="cardNumber-element" class="card-number">
+                    <div id="cardNumber-element" class="field"></div>
+                </label>
+            </div>
+            <div class="card-line">
+                <label for="cardExpiry-element" class="card-expiry">
+                    <div id="cardExpiry-element" class="field"></div>
+                </label>
+                <label for="cardCvc-element" class="card-cvc">
+                    <div id="cardCvc-element" class="field"></div>
+                </label>
+            </div>
+            <div class="outcome">
+              <div class="error"></div>
+              <div class="success"></div>
+            </div>
+          </div>
+          <button type="submit" class="button button-theme fixed" ng-click="addCard()">
+                 Ajouter
+          </button>
+        </form>
+    </ion-content>
+</ion-modal-view>
