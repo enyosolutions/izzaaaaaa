@@ -66,7 +66,7 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
     })
 
     .state('app.book.providers_list', {
-        url: "/providers",
+        url: "/providers/{serviceInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/providers.html",

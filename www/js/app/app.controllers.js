@@ -244,7 +244,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         return $scope.shownGroup === group;
     };
     
-    $scope.openSubgroup = function(service) {
+    $scope.openService = function(service) {
         $state.go('app.book.providers_list', { serviceInfo: service });
     }
 //    
@@ -276,7 +276,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
 .controller('ProvidersCtrl', function($scope, currentProvider, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
   
-    $scope.subcategory = $stateParams.subgroupInfo;
+    $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
         service: "596c3201380d8c716c5d7d53",
         customer: "596c9836380d8c716c5d7d6d",
@@ -287,10 +287,17 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         note: "",
         token: $localStorage.token
     };
-  console.log($scope.reservation);
-  BookingsService.getAllProviders().then(function(response) {
-        $scope.providers = response.data;
+    console.log($scope.reservation);
+    BookingsService.getProviders($scope.service._id).success(function(response) {
+        $scope.providers = response;
+        console.log(response);
+    }).error(function(error) {
+        console.log('Error loading providers...' + error);
     })
+//      .then(function(response) {
+//        $scope.providers = response.data;
+//    })
+    
 
     $scope.bookPerService = function(provider) {
         console.log(provider);

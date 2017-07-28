@@ -131,9 +131,10 @@ angular.module('izza.app.services', [])
         return provs;
     };
   
-    this.getProviders = function(subcategoryName) {
-        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/bysubcategory/' + encodeURIComponent(subcategoryName);
+    this.getProviders = function(idService) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService);
         provs = $http.get(url);
+        console.log("in getProviders: " + idService);
         return provs;
     };
     this.createReservation = function(reservation) {

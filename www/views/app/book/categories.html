@@ -9,7 +9,7 @@
                         {{subgroup.title}}
                     </ion-card-title>
                 </ion-card-content>
-                <ion-item class="item-accordion"  ng-click="openSubgroup(item)" ng-repeat="item in subgroup.services" ng-show="isGroupShown(subgroup)">
+                <ion-item class="item-accordion" ng-repeat="item in subgroup.services" ng-click="openService(item)" ng-show="isGroupShown(subgroup)">
                       {{item.title}}
                 </ion-item>
 
