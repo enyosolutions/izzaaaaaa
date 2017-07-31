@@ -278,8 +278,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
   
     $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
-        service: "596c3201380d8c716c5d7d53",
-        customer: "596c9836380d8c716c5d7d6d",
+        provider_name: "",
+        providerservice: "",
+        customer: $localStorage.customer_id,
         date: Date(),
         hour: "",
         status: "In Progress",
@@ -301,6 +302,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
     $scope.bookPerService = function(provider) {
         console.log(provider);
+        $scope.reservation.provider_name = provider.firstname + ' ' + provider.lastname;
         $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation});
     };
 })

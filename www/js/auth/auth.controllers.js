@@ -47,6 +47,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                 AuthService.authenticateUser($scope.user).then(function(response){ 
                 if (response.success) {
                     $localStorage.token = response.data.token;
+                    $localStorage.customer_id = response.data.id;
                     console.log($localStorage);
                     $state.go('app.book.home');
                 } else {
