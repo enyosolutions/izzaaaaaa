@@ -11,9 +11,11 @@
 .checkbox {
   padding-right: 0;
 }
-.checkbox-icon 
-{
+.checkbox-icon {
   float: right;
+}
+.platform-android .item-checkbox .checkbox-square .checkbox-icon::after {
+  top: 31% !important;
 }
 .checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before
   {
@@ -368,10 +370,12 @@ $slider-radius: 26px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 25px;
 }
 .skill-price {
   float: right;
   font-weight: 600;
+  line-height: 25px;
 }
 .popup-buttons {
   min-height: 50px;
