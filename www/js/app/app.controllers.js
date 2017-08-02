@@ -511,6 +511,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             console.log(result.error.message);
             errorElement.textContent = result.error.message;
             errorElement.classList.add('visible');
+          } else {
+            errorElement.textContent = '';
           }
         }
 
