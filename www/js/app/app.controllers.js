@@ -312,8 +312,24 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
 //    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
+    $scope.selection = [];
+    $scope.toggleSelection = function toggleSelection(single_service) {
+    var idx = $scope.selection.indexOf(single_service);
+    console.log($scope.selection);
+    // Is currently selected
+    if (idx > -1) {
+      $scope.selection.splice(idx, 1);
+    }
+    // Is newly selected
+    else {
+      $scope.selection.push(single_service);
+    }
+  };
+    
     console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
+        $scope.reservation.providerservice = $scope.selection[0]._id;
+        $scope.reservation.service = $scope.selection[0].service.title;
         $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation });
     };
 })
@@ -324,6 +340,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation = $stateParams.reservationInfo;
   
     var caldate = new Date();
+    $scope.reservation.date = caldate;
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
     $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
     $scope.showday = $filter('date')(caldate, ' EEEE, d');
@@ -539,7 +556,10 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
   
 /////// Confirm booking ////// 
     $scope.confirmBooking = function(provider) {
-        BookingsService.createReservation($scope.reservation_send);
+        delete $scope.reservation.provider_name;
+        delete $scope.reservation.service;
+        delete $scope.reservation.betweenTo;
+        BookingsService.createReservation($scope.reservation);
         //$state.go('app.book.home');
         //Stripe.card.createToken(document.getElementById("payment-form"), stripeResponseHandler);
         

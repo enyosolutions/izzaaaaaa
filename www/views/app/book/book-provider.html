@@ -8,7 +8,7 @@
                 </div>
                 <div class="item item-body">
                     <div class="provider-info">
-                        <h2 class="card-title">{{provider.firstname}} {{provider.lastname}}</h2>
+                        <h2 class="card-title">{{provider.firstname}} {{provider.lastname}} {{skill.selected}}</h2>
                         <p class="card-description">
                             <span ng-repeat="single_service in provider.services" class="name-text">
                               {{single_service.service.title}} |
@@ -18,7 +18,8 @@
                     <div class="skill-shop">
                         <ion-list>
                             <ion-item class="item-borderless" ng-repeat="single_service in provider.services">
-                                <ion-checkbox class="item-borderless" ng-model="skill.selected">
+                                <ion-checkbox class="item-borderless"  ng-checked="selection.indexOf(single_service) > -1"
+    ng-click="toggleSelection(single_service)">
                                     <div class="item-borderless">
                                         <div class="item-text skill-desc">
                                             {{single_service.service.title}}
