@@ -230,6 +230,14 @@ ion-spinner.spinner-on-load
       content: none !important;
     }
   }
+  &.disabled-btn {
+    background-color: lightgrey;
+    opacity: 1;
+    &:active, &.activated {
+      background-color: lightgrey;
+      opacity: 1;
+    }
+  }
 }
 .fixed {
   position: absolute;

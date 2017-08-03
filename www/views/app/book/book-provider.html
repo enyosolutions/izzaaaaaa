@@ -36,7 +36,7 @@
             </div>
         </div>
     </ion-content>
-    <button class="button-theme fixed" ng-click="continuetoDate(provider)">
+    <button class="button-theme fixed" ng-click="continuetoDate(provider)"  ng-class="{'disabled-btn': !selection.length}" ng-disabled="!selection.length">
         Suivant
     </button>
 </ion-view>
