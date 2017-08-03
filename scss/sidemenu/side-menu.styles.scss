@@ -1,4 +1,7 @@
-ion-side-menu {  
+ion-side-menu {
+  ion-header {
+    min-height: 200px;
+  }
   .item {
     background: transparent;
     border: none;
