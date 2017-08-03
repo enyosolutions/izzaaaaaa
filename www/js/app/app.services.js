@@ -98,6 +98,17 @@ angular.module('izza.app.services', [])
   };
 })
 
+
+.service('ProfileService', function($http, $q, _, RemoteDirectory) {
+    this.getProfile = function(customer_id) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/customer/' + encodeURIComponent(customer_id);
+        provs = $http.get(url);
+        return provs;
+    };
+
+})
+
+
 .service('BookingsService', function($http, $q, _, RemoteDirectory) {
 
     //For:
@@ -105,19 +116,10 @@ angular.module('izza.app.services', [])
     // - create booking for a provider.
 
 
-    this.getReservations = function(useremail) {
-        var dfd = $q.defer();
-        var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/byemail/' + encodeURIComponent(useremail);
-        console.log('Loading res from:' + url);
-        $http.get(url).success(function(database) {
-            dfd.resolve(database);
-            console.log("resolved database getting reservations.");
-        }).error(function(err) {
-            console.log('Error loading reservations...' + err);
-        })
-
-        ;
-        return dfd.promise;
+    this.getReservations = function(customer_id) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/appointments/bycustomer/' + encodeURIComponent(customer_id);
+        provs = $http.get(url);
+        return provs;
     };
     this.getCategories = function() {
           var url = RemoteDirectory.getAPISrvURL() + '/api/categories';
@@ -231,42 +233,4 @@ angular.module('izza.app.services', [])
         return dfd.promise;
 
     };
-
-    /*
-
-        this.getProvider = function(providerId){
-          var dfd = $q.defer();
-          $http.get('database.json').success(function(database) {
-            var provider = _.find(database.providers, function(provider){ return provider._id == providerId; });
-
-            dfd.resolve(provider);
-          });
-          return dfd.promise;
-        };
-
-        this.addProviderToBooking = function(providerToAdd){
-          var booking_providers = !_.isUndefined(window.localStorage.ionTheme1_cart) ? JSON.parse(window.localStorage.ionTheme1_cart) : [];
-
-          //check if this product is already saved
-          var existing_provider = _.find(booking_providers, function(provider){ return provider._id == providerToAdd._id; });
-
-          if(!existing_provider){
-            booking_providers.push(providerToAdd);
-          }
-
-          window.localStorage.ionTheme1_cart = JSON.stringify(booking_providers);
-        };
-
-        this.getBookingProviders = function(){
-          return JSON.parse(window.localStorage.ionTheme1_cart || '[]');
-        };
-
-        this.removeProviderFromBooking = function(providerToRemove){
-          var booking_providers = JSON.parse(window.localStorage.ionTheme1_cart);
-
-          var new_booking_providers = _.reject(booking_providers, function(provider){ return provider._id == providerToRemove._id; });
-
-          window.localStorage.ionTheme1_cart = JSON.stringify(new_booking_providers);
-        };
-        */
-});
+})

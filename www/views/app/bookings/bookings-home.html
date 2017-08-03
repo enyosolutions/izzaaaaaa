@@ -15,31 +15,29 @@
                 <div class="item">
                   <div class="reservation-info">
                   <div class="container-left-side">
-                      <h1 class="provider-name"> {{reservation.providerInfo.firstname }} {{reservation.providerInfo.lastname }}</h1>
-                      <div ng-repeat="service in reservation.serviceInfo">
-                          <h2 class="service-description">{{service.description}} ({{service.price}} {{((service.cur === "") ? 'eur':'€')}})  </h2>
+                      <h1 class="provider-name"> {{reservation.providerservice.provider.firstname }} {{reservation.providerservice.provider.lastname }}</h1>
+                      <div>
+                          <h2 class="service-description">{{reservation.providerservice.service.title}} ({{reservation.providerservice.price}} €)  </h2>
                       </div>
                   </div>
                   <div class="container-right-side">
-                      <div class="reservation-status">{{reservation.reservationInfo.status }}</div>
-                      <h2 class="time-date">{{reservation.reservationInfo.reservation_date | date:'dd/MM/yyyy' }}
-                     {{(reservation.reservationInfo.betweenFrom === reservation.reservationInfo.betweenTo ? '' +
-                        reservation.reservationInfo.betweenFrom :  'Entre:' + reservation.reservationInfo.betweenFrom
-                        + ' Et: ' + reservation.reservationInfo.betweenTo)}} </h2>
+                      <div class="reservation-status">{{reservation.status }}</div>
+                      <h2 class="time-date">{{reservation.date | date:'dd/MM/yyyy' }}
+                      <br>
+                     {{reservation.hour}} </h2>
                   </div>
                   </div>
                 
                   <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="pay-container">
+<!--
                   <button  ng-click="switchCompleted(isSelected,reservation.reservationInfo.res_id)" class="button button-full button-clear reservation-button pay">
                       Payer
                   </button>
+-->
                   </div>
-
-                  <div ng-if="(reservation.reservationInfo.status === 'Attente de confirmation') || (reservation.reservationInfo.status === 'Confirmé')" class="cancel-container">
-                      <button  ng-click="cancelBooking(reservation.reservationInfo.res_id)" class="button button-full button-clear reservation-button cancel" >
-                          Annuler
-                      </button>
-                  </div>
+                  <button  ng-click="cancelBooking(reservation.reservationInfo.res_id)" class="button button-full button-clear reservation-button cancel" >
+                      Annuler
+                  </button>
 
                 </div>
             </div>

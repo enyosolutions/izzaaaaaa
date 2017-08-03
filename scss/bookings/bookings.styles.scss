@@ -40,7 +40,7 @@
     .provider-name {
       font-size: 18px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 0.8px;
     }
     .reservation-status {
       border: solid 1px grey;
@@ -49,6 +49,7 @@
       margin-bottom: 10px;
       text-align: center;
       padding: 2px 5px;
+      font-size: 14px;
       &.confirme {
         color: #62b57e;
         border-color: #62b57e;

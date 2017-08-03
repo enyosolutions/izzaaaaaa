@@ -18,11 +18,19 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 })
 
 
-.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate) {
+.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
 
     $localStorage = $localStorage.$default({
         profile: {}
     });
+    ProfileService.getProfile($localStorage.customer_id)
+        .success(function(response) {
+            $scope.profile = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        });
     $scope.$storage = $localStorage.profile;
     console.log($scope.$storage);
     $scope.logOut = function() {
@@ -34,96 +42,13 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 })
 
 .controller('BookingsController', function($scope, currentProvider, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
-
+    
     $scope.profile = $localStorage.profile;
+    $scope.customer_id = $localStorage.customer_id;
     $scope.isSelected = true;
-    //Turns the booking into status:completed
-    $scope.switchCompleted = function(param, res_id) {
-        $scope.isSelected = param;
-        $scope.currentID = res_id;
-        console.log(param);
-        BookingsService.updateBookingCompleted(res_id, param);
-
-    };
-
-    //Turns the booking into status:canceled
-
-    $scope.cancelBooking = function(res_id) {
-
-
-        $scope.showAlertReserveOK = function() {
-            var alertPopup = $ionicPopup.confirm({
-                title: 'Annulation',
-                template: 'Attention vous allez annuler votre réservation.'
-            });
-
-            alertPopup.then(function(res) {
-
-                if (res) {
-                    $scope.currentID = res_id;
-                    console.log("cancelling booking id: " + res_id);
-                    BookingsService.cancelBooking(res_id).then(function(res) {
-
-
-                        console.log("returns: " + res);
-                        $scope.doRefresh();
-                    });
-
-                } else {
-                    var errorPrompt = $ionicPopup.alert({
-                        title: 'Annulation',
-                        template: 'La réservation na pas pu être annulée.'
-                    });
-
-                    errorPrompt.then(function(res) {
-
-
-                        console.log("cancelling booking id: " + res_id);
-                    });
-
-                }
-
-            });
-        };
-
-        $scope.showAlertReserveOK();
-
-    };
-
-
-    $scope.doRefresh = function() {
-
-        console.log("Refreshing reservations.");
-        //getReservations
-        if ($scope.profile) {
-            if ($scope.profile.profile.email) {
-                if ($scope.profile.profile.email !== "") {
-                    profileok = true;
-                    var bs = BookingsService;
-                    var key = $scope.profile.profile.email;
-                    //var key = "izza@invicti.eu";
-                    bs.getReservations(key).then(function(reservations) {
-                        $scope.reservations = reservations;
-                        $scope.resToJSON = JSON.stringify(reservations);
-                        console.log("got reservations from api server.");
-
-                        $scope.$broadcast('scroll.refreshComplete');
-
-                    });
-
-                }
-            } else {
-                console.log("could not get reservations from api server: no email in profile.");
-            }
-        }
-    };
-
-
-//    $scope.doRefresh();
-
-    /*
-    PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
-    */
+/*
+PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
+*/
 
     $scope.reservations = [];
 
@@ -149,11 +74,63 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             "price": "20"
         }]
     };
+  
+    console.log($scope.customer_id);
+    BookingsService.getReservations($scope.customer_id)
+        .success(function(response) {
+            $scope.reservations = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        });
+    //Turns the booking into status:canceled
+
+    $scope.cancelBooking = function(res_id) {
+        $scope.showAlertReserveOK = function() {
+            var alertPopup = $ionicPopup.confirm({
+                title: 'Annulation',
+                template: 'Attention vous allez annuler votre réservation.'
+            });
+            alertPopup.then(function(res) {
+                if (res) {
+                    $scope.currentID = res_id;
+                    console.log("cancelling booking id: " + res_id);
+                    BookingsService.cancelBooking(res_id).then(function(res) {
+                        console.log("returns: " + res);
+                        $scope.doRefresh();
+                    });
+                } else {
+                    var errorPrompt = $ionicPopup.alert({
+                        title: 'Annulation',
+                        template: 'La réservation na pas pu être annulée.'
+                    });
+                    errorPrompt.then(function(res) {
+                        console.log("cancelling booking id: " + res_id);
+                    });
+                }
+            });
+        };
+        $scope.showAlertReserveOK();
+    };
+
+    $scope.doRefresh = function() {
+        console.log("Refreshing reservations.");
+        BookingsService.getReservations($scope.customer_id)
+        .success(function(response) {
+            $scope.reservations = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        })
+        $scope.$broadcast('scroll.refreshComplete');
+    };
 
 })
 
 .controller('BookCtrl', function($scope, $http, currentProvider, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
-
+    console.log($localStorage.customer_id);
     $scope.groups = [];
 //
 //    $scope.groups[0] = {
