@@ -79,56 +79,60 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
     })
 
     .state('app.book.provider', {
-        url: "/book_provider/{providerInfo:json}/{reservationInfo:json}",
+        url: "/book_provider/{providerInfo:json}/{reservationInfo:json}/{recapInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book-provider.html",
                 controller: 'BookProviderCtrl',
                 params: {
                     providerInfo: null,
-                    reservationInfo: null
+                    reservationInfo: null,
+                    recapInfo: null
                 }
             }
         }
     })
 
     .state('app.book.addbooking', {
-        url: "/book_addbooking/{providerInfo:json}/{reservationInfo:json}",
+        url: "/book_addbooking/{providerInfo:json}/{reservationInfo:json}/{recapInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/addbooking.html",
                 controller: 'PickBookingTimeCtrl',
                 params: {
                     providerInfo: null,
-                    reservationInfo: null
+                    reservationInfo: null,
+                    recapInfo: null
                 }
             }
         }
     })
 
     .state('app.book.address', {
-        url: "/book_address/{providerInfo:json}/{reservationInfo:json}",
+        url: "/book_address/{providerInfo:json}/{reservationInfo:json}/{recapInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book_address.html",
                 controller: 'BookAddressCtrl',
                 params: {
                     providerInfo: null,
-                    reservationInfo: null
+                    reservationInfo: null,
+                    recapInfo: null
                 }
             }
         }
     })
 
     .state('app.book.recap', {
-        url: "/book_recap/{providerInfo:json}/{reservationInfo:json}",
+        url: "/book_recap/{providerInfo:json}/{reservationInfo:json}/{recapInfo:json}",
         views: {
             'book-home': {
                 templateUrl: "views/app/book/book_recap.html",
                 controller: 'BookRecapCtrl',
                 params: {
                     providerInfo: null,
-                    reservationInfo: null
+                    reservationInfo: null,
+                    recapInfo: null
                 }
             }
         }
