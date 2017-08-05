@@ -1,4 +1,4 @@
-<ion-view view-title='Bookings' >
+<ion-view>
     <ion-content ng-class="{'background-gray': reservations.length}">
         <ion-refresher pulling-text="Glissez de haut en bas pour rafraîchir..." on-refresh="doRefresh()" ></ion-refresher>
         <div class="no-reservations" ng-hide="reservations.length">

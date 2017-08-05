@@ -46,7 +46,7 @@ angular.module('izza', [
     };
     ionicTimePickerProvider.configTimePicker(timePickerObj);
     $ionicConfigProvider.backButton.text('').icon('ion-ios9-arrow-left');
-
+    $ionicConfigProvider.backButton.previousTitleText(false);
 })
 
 .run(function($ionicPlatform, $rootScope, $ionicHistory, $timeout, $ionicConfig, $localStorage, $sessionStorage, $state, $window) {
