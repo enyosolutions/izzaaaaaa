@@ -18,7 +18,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 })
 
 
-.controller('ProfileCtrl', function($scope, currentProvider, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
+.controller('ProfileCtrl', function($scope, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
 
     $localStorage = $localStorage.$default({
         profile: {}
@@ -41,7 +41,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
-.controller('BookingsController', function($scope, currentProvider, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+.controller('BookingsController', function($scope, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
     
     $scope.profile = $localStorage.profile;
     $scope.customer_id = $localStorage.customer_id;
@@ -129,7 +129,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
 })
 
-.controller('BookCtrl', function($scope, $http, currentProvider, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('BookCtrl', function($scope, $http, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
     console.log($localStorage.customer_id);
     $scope.groups = [];
 //
@@ -194,7 +194,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     }
 })
 
-.controller('SubCategoryCtrl', function($scope, currentProvider, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
+.controller('SubCategoryCtrl', function($scope, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
     $scope.group = $stateParams.groupInfo;
     $scope.subgroups = $scope.group.subcategories;
 
@@ -251,7 +251,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 //    }
 })
 
-.controller('ProvidersCtrl', function($scope, currentProvider, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('ProvidersCtrl', function($scope, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
   
     $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
@@ -290,7 +290,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller('BookProviderCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
+.controller('BookProviderCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -319,7 +319,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller("PickBookingTimeCtrl", function($scope, currentProvider, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory, $localStorage) {
+.controller("PickBookingTimeCtrl", function($scope, $filter, $stateParams, ionicDatePicker, ionicTimePicker, $location, $state, BookingsService, $ionicModal, $localStorage, $sessionStorage, $ionicPopup, $ionicHistory, $localStorage) {
 
     $scope.params = $stateParams;
     $scope.reservation = $stateParams.reservationInfo;
@@ -390,7 +390,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller('BookAddressCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
+.controller('BookAddressCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -401,7 +401,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller('BookRecapCtrl', function($scope, currentProvider, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
+.controller('BookRecapCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -514,6 +514,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
             console.log(result.token.id);
             $scope.new_card_modal.hide();
             $scope.cards.push({name: $scope.newCardForm.name, last4: '0000'})
+            $scope.new_card_info = {customerId: $localStorage.customer_id, token: result.token.id};
+            console.log($scope.new_card_info);
+            BookingsService.sendCard($scope.new_card_info);
           } else if (result.error) {
             console.log(result.error.message);
             errorElement.textContent = result.error.message;
@@ -539,6 +542,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
             name: $scope.newCardForm.name.$modelValue,
           }; 
           stripe.createToken(cardNumber, extraDetails).then(setOutcome);
+          
         };
 ///////       END         ////// 
     };  
@@ -547,8 +551,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 /////// Confirm booking ////// 
     $scope.confirmBooking = function(provider) {
         BookingsService.createReservation($scope.reservation);
-        //$state.go('app.book.home');
-        //Stripe.card.createToken(document.getElementById("payment-form"), stripeResponseHandler);
+        $state.go('app.book.home');
         
     };
 })

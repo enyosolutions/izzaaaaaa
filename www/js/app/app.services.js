@@ -55,33 +55,6 @@ angular.module('izza.app.services', [])
 
 })
 
-.service('currentProvider', function() {
-
-    _.cloneDeep
-
-    this.bufferProvider = {};
-    this.currentProvider = {};
-
-    this.bufferProvider = function() {
-        return _.cloneDeep(this.bufferProvider);
-    };
-
-    this.setbufferProvider = function(provider) {
-
-        this.bufferProvider = _.cloneDeep(provider);
-
-    };
-
-    this.currentProvider = function() {
-        return _.cloneDeep(this.currentProvider);
-    };
-
-    this.setcurrentProvider = function(provider) {
-
-        this.currentProvider = _.cloneDeep(provider);
-    };
-})
-
 .service('UserService', function() {
   // For the purpose of this example I will store user data on ionic local storage but you should save it on a database
   var setUser = function(user_data) {
@@ -139,6 +112,20 @@ angular.module('izza.app.services', [])
         console.log("in getProviders: " + idService);
         return provs;
     };
+    this.sendCard = function (card_info) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/card';
+        $http.post(url, card_info)
+            .then(
+                function(response){
+                    console.log("Success!"); 
+                },
+                function(error){
+                    console.log("Failed!");
+                    console.log(error);
+                }
+            );
+    }
+    
     this.createReservation = function(reservation) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment';
         $http.post(url, reservation)
@@ -152,25 +139,23 @@ angular.module('izza.app.services', [])
             );
     }
     this.cancelBooking = function(res_id) {
-        var dfd = $q.defer();
-        var url = RemoteDirectory.getAPISrvURL() + '/api/reservations/cancelres/' + encodeURIComponent(res_id);
+        var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/cancel/' + encodeURIComponent(res_id);
         console.log('Loading res from:' + url);
-        $http.get(url).success(function(result) {
-            dfd.resolve(result);
-            console.log("cancelBooking api call OK.");
-            if (result.error) {
-                console.log("cancelBooking api call NOK." + result.error);
+        $http.put(url)
+          .success(function(response) {
+              dfd.resolve(result);
+              console.log("cancelBooking api call OK.");
+              if (response.error) {
+                  console.log("cancelBooking api call NOK." + response.error);
+              } else {
+                  console.log('"cancelBooking api call OK...' + response);
 
-            } else {
-                console.log('"cancelBooking api call OK...' + result);
-
-            }
-        }).error(function(err) {
-            console.log('"cancelBooking api call NOK...' + err);
-        })
-
-        ;
-        return dfd.promise;
+              }
+          })
+          .error(function(error) {
+            console.log('"cancelBooking api call NOK...' + error);
+        });
+        
     };
 
 

@@ -29,13 +29,9 @@
                   </div>
                 
                   <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="pay-container">
-<!--
-                  <button  ng-click="switchCompleted(isSelected,reservation.reservationInfo.res_id)" class="button button-full button-clear reservation-button pay">
-                      Payer
-                  </button>
--->
                   </div>
-                  <button  ng-click="cancelBooking(reservation.reservationInfo.res_id)" class="button button-full button-clear reservation-button cancel" >
+                  
+                  <button  ng-click="cancelBooking(reservation._id)" class="button button-full button-clear reservation-button cancel" >
                       Annuler
                   </button>
 

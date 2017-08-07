@@ -122,9 +122,10 @@ ion-card-title
       .row
       {
         padding: 3px 0;
+        flex-wrap: wrap;
       }
       .name-text
-      {
+      {        
         color: $provider-qualification-color;
         font-size: 12px;
         line-height: 16px;
