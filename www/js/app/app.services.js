@@ -118,6 +118,7 @@ angular.module('izza.app.services', [])
             .then(
                 function(response){
                     console.log("Success!"); 
+                    console.log(response);
                 },
                 function(error){
                     console.log("Failed!");
@@ -125,7 +126,11 @@ angular.module('izza.app.services', [])
                 }
             );
     }
-    
+    this.getCards = function(stripe_id) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/cards/' + encodeURIComponent(stripe_id);
+        provs = $http.get(url);
+        return provs;
+    };
     this.createReservation = function(reservation) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment';
         $http.post(url, reservation)

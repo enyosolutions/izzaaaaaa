@@ -6,20 +6,21 @@
             <h3>{{recap_info.provider_name}}</h3>
             <h4>{{recap_info.date | date: 'EEEE, d MMMM'}},</h4>
             <h4>à {{recap_info.hour}}.</h4>
+            <h3>{{recap_info.price}}€</h3>
             <div class="payment">
                 <div class="card-container left">
                     <i class="ion-card"></i>
                     <span>XXXX.XXXX.XXXX.1234</span>
                 </div>
                 <div class="card-container right">
-                  <button ng-click="showCards()" class="button button-full change-card">
-                      Modifier
-                  </button>
+                    <button ng-click="showCards()" class="button button-full change-card">
+                        Modifier
+                    </button>
                 </div>
             </div>
-            <form id="payment-form" style="display:none;">
-                
-            </form>
+            <p ng-show="vouchers == 1">1 bon de réduction appliqué</p>
+            <p ng-show="vouchers > 1"> {{vouchers}} bons de réduction appliqués</p>
+            
         </div>
     </ion-content>
     <button class="button button-theme fixed" ng-click="confirmBooking()">

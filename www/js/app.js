@@ -16,7 +16,8 @@ angular.module('izza', [
     'ngIOS9UIWebViewPatch',
     'ionic-datepicker',
     'ionic-timepicker',
-    'ngStorage'
+    'ngStorage',
+    'ngCordova'
 ]).provider('MyAppConfiguration', function() {
     // default values
     var values = {

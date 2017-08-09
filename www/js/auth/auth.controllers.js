@@ -48,7 +48,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                 if (response.success) {
                     $localStorage.token = response.data.token;
                     $localStorage.customer_id = response.data.id;
-                    console.log($localStorage);
+                    $localStorage.stripe_id = response.data.stripeid;
                     $state.go('app.book.home');
                 } else {
                     console.log("Error " + response.status);
@@ -161,7 +161,10 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 
 })
 
-.controller('SignUpCtrl', function($scope, $state, $q, $stateParams, AuthService){
+.controller('SignUpCtrl', function($scope, $state, $q, $stateParams, AuthService, $cordovaDevice, $ionicPlatform){
+        $ionicPlatform.ready(function() {
+          $scope.deviceUuid = $cordovaDevice.getUUID();
+        });
         $scope.newUser = {
             firstname: "",
             lastname: "",
@@ -170,11 +173,9 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
             address: "",
             address2: "",
             phone: "",
-            platform: "",
-            deviceid: ""
+            platform: ionic.Platform.platform(),
+            deviceid: $scope.deviceUuid
         };
-        $scope.newUser.platform = ionic.Platform.platform();
-        $scope.newUser.deviceid = '12345foo';
 	$scope.doSignUp = function(){
             $state.go('auth.signup_info', { userInfo: $scope.newUser});
 	};

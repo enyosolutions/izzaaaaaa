@@ -315,6 +315,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.continuetoDate = function(provider) {
         $scope.reservation.providerservice = $scope.selection[0]._id;
         $scope.recap_info.service = $scope.selection[0].service.title;
+        $scope.recap_info.price = $scope.selection[0].price;
         $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info });
     };
 })
@@ -406,18 +407,24 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
+    $scope.vouchers = 2;
   
-    $scope.reservation_send = {
-        service: $scope.reservation.service,
-        date: $scope.reservation.date,
-        hour: $scope.reservation.hour,
-    };
     
     $scope.cards = [
         {name: "John Doe", last4: "1234"},
         {name: "Jane Doe", last4: "5678"}
     ];
-    
+  
+    BookingsService.getCards($localStorage.stripe_id)
+        .success(function(response) {
+            $scope.cards = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        });
+  
+  
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -513,8 +520,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
             // https://stripe.com/docs/charges
             console.log(result.token.id);
             $scope.new_card_modal.hide();
-            $scope.cards.push({name: $scope.newCardForm.name, last4: '0000'})
-            $scope.new_card_info = {customerId: $localStorage.customer_id, token: result.token.id};
+            $scope.new_card_info = {customerId: $localStorage.stripe_id, token: result.token.id};
             console.log($scope.new_card_info);
             BookingsService.sendCard($scope.new_card_info);
           } else if (result.error) {
