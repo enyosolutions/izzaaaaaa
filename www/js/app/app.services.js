@@ -1,6 +1,14 @@
 angular.module('izza.app.services', [])
 
-
+.service('sharedFunctions', function($state, $ionicHistory) {
+    this.goHome = function() {
+        $ionicHistory.nextViewOptions({
+            disableAnimate: true,
+            historyRoot: true
+        });
+        $state.go('app.book.home');
+    }
+})
 
 .service('RemoteDirectory', function() {
     //this.api_url =  'https://localhost:8443';

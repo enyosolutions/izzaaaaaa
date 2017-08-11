@@ -392,7 +392,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller('BookRecapCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
+.controller('BookRecapCtrl', function($scope, BookingsService, sharedFunctions, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -404,13 +404,19 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         {name: "John Doe", cardId:"test1", last4: "1234"},
         {name: "Jane Doe", cardId:"test2", last4: "5678"}
     ];
+    $scope.cardToPay = $scope.cards[0];
+  
     $scope.stripeCharge = {
         currency: "euro", 
         amount: $scope.recap_info.price,
         customerId: $localStorage.stripe_id,
         cardId: ""
     };
-  
+      
+    $scope.selectCard = function(card) {
+        $scope.cardToPay = card;
+        $scope.stripeCharge.cardId = card.cardId;
+    }
 //    BookingsService.getCards($localStorage.stripe_id)
 //        .success(function(response) {
 //            $scope.cards = response;
@@ -420,7 +426,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 //            console.log('Error loading cards...' + error);
 //        });
   
-  
+    
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -554,7 +560,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         console.log($scope.reservation);
         BookingsService.createCharge($scope.stripeCharge)
         BookingsService.createReservation($scope.reservation);
-        $state.go('app.book.home');
+        sharedFunctions.goHome();
         
     };
 })

@@ -9,7 +9,7 @@
         <div>
             <ion-list class="list-inset cards-select">
                 <ion-item class="item-time no-padding" ng-repeat="card in cards">
-                    <ion-radio ng-click="selectCard(n)" > 
+                    <ion-radio ng-click="selectCard(card)" > 
                         <div class="item-text">
                             <div class="card-info card-name">
                               {{card.name}}
@@ -27,7 +27,7 @@
                 </ion-item>
             </ion-list>
         </div>
-        <button type="submit" class="button button-theme fixed" ng-click="applyCard()">
+        <button type="submit" class="button button-theme fixed" ng-click="cards_list_modal.hide()">
                Valider
         </button>
     </ion-content>

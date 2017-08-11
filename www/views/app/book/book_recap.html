@@ -7,10 +7,11 @@
             <h4>{{recap_info.date | date: 'EEEE, d MMMM'}},</h4>
             <h4>à {{recap_info.hour}}.</h4>
             <h3>{{recap_info.price}}€</h3>
-            <div class="payment">
+            <div class=payment ng-hide="cards.length">Vouz n'avez pas encore renseigné de moyen de paiement.</div>
+            <div class="payment" ng-show="cards.length">
                 <div class="card-container left">
                     <i class="ion-card"></i>
-                    <span>XXXX.XXXX.XXXX.1234</span>
+                    <span>XXXX.XXXX.XXXX.{{cardToPay.last4}}</span>
                 </div>
                 <div class="card-container right">
                     <button ng-click="showCards()" class="button button-full change-card">
