@@ -363,6 +363,23 @@ $slider-radius: 26px;
 .skill-shop {
   padding: 10px 12px;
   border-top: solid 1px lighten(#b2b2b2, 20%);
+  .provider-skills{
+    & * {
+      background-color: white !important;
+      border: none;
+    }
+  }
+  .item-content {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 0 !important;
+  }
+  .unchecked-radio {
+    top: 15% !important;
+  }
+  .item-radio input, .radio-icon {
+    top: 15% !important;
+  }
 }
 .skill-desc {
   max-width: 75%;

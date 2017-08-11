@@ -16,11 +16,10 @@
                         </p>
                     </div>
                     <div class="skill-shop">
-                        <ion-list>
-                            <ion-item class="item-borderless" ng-repeat="single_service in provider.services">
-                                <ion-checkbox class="item-borderless"  ng-checked="selection.indexOf(single_service) > -1"
-    ng-click="toggleSelection(single_service)">
-                                    <div class="item-borderless">
+                        <ion-list class="provider-skills">
+                            <ion-item class="item-borderless item-time no-padding" ng-repeat="single_service in provider.services">
+                                <ion-radio ng-click="selectService(single_service)" > 
+                                    <div>
                                         <div class="item-text skill-desc">
                                             {{single_service.service.title}}
                                         </div>
@@ -28,7 +27,8 @@
                                             {{single_service.price}} €
                                         </div>
                                     </div>
-                                </ion-checkbox>
+                                    <i class=unchecked-radio></i>
+                                </ion-radio>
                             </ion-item>
                         </ion-list>
                     </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
     </ion-content>
-    <button class="button-theme fixed" ng-click="continuetoDate(provider)"  ng-class="{'disabled-btn': !selection.length}" ng-disabled="!selection.length">
+    <button class="button-theme fixed" ng-click="continuetoDate(provider)"  ng-class="{'disabled-btn': !reservation.providerservice}" ng-disabled="!reservation.providerservice">
         Suivant
     </button>
 </ion-view>

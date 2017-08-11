@@ -23,7 +23,10 @@
             
         </div>
     </ion-content>
-    <button class="button button-theme fixed" ng-click="confirmBooking()">
+    <button class="button button-theme fixed" ng-click="confirmBooking()" ng-hide="cards.length">
+        Ajouter un moyen de paiement
+    </button>
+    <button class="button button-theme fixed" ng-click="confirmBooking()" ng-show="cards.length">
         Suivant
     </button>
 </ion-view>

@@ -147,19 +147,15 @@ angular.module('izza.app.services', [])
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/cancel/' + encodeURIComponent(res_id);
         console.log('Loading res from:' + url);
         $http.put(url)
-          .success(function(response) {
-              dfd.resolve(result);
-              console.log("cancelBooking api call OK.");
-              if (response.error) {
-                  console.log("cancelBooking api call NOK." + response.error);
-              } else {
-                  console.log('"cancelBooking api call OK...' + response);
-
-              }
-          })
-          .error(function(error) {
-            console.log('"cancelBooking api call NOK...' + error);
-        });
+            .then(
+                function(response){
+                    console.log("Success!"); 
+                },
+                function(error){
+                    console.log("Failed!");
+                    console.log(error);
+                }
+            );
         
     };
 

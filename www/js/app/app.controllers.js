@@ -50,31 +50,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 */
 
-    $scope.reservations = [];
-
-    $scope.reservations[0] = {
-        "providerInfo": {
-            "firstname": "Isabelle",
-            "lastname": "Bono",
-        },
-        "reservationInfo": {
-            "res_id": "1234567789091yeee",
-            "status": "Confirmé",
-            "date": "2017-06-17",
-            "reservationFrom": "10:30",
-            "reservationTo": "11:00",
-        },
-        "serviceInfo": [{
-            "description": "coiffure",
-            "cur": "eur",
-            "price": "30"
-        }, {
-            "description": "chignon",
-            "cur": "eur",
-            "price": "20"
-        }]
-    };
-  
     console.log($scope.customer_id);
     BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
@@ -296,26 +271,39 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
   
+  
+    $scope.reservation.providerservice = "";
+    console.log($scope.reservation.providerservice);
 //    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
     $scope.selection = [];
     $scope.toggleSelection = function toggleSelection(single_service) {
-    var idx = $scope.selection.indexOf(single_service);
-    console.log($scope.selection);
-    // Is currently selected
-    if (idx > -1) {
-      $scope.selection.splice(idx, 1);
-    }
-    // Is newly selected
-    else {
-      $scope.selection.push(single_service);
-    }
-  };
+        var idx = $scope.selection.indexOf(single_service);
+        console.log($scope.selection);
+        // Is currently selected
+        if (idx > -1) {
+            $scope.selection.splice(idx, 1);
+        }
+        // Is newly selected
+        else {
+            $scope.selection.push(single_service);
+        }
+    };
     
+    console.log($scope.reservation.providerservice);
+    console.log($scope.recap_info.service);
+  
+    $scope.selectService = function(providerservice) {
+      
+        $scope.reservation.providerservice = providerservice._id;
+        $scope.recap_info.service = providerservice.service.title;
+        $scope.recap_info.price = providerservice.price;
+
+    }
     console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
-        $scope.reservation.providerservice = $scope.selection[0]._id;
-        $scope.recap_info.service = $scope.selection[0].service.title;
-        $scope.recap_info.price = $scope.selection[0].price;
+//        $scope.reservation.providerservice = $scope.selection[0]._id;
+//        $scope.recap_info.service = $scope.selection[0].service.title;
+//        $scope.recap_info.price = $scope.selection[0].price;
         $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info });
     };
 })
@@ -325,6 +313,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.params = $stateParams;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
+    $scope.reservation.hour = "";
   
     var caldate = new Date();
     $scope.reservation.date = caldate;
@@ -332,6 +321,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
     $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
     $scope.showday = $filter('date')(caldate, ' EEEE, d');
+    console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
 
@@ -411,18 +401,24 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
   
     
     $scope.cards = [
-        {name: "John Doe", last4: "1234"},
-        {name: "Jane Doe", last4: "5678"}
+        {name: "John Doe", cardId:"test1", last4: "1234"},
+        {name: "Jane Doe", cardId:"test2", last4: "5678"}
     ];
+    $scope.stripeCharge = {
+        currency: "euro", 
+        amount: $scope.recap_info.price,
+        customerId: $localStorage.stripe_id,
+        cardId: ""
+    };
   
-    BookingsService.getCards($localStorage.stripe_id)
-        .success(function(response) {
-            $scope.cards = response;
-            console.log(response);
-        })
-        .error(function(error) {
-            console.log('Error loading providers...' + error);
-        });
+//    BookingsService.getCards($localStorage.stripe_id)
+//        .success(function(response) {
+//            $scope.cards = response;
+//            console.log(response);
+//        })
+//        .error(function(error) {
+//            console.log('Error loading cards...' + error);
+//        });
   
   
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
@@ -450,8 +446,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         console.log('Modal is shown!');
 ///////   STRIPE ELEMENTS   ////// 
         var stripe = Stripe('pk_test_KxHM84wFfVzsFP7NBIloYPTo');
-        var elements = stripe.elements();
-        
+        var elements = stripe.elements({locale: "fr"});
         var style = {
           base: {
             iconColor: '#666EE8',
@@ -555,7 +550,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
   
 /////// Confirm booking ////// 
-    $scope.confirmBooking = function(provider) {
+    $scope.confirmBooking = function() {
+        console.log($scope.reservation);
+        BookingsService.createCharge($scope.stripeCharge)
         BookingsService.createReservation($scope.reservation);
         $state.go('app.book.home');
         
