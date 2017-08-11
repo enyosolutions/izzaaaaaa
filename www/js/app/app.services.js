@@ -131,6 +131,18 @@ angular.module('izza.app.services', [])
         provs = $http.get(url);
         return provs;
     };
+    this.createCharge = function(charge) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/charge';
+        $http.post(url, charge)
+            .then(
+                function(response){
+                    console.log("Success!"); 
+                },
+                function(response){
+                    console.log("Failed!");
+                }
+            );
+    }
     this.createReservation = function(reservation) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment';
         $http.post(url, reservation)
