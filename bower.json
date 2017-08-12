@@ -17,6 +17,7 @@
     "ng-lodash": "*",
     "ionic-timepicker": "*",
     "jquery": "~3.2.1",
-    "ionic-calendar": "~0.3.7"
+    "ionic-calendar": "~0.3.7",
+    "ngCordova": "*"
   }
 }
