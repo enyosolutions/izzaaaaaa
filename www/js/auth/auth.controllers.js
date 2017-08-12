@@ -44,7 +44,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
         $scope.user = {email: '', password: ''};
 	$scope.doLogIn = function(){
                 console.log($scope.user);
-                AuthService.authenticateUser($scope.user).then(function(response){ 
+                AuthService.authenticateUser($scope.user).then(function(response){
                 if (response.success) {
                     $localStorage.token = response.data.token;
                     $localStorage.customer_id = response.data.id;
@@ -56,7 +56,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
             });
             //$state.go('app.book.home');
 	};
-        
+
         // Facebook login
         // This is the success callback from the login method
         var fbLoginSuccess = function(response) {
@@ -163,7 +163,12 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 
 .controller('SignUpCtrl', function($scope, $state, $q, $stateParams, AuthService, $cordovaDevice, $ionicPlatform){
         $ionicPlatform.ready(function() {
-          $scope.deviceUuid = $cordovaDevice.getUUID();
+          if(window.cordova){
+            $scope.deviceUuid = $cordovaDevice.getUUID();
+          }
+          else {
+           $scope.deviceUuid = "BROWSER" + new Date() ;
+          }
         });
         $scope.newUser = {
             firstname: "",
@@ -186,7 +191,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
         console.log($scope.newUser);
         $scope.doSignUp = function(){
             console.log($scope.newUser);
-            AuthService.createUser($scope.newUser).then(function(response){ 
+            AuthService.createUser($scope.newUser).then(function(response){
                 if (response.success) {
                     console.log("Yay, you're signed up!" + response.data);
                     $state.go('auth.login', {obj: {email: $scope.newUser.email}});

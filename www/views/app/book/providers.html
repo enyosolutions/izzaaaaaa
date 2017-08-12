@@ -1,6 +1,11 @@
 <ion-view class="providers-list-view">
     <ion-content>
         <div class="products-list background-gray">
+        <div class="no-reservations" ng-hide="!providers ||  providers.length">
+          <h4>Désolé, il n'y a pas de prestataires pour cette catégorie.</h4>
+
+
+        </div>
             <div class="product-list-item" ng-repeat="provider in providers">
                 <div class="card-4">
                     <div class="list card">

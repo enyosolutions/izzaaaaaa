@@ -92,14 +92,22 @@ angular.module('izza', [
             }, 0);
         }
     });
+
+
     $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
         if (toState.name.indexOf('app.booking') > -1) {
             // Restore platform default transition. We are just hardcoding android transitions to auth views.
             $ionicConfig.views.transition('platform');
             // If it's ios, then enable swipe back again
-
-
         }
+
+        if(!$localStorage.token && toState.name &&
+         ["", "auth.login", "auth.signup", "auth.signup_info", "auth.forgot-password"].indexOf(toState.name) === -1 ) {
+            console.log("not logged in redirecting");
+            $state.go('auth.login');
+            return;
+        }
+
     });
     var state = "app.book.home"; // whatever, the main page of your app
     if ($window.localStorage.initialRun === "true") {
@@ -108,16 +116,17 @@ angular.module('izza', [
 
     } else {
         state = "app.book.home";
+       // state = "auth.login";
     }
 
     $state.go(state);
 
-    $rootScope.$watch(function() {
-        $rootScope.storagevalue = Date();
-        return angular.toJson($localStorage);
+    // $rootScope.$watch(function() {
+    //     $rootScope.storagevalue = Date();
+    //     return angular.toJson($localStorage);
 
-    }, function() {
-        //$rootScope.updateContactOnServer();
-    });
+    // }, function() {
+    //     //$rootScope.updateContactOnServer();
+    // });
 
-})
+});

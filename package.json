@@ -22,8 +22,6 @@
     "ionic-plugin-keyboard": "git+https://github.com/driftyco/ionic-plugins-keyboard.git",
     "jquery": "^3.1.0",
     "jshint": "^2.9.2",
-    "phonegap-facebook-plugin": "file://phonegap-facebook-plugin",
-    "phonegap-facebook-plugin-v9-supports": "^0.1.0",
     "require-dir": "^0.3.0",
     "shelljs": "^0.3.0",
     "stripe": "^4.23.1"
@@ -88,11 +86,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-transport-security": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {},
-      "phonegap-facebook-plugin": {
-        "APP_ID": "2134947170065622",
-        "APP_NAME": "izza-mobile"
-      }
+      "ionic-plugin-keyboard": {}
     },
     "platforms": []
   }

@@ -157,7 +157,7 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
             }
         }
     })
-  
+
     .state('app.legal', {
         url: '/legal',
         abstract: true,
@@ -227,7 +227,7 @@ angular.module('izza').config(function($stateProvider, $urlRouterProvider) {
         url: '/forgot-password',
         templateUrl: "views/auth/forgot-password.html",
         controller: 'ForgotPasswordCtrl'
-    })
+    });
 
     // if none of the above states are matched, use this as the fallback
 
