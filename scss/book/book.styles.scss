@@ -661,6 +661,9 @@ input:checked + .radio-icon:before {
   }
   ion-content {
     background-color: #efefef;
+    .scroll {
+      display: table;
+    }
   }
   .close-modal {
     i {

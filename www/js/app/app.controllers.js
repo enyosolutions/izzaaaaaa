@@ -412,19 +412,20 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         customerId: $localStorage.stripe_id,
         cardId: ""
     };
+  
       
     $scope.selectCard = function(card) {
         $scope.cardToPay = card;
         $scope.stripeCharge.cardId = card.cardId;
     }
-//    BookingsService.getCards($localStorage.stripe_id)
-//        .success(function(response) {
-//            $scope.cards = response;
-//            console.log(response);
-//        })
-//        .error(function(error) {
-//            console.log('Error loading cards...' + error);
-//        });
+    BookingsService.getCards($localStorage.stripe_id)
+        .success(function(response) {
+            $scope.cards = response.data;
+            console.log(response.data);
+        })
+        .error(function(error) {
+            console.log('Error loading cards...' + error);
+        });
   
     
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
@@ -451,7 +452,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
       
         console.log('Modal is shown!');
 ///////   STRIPE ELEMENTS   ////// 
-        var stripe = Stripe('pk_test_KxHM84wFfVzsFP7NBIloYPTo');
+        var stripe = Stripe('pk_test_calia0re9s1xfre0GjtltI8i');
         var elements = stripe.elements({locale: "fr"});
         var style = {
           base: {

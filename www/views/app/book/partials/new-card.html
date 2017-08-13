@@ -5,8 +5,8 @@
             <i class="icon ion-android-close"></i>
         </a>
     </ion-header-bar>
-  <form>
     <ion-content>
+       <form id="new_card_form">
           <div class="container padding group">
             <div class="card-line">
                 <label name="cardholder-name" class="cardholder-name">
@@ -31,9 +31,9 @@
               <div class="success"></div>
             </div>
           </div>
-          <button type="submit" class="button button-theme fixed" ng-click="addCard()">
+      </form>
+          <button type="submit" class="button button-theme fixed" ng-click="addCard()" form="new_card_form">
                  Ajouter
           </button>
     </ion-content>
-    </form>
 </ion-modal-view>
