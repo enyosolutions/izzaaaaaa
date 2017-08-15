@@ -397,21 +397,13 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
-    
-    $scope.vouchers = 2;
+
     BookingsService.getVouchers($localStorage.customer_id).success(function(response) {
         $scope.vouchers = response.data;
         console.log(response);
     }).error(function(error) {
         console.log('Error loading providers...' + error);
     });
-    
-  
-    $scope.cards = [
-        {name: "John Doe", cardId:"test1", last4: "1234"},
-        {name: "Jane Doe", cardId:"test2", last4: "5678"}
-    ];
-    $scope.cardToPay = $scope.cards[0];
   
     $scope.stripeCharge = {
         currency: "euro", 
