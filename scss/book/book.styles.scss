@@ -577,6 +577,8 @@ input:checked + .radio-icon:before {
     display: table;
     padding: 10px;
     margin: 0 auto;
+    text-align: center;
+    color: grey;
   }
   .card-container {
     display: table-cell;
