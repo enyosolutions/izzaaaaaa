@@ -40,7 +40,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
   };
 })
 
-.controller('LogInCtrl', function($scope, $state, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading){
+.controller('LogInCtrl', function($scope, $state, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService){
         $scope.user = {email: '', password: ''};
 	$scope.doLogIn = function(){
                 console.log($scope.user);
@@ -49,10 +49,20 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                     $localStorage.token = response.data.token;
                     $localStorage.customer_id = response.data.id;
                     $localStorage.stripe_id = response.data.stripeid;
+                    ProfileService.getProfile($localStorage.customer_id)
+                        .success(function(response) {
+                            $localStorage.profile = response;
+                            console.log(response);
+                        })
+                        .error(function(error) {
+                            console.log('Error ' + error);
+                        });
+                    console.log($localStorage.profile);
                     $state.go('app.book.home');
                 } else {
                     console.log("Error " + response.status);
                 }
+                
             });
             //$state.go('app.book.home');
 	};

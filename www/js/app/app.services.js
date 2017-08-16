@@ -129,17 +129,9 @@ angular.module('izza.app.services', [])
   
     this.sendCard = function (card_info) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/card';
-        $http.post(url, card_info)
-            .then(
-                function(response){
-                    console.log("Success!"); 
-                    console.log(response);
-                },
-                function(error){
-                    console.log("Failed!");
-                    console.log(error);
-                }
-            );
+        var provs = $http.post(url, card_info);
+        return provs;
+            
     }
     this.getCards = function(stripe_id) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/cards/' + encodeURIComponent(stripe_id);

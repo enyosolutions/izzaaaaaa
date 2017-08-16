@@ -1,40 +1,27 @@
 angular.module('izza.app.controllers', ['ui.rCalendar'])
 
-.controller('AppCtrl', function($scope, AuthService) {
+.controller('AppCtrl', function($scope, AuthService, $localStorage) {
 
     //this will represent our logged user
-    var user = {
-        about: "J'aime quand mes ongles sont parfaitement manucurés.",
-        name: "Elisa Rookie",
-        picture: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
-        _id: 0,
-        followers: 345,
-        following: 58
-    };
 
     //save our logged user on the localStorage
-    AuthService.saveUser(user);
-    $scope.loggedUser = user;
+    $scope.loggedUser = $localStorage.profile;
 })
 
 
 .controller('ProfileCtrl', function($scope, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
-
-    $localStorage = $localStorage.$default({
-        profile: {}
-    });
-    ProfileService.getProfile($localStorage.customer_id)
-        .success(function(response) {
-            $scope.profile = response;
-            console.log(response);
-        })
-        .error(function(error) {
-            console.log('Error loading providers...' + error);
-        });
-    $scope.$storage = $localStorage.profile;
-    console.log($scope.$storage);
+    
+    $scope.profile = $localStorage.profile;
+    console.log($scope.profile);
+  
     $scope.logOut = function() {
-        $scope.myPopup = $state.go('auth.login');
+        delete $localStorage.token;
+        delete $localStorage.customer_id ;
+        delete $localStorage.stripe_id;
+        delete $localStorage.profile;
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        $state.go('auth.login');
     }
     $scope.gotoLegal = function() {
         $state.go("app.legal.legal-notice");
@@ -417,15 +404,18 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         $scope.cardToPay = card;
         $scope.stripeCharge.cardId = card.cardId;
     }
-    BookingsService.getCards($localStorage.stripe_id)
-        .success(function(response) {
-            $scope.cards = response.data;
-            console.log(response.data);
-        })
-        .error(function(error) {
-            console.log('Error loading cards...' + error);
-        });
-  
+    $scope.refreshCards = function() { 
+        BookingsService.getCards($localStorage.stripe_id)
+            .success(function(response) {
+                $scope.cards = response.data;
+                console.log(response.data);
+            })
+            .error(function(error) {
+                console.log('Error loading cards...' + error);
+            });
+    }
+    
+    $scope.refreshCards();
     
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
@@ -523,7 +513,16 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
             $scope.new_card_modal.hide();
             $scope.new_card_info = {customerId: $localStorage.stripe_id, token: result.token.id};
             console.log($scope.new_card_info);
-            BookingsService.sendCard($scope.new_card_info);
+            BookingsService.sendCard($scope.new_card_info)
+            .then(
+                function(response){
+                    console.log("Success!"); 
+                    $scope.refreshCards();
+                },
+                function(error){
+                    console.log(error);
+                }
+            );
           } else if (result.error) {
             console.log(result.error.message);
             errorElement.textContent = result.error.message;
