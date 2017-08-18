@@ -107,31 +107,31 @@ angular.module('izza.app.services', [])
           var cats= $http.get(url);
           return cats;
     };
-  
+
     this.getAllProviders = function() {
         var url = RemoteDirectory.getAPISrvURL() + '/api/providers';
         provs = $http.get(url);
         return provs;
     };
-  
+
     this.getProviders = function(idService) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService);
         provs = $http.get(url);
         console.log("in getProviders: " + idService);
         return provs;
     };
-  
+
     this.getVouchers = function(customer_id) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/vouchers/bycustomer/' + encodeURIComponent(customer_id);
         provs = $http.get(url);
         return provs;
     };
-  
+
     this.sendCard = function (card_info) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/card';
         var provs = $http.post(url, card_info);
         return provs;
-            
+
     }
     this.getCards = function(stripe_id) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/stripe/cards/' + encodeURIComponent(stripe_id);
@@ -143,7 +143,7 @@ angular.module('izza.app.services', [])
         $http.post(url, charge)
             .then(
                 function(response){
-                    console.log("Success!"); 
+                    console.log("Success!");
                 },
                 function(response){
                     console.log("Failed!");
@@ -152,30 +152,32 @@ angular.module('izza.app.services', [])
     }
     this.createReservation = function(reservation) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment';
-        $http.post(url, reservation)
-            .then(
+        var promise = $http.post(url, reservation);
+        promise.then(
                 function(response){
-                    console.log("Success!"); 
+                    console.log("Success!");
                 },
                 function(response){
                     console.log("Failed!");
                 }
             );
+        return promise;
     }
     this.cancelBooking = function(res_id) {
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/cancel/' + encodeURIComponent(res_id);
         console.log('Loading res from:' + url);
-        $http.put(url)
+        var promise = $http.put(url);
+        promise
             .then(
                 function(response){
-                    console.log("Success!"); 
+                    console.log("Success!");
                 },
                 function(error){
                     console.log("Failed!");
                     console.log(error);
                 }
             );
-        
+        return promise;
     };
 
 
@@ -205,7 +207,7 @@ angular.module('izza.app.services', [])
         return dfd.promise;
 
     };
-  
+
     this.createBookingForProvider = function(bookingInfo) {
         var dfd = $q.defer();
         var toPost = JSON.stringify(bookingInfo);

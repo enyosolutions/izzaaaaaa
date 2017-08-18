@@ -46,8 +46,8 @@ body {
   margin-left: 5px;
 }
 ion-card
-{ 
-  img 
+{
+  img
   {
     height: 140px;
     width: 100vw;
@@ -86,7 +86,7 @@ ion-card-title
     height: $provider-height;
     padding: 0;
     border-bottom: none;
-    img 
+    img
     {
       display: inline-block;
       object-fit: cover;
@@ -98,7 +98,7 @@ ion-card-title
     {
       position: relative;
       display: block;
-      vertical-align: top; 
+      vertical-align: top;
       height: 100%;
       margin-left: $provider-height;
       padding: 12px 5px 8px 12px;
@@ -110,11 +110,11 @@ ion-card-title
       }
       .price
       {
-        
+
         position: absolute;
         right: 10px;
         top: 10px;
-        color: $theme-color-2; 
+        color: $theme-color-2;
         padding: 0;
         font-size: 16px;
         font-weight: 400;
@@ -125,7 +125,7 @@ ion-card-title
         flex-wrap: wrap;
       }
       .name-text
-      {        
+      {
         color: $provider-qualification-color;
         font-size: 12px;
         line-height: 16px;
@@ -135,7 +135,7 @@ ion-card-title
   }
 }
 provider-list-item {
-  
+
 }
 
 /*
@@ -157,7 +157,7 @@ ion-card .item.item-accordion.ng-hide-remove {
 
 
 /*
- * Filters popup 
+ * Filters popup
  */
 .filter-popup.popup-container .popup {
   background-color: #FFF;
@@ -329,7 +329,7 @@ $slider-radius: 26px;
   {
     font-weight: 600;
     color: $theme-color-2;
-    font-size: 20px;  
+    font-size: 20px;
     margin: 0;
   }
   .card-description
@@ -444,7 +444,7 @@ $slider-radius: 26px;
   .item-text {
     font-weight: 500;
   }
-  
+
 }
 .item-date {
   padding: 0;
@@ -586,14 +586,14 @@ input:checked + .radio-icon:before {
     font-size: 13px;
     vertical-align: middle;
     &.left {
-      width: 65%; 
+      width: 65%;
       color: grey;
       i {
         font-size: 20px;
       }
     }
     &.right {
-      width: 35%; 
+      width: 35%;
     }
   }
   .change-card {
@@ -629,7 +629,7 @@ input:checked + .radio-icon:before {
   }
   .close-modal {
     i {
-      color: $theme-color-2;      
+      color: $theme-color-2;
     }
   }
   .cards-select {
@@ -670,7 +670,7 @@ input:checked + .radio-icon:before {
   }
   .close-modal {
     i {
-      color: $theme-color-2;      
+      color: $theme-color-2;
     }
   }
   .cards-select {
@@ -708,7 +708,7 @@ input:checked + .radio-icon:before {
     margin-left: 8%;
     display: block;
   }
-  
+
   label > span {
     width: 20%;
     text-align: right;
@@ -746,3 +746,4 @@ input:checked + .radio-icon:before {
   .field::-moz-placeholder { color: #bec7d0; }
   .field:-ms-input-placeholder { color: #bec7d0; }
 }
+
