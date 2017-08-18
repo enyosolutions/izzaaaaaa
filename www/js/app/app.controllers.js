@@ -403,7 +403,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.selectCard = function(card) {
         $scope.cardToPay = card;
         $scope.stripeCharge.cardId = card.cardId;
+        $scope.reservation.cardId = card.cardId;
     }
+
     $scope.refreshCards = function() {
         BookingsService.getCards($localStorage.stripe_id)
         .success(function(response) {
@@ -557,7 +559,7 @@ stripe.createToken(cardNumber, extraDetails).then(setOutcome);
 /////// Confirm booking //////
 $scope.confirmBooking = function() {
     console.log($scope.reservation);
-    BookingsService.createCharge($scope.stripeCharge)
+    // BookingsService.createCharge($scope.stripeCharge);
     BookingsService.createReservation($scope.reservation).then(function(res){
         console.log(res);
         var alertPopup = $ionicPopup.confirm({
