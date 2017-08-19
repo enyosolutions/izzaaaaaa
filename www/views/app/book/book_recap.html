@@ -19,9 +19,8 @@
                     </button>
                 </div>
             </div>
-            <p ng-show="vouchers == 1">1 bon de réduction sera appliqué</p>
-            <p ng-show="vouchers > 1"> {{vouchers}} bons de réductions sera appliqués</p>
-            
+            <p ng-show="!vouchers || vouchers 1">Frais de réservation: 5€</p>
+
         </div>
     </ion-content>
     <button class="button button-theme fixed" ng-click="showCards()" ng-hide="cards.length">
