@@ -11,7 +11,7 @@
       </a>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <form name="signup_form" class="" novalidate>
+  <form name="signup_form" class="" validate>
   <ion-content>
     <div class="title-wrapper">
         <h1 class="auth-title">Inscription</h1>
@@ -27,22 +27,21 @@
               <input type="text" placeholder="Nom" name="Nom" ng-model="newUser.lastname" required>
             </label>
             <label class="item item-input field">
-              <input type="telephone" placeholder="Numéro de téléphone" name="Téléphone" ng-model="newUser.phone" required>
+              <input type="number" placeholder="Numéro de téléphone" name="telephone" ng-model="newUser.phone" ng-minlength="10" ng-maxlength="10" required>
             </label>
+            <div class="error-msg" role="alert">
+                <span class="error" ng-show="signup_form.telephone.$error.required">
+                This field is required.</span>
+                <span class="error" ng-show="signup_form.telephone.$error.maxlength || signup_form.telephone.$error.minlength || signup_form.telephone.$error.number">
+                This phone number is not valid.</span>
+              
+            </div>
             <label class="item item-input field">
               <input type="text" placeholder="Adresse" name="Adresse" ng-model="newUser.address" required >
             </label>
             <label class="item item-input field">
-              <input type="text" placeholder="Complément d'adresse" name="Adresse cont." ng-model="newUser.address2" required >
+              <input type="text" placeholder="Complément d'adresse" name="Adresse cont." ng-model="newUser.address2">
             </label>
-<!--
-            <label class="item item-input field" >
-              <input type="text" placeholder="Code postal" name="Code Postal" ng-model="newUser.codepostal" required >
-            </label>
-            <label class="item item-input field">
-              <input type="text" placeholder="Ville" name="Ville" ng-model="newUser.city" required >
-            </label>
--->
           </div>
           <p ng-show="error" class="message error">{{error}}</p>
   

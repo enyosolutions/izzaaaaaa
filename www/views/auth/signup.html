@@ -23,6 +23,12 @@
             <label class="item item-input field">
               <input type="email" placeholder="Adresse mail" name="email" ng-model="newUser.email" required>
             </label>
+            <div class="error-msg" role="alert">
+                <span class="error" ng-show="signup_form.email.$error.required">
+                This field is required.</span>
+                <span class="error" ng-show="signup_form.email.$error.email">
+                This email is not valid</span>
+            </div>
             <label class="item item-input field" show-hide-container>
               <input type="password" placeholder="Mot de passe" name="password" ng-model="newUser.password" required show-hide-input>
             </label>

@@ -61,6 +61,9 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                     $state.go('app.book.home');
                 } else {
                     console.log("Error " + response.status);
+                    if (response.status==403) {
+                      $scope.error = "Invalid username/password";
+                    } 
                 }
                 
             });
