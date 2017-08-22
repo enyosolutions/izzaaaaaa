@@ -14,10 +14,10 @@
     <div class="row related-navigation">
       <div class="col">
         <a class="nav-left button button-clear" ui-sref="auth.forgot-password">
-          Forgot Password
+          Mot de passe oublié
         </a>
         <a class="nav-right button button-clear" ui-sref="auth.signup">
-          Sign Up
+          S'inscrire
         </a>
       </div>
     </div>
@@ -30,9 +30,9 @@
             </label>
             <div class="error-msg" role="alert">
                 <span class="error" ng-show="login_form.email.$error.required">
-                This field is required.</span>
+                Ce champ est obligtoire.</span>
                 <span class="error" ng-show="login_form.email.$error.email">
-                This email is not valid</span>
+                Cette email est invalide</span>
             </div>
             <label class="item item-input" show-hide-container>
               <input type="password" placeholder="Mot de passe" name="password" ng-model="user.password" required show-hide-input>
