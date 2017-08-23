@@ -393,7 +393,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     });
 
     $scope.stripeCharge = {
-        currency: "euro",
+        currency: "eur",
         amount: $scope.recap_info.price,
         customerId: $localStorage.stripe_id,
         cardId: ""
