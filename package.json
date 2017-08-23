@@ -28,7 +28,7 @@
     "stripe": "^4.23.1"
   },
   "devDependencies": {
-    "@ionic/cli-plugin-cordova": "1.6.2",
+    "@ionic/cli-plugin-cordova": "^1.4.1",
     "@ionic/cli-plugin-gulp": "1.1.1",
     "@ionic/cli-plugin-ionic1": "2.1.1",
     "del": "^1.2.0",
