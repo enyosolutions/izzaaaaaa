@@ -9,7 +9,7 @@
         <div>
             <ion-list class="list-inset cards-select">
                 <ion-item class="item-time no-padding" ng-repeat="card in cards">
-                    <ion-radio ng-click="selectCard(card)" > 
+                    <ion-radio ng-click="selectCard(card)" ng-checked="$first"> 
                         <div class="item-text">
                             <div class="card-info card-name">
                               {{card.name}}

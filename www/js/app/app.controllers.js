@@ -414,10 +414,15 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         })
         .error(function(error) {
             console.log('Error loading cards...' + error);
-        });
+        });    
     }
 
-    $scope.refreshCards();
+    $scope.refreshCards()
+//        .then(function(){
+//            selectCard($scope.cards[0]);
+//        });
+    
+   // $scope.selectCard($scope.cards[0]);
 
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
