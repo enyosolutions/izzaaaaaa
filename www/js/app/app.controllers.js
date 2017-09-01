@@ -385,11 +385,12 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
 
-    BookingsService.getVouchers($localStorage.customer_id).success(function(response) {
-        $scope.vouchers = response.data;
-        console.log(response);
+    $scope.fees_info =  {customer: $localStorage.customer_id, date: $scope.reservation.date};
+    BookingsService.getFees($scope.fees_info)
+      .success(function(response) {
+        $scope.fees = response.fee;
     }).error(function(error) {
-        console.log('Error loading providers...' + error);
+        console.log('Error loading fees...' + error);
     });
 
     $scope.stripeCharge = {
@@ -402,8 +403,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
     $scope.selectCard = function(card) {
         $scope.cardToPay = card;
-        $scope.stripeCharge.cardId = card.cardId;
-        $scope.reservation.cardId = card.cardId;
+        $scope.stripeCharge.cardId = card.id;
+        $scope.reservation.cardId = card.id;
     }
 
     $scope.refreshCards = function() {
@@ -411,19 +412,18 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         .success(function(response) {
             $scope.cards = response.data;
             console.log(response.data);
+            $scope.selectCard($scope.cards[0]);
+            console.log($scope.cardToPay.cardId);
+            console.log($scope.cards)
         })
         .error(function(error) {
             console.log('Error loading cards...' + error);
         });    
     }
-
     $scope.refreshCards()
-//        .then(function(){
-//            selectCard($scope.cards[0]);
-//        });
-    
-   // $scope.selectCard($scope.cards[0]);
 
+    
+    
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,
         animation: 'slide-in-up'

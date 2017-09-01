@@ -120,10 +120,10 @@ angular.module('izza.app.services', [])
         console.log("in getProviders: " + idService);
         return provs;
     };
-
-    this.getVouchers = function(customer_id) {
-        var url = RemoteDirectory.getAPISrvURL() + '/api/vouchers/bycustomer/' + encodeURIComponent(customer_id);
-        provs = $http.get(url);
+  
+    this.getFees = function(fees_info) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/checkfee/';
+        provs = $http.post(url, fees_info);
         return provs;
     };
 
