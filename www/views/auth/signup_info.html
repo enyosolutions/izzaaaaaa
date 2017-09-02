@@ -21,24 +21,36 @@
       <div class="col">
           <div class="form-fields-outer list list-inset">
             <label class="item item-input field">
-              <input type="text" placeholder="Prénom" name="Prénom" ng-model="newUser.firstname" required>
+              <input type="text" placeholder="Prénom" name="firstname" ng-model="newUser.firstname" required>
             </label>
+            <div class="error-msg" role="alert">
+                <span class="error" ng-show="signup_form.firstname.$error.required && signup_form.firstname.$dirty">
+                Ce champ est obligatoire.</span>
+            </div>
             <label class="item item-input field">
-              <input type="text" placeholder="Nom" name="Nom" ng-model="newUser.lastname" required>
+              <input type="text" placeholder="Nom" name="lastname" ng-model="newUser.lastname" required>
             </label>
+            <div class="error-msg" role="alert">
+                <span class="error" ng-show="signup_form.lastname.$error.required && signup_form.lastname.$dirty">
+                Ce champ est obligatoire.</span>
+            </div>
             <label class="item item-input field">
               <input type="number" placeholder="Numéro de téléphone" name="telephone" ng-model="newUser.phone" ng-minlength="10" ng-maxlength="10" required>
             </label>
             <div class="error-msg" role="alert">
-                <span class="error" ng-show="signup_form.telephone.$error.required">
-                This field is required.</span>
-                <span class="error" ng-show="signup_form.telephone.$error.maxlength || signup_form.telephone.$error.minlength || signup_form.telephone.$error.number">
-                This phone number is not valid.</span>
+                <span class="error" ng-show="signup_form.telephone.$error.required && signup_form.telephone.$dirty">
+                Ce champ est obligatoire.</span>
+                <span class="error" ng-show="signup_form.telephone.$error.maxlength || signup_form.telephone.$error.minlength || signup_form.telephone.$error.number && signup_form.telephone.$dirty">
+                Le format de votre numero de telephone n'est pas correcte.</span>
               
             </div>
             <label class="item item-input field">
-              <input type="text" placeholder="Adresse" name="Adresse" ng-model="newUser.address" required >
+              <input type="text" placeholder="Adresse" name="address" ng-model="newUser.address" required >
             </label>
+            <div class="error-msg" role="alert">
+                <span class="error" ng-show="signup_form.address.$error.required && signup_form.address.$dirty">
+                Ce champ est obligatoire.</span>
+            </div>
             <label class="item item-input field">
               <input type="text" placeholder="Complément d'adresse" name="Adresse cont." ng-model="newUser.address2">
             </label>

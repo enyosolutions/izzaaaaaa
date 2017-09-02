@@ -29,8 +29,8 @@
               <input type="email" placeholder="Adresse mail" name="email" ng-model="user.email" required>
             </label>
             <div class="error-msg" role="alert">
-                <span class="error" ng-show="login_form.email.$error.required">
-                Ce champ est obligtoire.</span>
+                <span class="error" ng-show="login_form.email.$error.required && login_form.email.$dirty">
+                Ce champ est obligatoire.</span>
                 <span class="error" ng-show="login_form.email.$error.email">
                 Cette email est invalide</span>
             </div>
@@ -38,8 +38,8 @@
               <input type="password" placeholder="Mot de passe" name="password" ng-model="user.password" required show-hide-input>
             </label>
             <div class="error-msg" role="alert">
-                <span class="error" ng-show="login_form.password.$error.required">
-                This field is required.</span>
+                <span class="error" ng-show="login_form.password.$error.required && login_form.password.$dirty">
+                Ce champ est obligatoire.</span>
             </div>
             <p ng-show="error" class="error-msg">{{error}}</p>
           </div>
