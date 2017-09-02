@@ -1,7 +1,7 @@
 .auth-outer
 {
 	background-color: transparent !important;
-        //height: 100vh;
+        min-height: 500px;
 	ion-view
 	{
 		box-shadow: none !important; // Need to set this with important to prevent awefull vertical line when transitioning
@@ -23,7 +23,7 @@
 .auth-view
 {
   ion-content {
-    //height: 100vh;
+    min-height: 500px;
   }
 	// Related navigation
 	.related-navigation
