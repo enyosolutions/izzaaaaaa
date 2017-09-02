@@ -564,7 +564,8 @@ stripe.createToken(cardNumber, extraDetails).then(setOutcome);
 /////// Confirm booking //////
 $scope.confirmBooking = function() {
     console.log($scope.reservation);
-    // BookingsService.createCharge($scope.stripeCharge);
+    console.log($scope.stripeCharge);
+    BookingsService.createCharge($scope.stripeCharge);
     BookingsService.createReservation($scope.reservation).then(function(res){
         console.log(res);
         var alertPopup = $ionicPopup.confirm({
