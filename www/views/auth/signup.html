@@ -21,7 +21,7 @@
       <div class="col">
           <div class="form-fields-outer list list-inset">
             <label class="item item-input field">
-              <input type="email" placeholder="Adresse mail" name="email" ng-model="newUser.email" required>
+              <input type="email" placeholder="Adresse mail" name="email" ng-model="newUser.email" ng-model-options="{ updateOn: 'mousedown blur' }" required>
             </label>
             <div class="error-msg" role="alert">
                 <span class="error" ng-show="signup_form.email.$error.required && signup_form.email.$dirty">
@@ -30,7 +30,7 @@
                 L'adresse email est invalide</span>
             </div>
             <label class="item item-input field" show-hide-container>
-              <input type="password" placeholder="Mot de passe" name="password" ng-model="newUser.password" required show-hide-input>
+              <input type="password" placeholder="Mot de passe" name="password" ng-model="newUser.password" ng-model-options="{ updateOn: 'mousedown blur' }" required show-hide-input>
             </label>
             <div class="error-msg" role="alert">
                 <span class="error" ng-show="signup_form.password.$error.required && signup_form.password.$dirty">
