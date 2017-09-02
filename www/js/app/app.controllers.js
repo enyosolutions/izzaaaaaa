@@ -306,8 +306,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation.date = caldate;
     $scope.recap_info.date = caldate;
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-    $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
-    $scope.showday = $filter('date')(caldate, ' EEEE, d');
+    $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
+    $scope.showday = $filter('date')(caldate, 'EEEE d');
     console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
@@ -331,8 +331,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             $scope.recap_info.date = caldate;
             console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-            $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
-            $scope.showday = $filter('date')(caldate, ' EEEE, d');
+            $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
+            $scope.showday = $filter('date')(caldate, 'EEEE d');
         },
         //from: new Date(2012, 1, 1), //Optional
         //to: new Date(2016, 10, 30), //Optional
