@@ -31,7 +31,7 @@
                   <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="pay-container">
                   </div>
 
-                  <button ng-if="reservation.reservationInfo.status != 'annulé'" ng-click="cancelBooking(reservation._id)" class="button button-full button-clear reservation-button cancel" >
+                  <button ng-if="reservation.status != 'annulé'" ng-click="cancelBooking(reservation._id)" class="button button-full button-clear reservation-button cancel" >
                       Annuler
                   </button>
 
