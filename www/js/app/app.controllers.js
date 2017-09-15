@@ -156,7 +156,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                     }
                 })
 
-.controller('SubCategoryCtrl', function($scope, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
+.controller('SubCategoryCtrl', function($scope, $state, BookingsService, $ionicModal, $ionicPopup, $timeout, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
     $scope.group = $stateParams.groupInfo;
     $scope.subgroups = $scope.group.subcategories;
 
@@ -172,18 +172,26 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 //        name: 'Brushing',
                 //        img: 'img/subgroups/brushing.jpg'
                 //    };
+                console.log($ionicScrollDelegate);
                 $scope.toggleGroup = function(group) {
+                    console.log("scroll resize");
+
                     if ($scope.isGroupShown(group)) {
                         $scope.shownGroup = null;
                     } else {
                         $scope.shownGroup = group;
                     }
+                    $ionicScrollDelegate.resize();
+                    $timeout(function() {
+                        $ionicScrollDelegate.resize();
+                    }, 500);
                 };
                 $scope.isGroupShown = function(group) {
                     return $scope.shownGroup === group;
                 };
 
                 $scope.openService = function(service) {
+                    console.log("scroll resize");
                     $state.go('app.book.providers_list', { serviceInfo: service });
                 }
                 //

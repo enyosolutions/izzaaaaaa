@@ -43,7 +43,6 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 .controller('LogInCtrl', function($scope, $state, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService){
         $scope.user = {email: '', password: ''};
 	$scope.doLogIn = function(){
-                console.log($scope.user);
                 AuthService.authenticateUser($scope.user).then(function(response){
                 if (response.success) {
                     $localStorage.token = response.data.token;
@@ -62,10 +61,10 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                 } else {
                     console.log("Error " + response.status);
                     if (response.status==403) {
-                      $scope.error = "Votre email ou votre mot de passe est incorrecte";
-                    } 
+                      $scope.error = "Votre email ou votre mot de passe est incorrect";
+                    }
                 }
-                
+
             });
             //$state.go('app.book.home');
 	};
