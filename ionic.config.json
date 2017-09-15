@@ -1,6 +1,6 @@
 {
   "name": "IZZA.CO",
-  "app_id": "57079388",
+  "app_id": "282dd1e1",
   "gulpStartupTasks": [
     "default",
     "watch",
@@ -13,5 +13,8 @@
     "scss/**/*"
   ],
   "documentRoot": "www",
-  "type": "ionic1"
+  "type": "ionic1",
+  "integrations": {
+    "cordova": {}
+  }
 }

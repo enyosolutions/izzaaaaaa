@@ -7,8 +7,8 @@
           </div>
           <h4>Vous n’avez pas de rendez-vous
             programmés pour le moment.</h4>
-      
-      
+
+
         </div>
         <div class="product-list-item provider-list-item active " ng-repeat="reservation in reservations">
             <div class="list card padding">
@@ -27,11 +27,11 @@
                      {{reservation.hour}} </h2>
                   </div>
                   </div>
-                
+
                   <div ng-if="(reservation.reservationInfo.status === 'Confirmé')" class="pay-container">
                   </div>
-                  
-                  <button  ng-click="cancelBooking(reservation._id)" class="button button-full button-clear reservation-button cancel" >
+
+                  <button ng-if="reservation.reservationInfo.status != 'annulé'" ng-click="cancelBooking(reservation._id)" class="button button-full button-clear reservation-button cancel" >
                       Annuler
                   </button>
 

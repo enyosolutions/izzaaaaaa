@@ -216,14 +216,14 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 .controller('ProvidersCtrl', function($scope, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
 
     $scope.service = $stateParams.serviceInfo;
+    console.log($localStorage.profile);
     $scope.reservation = {
-        provider_name: "",
         providerservice: "",
         customer: $localStorage.customer_id,
         date: Date(),
         hour: "",
         status: "In Progress",
-        address: "",
+        address:  $localStorage.profile.address,
         note: "",
         token: $localStorage.token
     };
@@ -280,7 +280,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     console.log($scope.recap_info.service);
 
     $scope.selectService = function(providerservice) {
-
         $scope.reservation.providerservice = providerservice._id;
         $scope.recap_info.service = providerservice.service.title;
         $scope.recap_info.price = providerservice.price;
@@ -381,6 +380,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
 .controller('BookRecapCtrl', function($scope, BookingsService, sharedFunctions, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
+    $scope.isLoading = false;
+    $scope.hasLoaded = false;
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
@@ -392,27 +393,28 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         console.log('Error loading providers...' + error);
     });
 
-    $scope.stripeCharge = {
-        currency: "eur",
-        amount: $scope.recap_info.price,
-        customerId: $localStorage.stripe_id,
-        cardId: ""
-    };
 
 
     $scope.selectCard = function(card) {
+        console.log(card);
         $scope.cardToPay = card;
-        $scope.stripeCharge.cardId = card.cardId;
-        $scope.reservation.cardId = card.cardId;
+
     }
 
     $scope.refreshCards = function() {
+        $scope.cardToPay = true;
         BookingsService.getCards($localStorage.stripe_id)
         .success(function(response) {
+            $scope.hasLoaded = true;
+            $scope.cardToPay = false;
             $scope.cards = response.data;
-            console.log(response.data);
+            if($scope.cards && $scope.cards.length > 0){
+                $scope.cardToPay = $scope.cards[0];
+            }
         })
         .error(function(error) {
+            $scope.hasLoaded = true;
+            $scope.cardToPay = false;
             console.log('Error loading cards...' + error);
         });
     }
@@ -558,8 +560,8 @@ stripe.createToken(cardNumber, extraDetails).then(setOutcome);
 
 /////// Confirm booking //////
 $scope.confirmBooking = function() {
-    console.log($scope.reservation);
-    // BookingsService.createCharge($scope.stripeCharge);
+    $scope.reservation.stripetoken = $scope.cardToPay.id;
+    console.log($scope.cardToPay, $scope.reservation);
     BookingsService.createReservation($scope.reservation).then(function(res){
         console.log(res);
         var alertPopup = $ionicPopup.confirm({

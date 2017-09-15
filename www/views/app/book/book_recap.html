@@ -7,7 +7,10 @@
             <h4>{{recap_info.date | date: 'EEEE, d MMMM'}},</h4>
             <h4>à {{recap_info.hour}}.</h4>
             <h3>{{recap_info.price}}€</h3>
-            <div class=payment ng-hide="cards.length">Vouz n'avez pas encore renseigné de moyen de paiement.</div>
+            <div class="payment" ng-show="hasLoaded && !cards.length">Vouz n'avez pas encore renseigné de moyen de paiement.</div>
+            <div class="payment" ng-show="isLoading">
+                <i class="ionicons ion-loading-c assertive"></i>
+            </div>
             <div class="payment" ng-show="cards.length">
                 <div class="card-container left">
                     <i class="ion-card"></i>
@@ -19,7 +22,7 @@
                     </button>
                 </div>
             </div>
-            <p ng-show="!vouchers || vouchers 1">Frais de réservation: 5€</p>
+            <p ng-show="vouchers && vouchers.fee > 0 ">Frais de réservation: {{vouchers.fee }}€</p>
 
         </div>
     </ion-content>
