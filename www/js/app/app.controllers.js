@@ -305,8 +305,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation.date = caldate;
     $scope.recap_info.date = caldate;
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-    $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
-    $scope.showday = $filter('date')(caldate, ' EEEE, d');
+    $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
+    $scope.showday = $filter('date')(caldate, 'EEEE d');
     console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
@@ -330,8 +330,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             $scope.recap_info.date = caldate;
             console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-            $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
-            $scope.showday = $filter('date')(caldate, ' EEEE, d');
+            $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
+            $scope.showday = $filter('date')(caldate, 'EEEE d');
         },
         //from: new Date(2012, 1, 1), //Optional
         //to: new Date(2016, 10, 30), //Optional
@@ -386,11 +386,12 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
 
-    BookingsService.getVouchers($localStorage.customer_id).success(function(response) {
-        $scope.vouchers = response.data;
-        console.log(response);
+    $scope.fees_info =  {customer: $localStorage.customer_id, date: $scope.reservation.date};
+    BookingsService.getFees($scope.fees_info)
+      .success(function(response) {
+        $scope.fees = response.fee;
     }).error(function(error) {
-        console.log('Error loading providers...' + error);
+        console.log('Error loading fees...' + error);
     });
 
 
@@ -398,7 +399,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.selectCard = function(card) {
         console.log(card);
         $scope.cardToPay = card;
-
     }
 
     $scope.refreshCards = function() {
@@ -409,7 +409,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             $scope.cardToPay = false;
             $scope.cards = response.data;
             if($scope.cards && $scope.cards.length > 0){
-                $scope.cardToPay = $scope.cards[0];
+                $scope.selectCard($scope.cards[0]);
             }
         })
         .error(function(error) {
@@ -418,8 +418,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             console.log('Error loading cards...' + error);
         });
     }
+    $scope.refreshCards()
 
-    $scope.refreshCards();
+
 
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
         scope: $scope,

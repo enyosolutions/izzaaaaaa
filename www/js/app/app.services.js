@@ -121,9 +121,9 @@ angular.module('izza.app.services', [])
         return provs;
     };
 
-    this.getVouchers = function(customer_id) {
-        var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/checkfee';
-        provs = $http.post(url, {customer: customer_id, date: new Date().toUTCString()});
+    this.getFees = function(fees_info) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/checkfee/';
+        provs = $http.post(url, fees_info);
         return provs;
     };
 

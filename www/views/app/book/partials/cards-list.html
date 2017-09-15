@@ -9,26 +9,30 @@
         <div>
             <ion-list class="list-inset cards-select">
                 <ion-item class="item-time no-padding" ng-repeat="card in cards">
-                    <ion-radio ng-click="selectCard(card)" > 
+                    <ion-radio ng-click="selectCard(card)" ng-model="$parent.cardToPay.id" ng-value="card.id" name="$parent.cardToPay.id"> 
                         <div class="item-text">
                             <div class="card-info card-name">
                               {{card.name}}
                             </div>
                             <div class="card-info card-num"> 
                               XXXX XXXX XXXX {{card.last4}} 
+                              {{$parent.cardToPay.d}}
+                              {{card.cardId}}
                             </div> 
                         </div>
                         <i class=unchecked-radio></i>
                     </ion-radio>
+                  
                 </ion-item>
                 <ion-item class="item-time no-padding add-card" ng-click="newCard()">
                     <div class="item-text"> Ajouter une carte </div> 
                     <i class="ion-chevron-right"></i>
                 </ion-item>
             </ion-list>
-        </div>
-        <button type="submit" class="button button-theme fixed" ng-click="cards_list_modal.hide()">
+          <button type="submit" class="button button-theme fixed" ng-click="cards_list_modal.hide()">
                Valider
         </button>
+        </div>
+        
     </ion-content>
 </ion-modal-view>

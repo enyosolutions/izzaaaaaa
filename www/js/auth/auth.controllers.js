@@ -62,7 +62,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                 } else {
                     console.log("Error " + response.status);
                     if (response.status==403) {
-                      $scope.error = "Invalid username/password";
+                      $scope.error = "Votre email ou votre mot de passe est incorrecte";
                     } 
                 }
                 
