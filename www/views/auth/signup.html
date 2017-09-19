@@ -12,42 +12,40 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <form name="signup_form" class="" novalidate>
-  <ion-content >
-    <div class="title-wrapper">
-        <img class="auth-logo" src="img/auth_logo.png"/>
+    <ion-content>
+      <div class="title-wrapper">
+        <img class="auth-logo" src="img/auth_logo.png" />
         <h1 class="auth-title">Inscription</h1>
-    </div>
-    <div class="row form-wrapper">
-      <div class="col">
+      </div>
+      <div class="row form-wrapper">
+        <div class="col">
           <div class="form-fields-outer list list-inset">
             <label class="item item-input field">
               <input type="email" placeholder="Adresse mail" name="email" ng-model="newUser.email" ng-model-options="{ updateOn: 'mousedown blur' }" required>
             </label>
             <div class="error-msg" role="alert">
-                <span class="error" ng-show="signup_form.email.$error.required && signup_form.email.$dirty">
+              <span class="error" ng-show="signup_form.email.$error.required && signup_form.email.$dirty">
                 Ce champ est obligatoire.</span>
-                <span class="error" ng-show="signup_form.email.$error.email">
+              <span class="error" ng-show="signup_form.email.$error.email">
                 L'adresse email est invalide</span>
             </div>
             <label class="item item-input field" show-hide-container>
               <input type="password" placeholder="Mot de passe" name="password" ng-model="newUser.password" ng-model-options="{ updateOn: 'mousedown blur' }" required show-hide-input>
             </label>
             <div class="error-msg" role="alert">
-                <span class="error" ng-show="signup_form.password.$error.required && signup_form.password.$dirty">
+              <span class="error" ng-show="signup_form.password.$error.required && signup_form.password.$dirty">
                 Ce champ est obligatoire.</span>
-          </div>
-          <p ng-show="error" class="message error">{{error}}</p>
-        <a class="link login-link center" ui-sref="auth.login">
-          Je suis déjà inscrit(e),<br>je me connecte
-        </a>
+            </div>
+            <p ng-show="error" class="message error">{{error}}</p>
+            <a class="link login-link center" ui-sref="auth.login">Je suis déjà inscrit(e),<br>je me connecte</a>
 
-      </div>
-    </div>
-  </ion-content>
-  <div class="login-btns">
+          </div>
+        </div>
+    </ion-content>
+    <div class="login-btns">
       <button type="submit" class="log-in button button-theme" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
               S'inscrire
       </button>
-  </div>
+    </div>
   </form>
 </ion-view>
