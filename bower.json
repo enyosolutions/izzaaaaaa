@@ -18,7 +18,7 @@
     "ionic-timepicker": "*",
     "jquery": "~3.2.1",
     "ionic-calendar": "~0.3.7",
-    "ngCordova": "*",
+    "ngCordova": "~0.1.27-alpha",
     "angular-i18n": "^1.6.6"
   }
 }

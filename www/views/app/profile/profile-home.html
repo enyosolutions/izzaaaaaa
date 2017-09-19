@@ -1,57 +1,66 @@
-
 <ion-view cache-view="false" view-title='<img class="title-image" src="img/logo.png" />' id="page3">
-    <ion-content overflow-scroll="true" >
-      <div class="profile-pic">
-        <div class="avatar">
-            <img class="user-image" src="img/auth_logo.png" style="background-color: white;">
+    <ion-content overflow-scroll="true">
+        <div class="profile-pic">
+            <div class="avatar">
+                <img class="user-image" src="img/auth_logo.png" style="background-color: white;">
+            </div>
         </div>
-      </div>
-      <div class="background-gray has-profile-pic profile">
-        <div class="field-card">
-            <!--  <ion-scroll direction="y" >-->
-            <ion-list>
-                <ion-item>
+        <div class="background-gray has-profile-pic profile">
+            <div class="field-card">
+                <!--  <ion-scroll direction="y" >-->
+                <ion-list>
+                    <!-- <ion-item>
                     <label class="item item-input" name="registertitle">
                         <span class="input-label">Titre</span>
                         <input type="text" placeholder="Mme" value="{{profile.title}}" ng-model="profile.title" tabindex="3">
                     </label>
-                </ion-item>
-                <ion-item>
-                    <label class="item item-input" name="registername">
+                </ion-item> -->
+                    <ion-item>
+                        <label class="item item-input item-select" name="registertitle">
+                        <span class="input-label">Titre</span>
+                        <select ng-model="profile.title" tabindex="3" style="width: 100%;direction:inherit;color: #b2b2b2;">
+                          <option selected>Mme</option>
+                          <option>Mlle</option>
+                          <option>M</option>
+                        </select>
+                      </label>
+                    </ion-item>
+                    <ion-item>
+                        <label class="item item-input" name="registername">
                         <span class="input-label">Nom</span>
                         <input type="text" placeholder="Durand" value="{{profile.lastname}}" ng-model="profile.lastname" tabindex="4" required>
                     </label>
-                </ion-item>
+                    </ion-item>
 
-                <ion-item>
-                    <label class="item item-input" name="registerfirstname">
+                    <ion-item>
+                        <label class="item item-input" name="registerfirstname">
                         <span class="input-label">Prénom</span>
                         <input type="text" placeholder="Jeanne" value="{{profile.firstname}}" ng-model="profile.firstname" tabindex="5" required>
                     </label>
-                </ion-item>
-                <ion-item>
-                    <label class="item item-input" name="registeremail">
+                    </ion-item>
+                    <ion-item>
+                        <label class="item item-input" name="registeremail">
                         <span class="input-label">Email</span>
                         <input type="email" placeholder="jeane@gmail.com" value="{{profile.email}}" ng-model="profile.email" tabindex="1" required>
                     </label>
-                </ion-item>
-                <ion-item>
-                    <label class="item item-input" name="registermobile">
+                    </ion-item>
+                    <ion-item>
+                        <label class="item item-input" name="registermobile">
                         <span class="input-label">Téléphone</span>
                         <input type="tel" placeholder="06 55 55 55 55" value="{{profile.phone}}" ng-model="profile.phone" tabindex="2" required>
                     </label>
-                </ion-item>
+                    </ion-item>
 
-                <ion-item>
-                    <label class="item item-input" name="registerservicedeliveryrue1">
+                    <ion-item>
+                        <label class="item item-input" name="registerservicedeliveryrue1">
                         <span class="input-label">Adresse</span>
                         <input type="text" placeholder="14 rue Jeanne" value="{{profile.address}}" ng-model="profile.address" tabindex="6" required>
                     </label>
-                </ion-item>
+                    </ion-item>
 
 
 
-<!--
+                    <!--
                 <ion-item>
                     <label class="item item-input" name="registerservicedeliverycity">
                         <span class="input-label">Ville</span>
@@ -67,30 +76,30 @@
                     </label>
                 </ion-item>
 -->
-            </ion-list>
-          </div>
+                </ion-list>
+            </div>
 
-          <div class="field-card">
-              <ion-list>
-                <ion-item>
-                  <ion-toggle toggle-class="toggle-positive" ng-model="profile.receivebyemail" ng-checked={{profile.receivebyemail}} toggle-class="toggle-positive">
-                      <p>Rappel via email</p>
-                  </ion-toggle>
-                </ion-item>
-              </ion-list>
-          </div>
-           <div class="field-card">
-              <ion-list>
-                  <a ng-click="gotoLegal()" class="item item-icon-right">
+            <div class="field-card">
+                <ion-list>
+                    <ion-item>
+                        <ion-toggle toggle-class="toggle-positive" ng-model="profile.receivebyemail" ng-checked={{profile.receivebyemail}} toggle-class="toggle-positive">
+                            <p>Rappel via email</p>
+                        </ion-toggle>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="field-card">
+                <ion-list>
+                    <a ng-click="gotoLegal()" class="item item-icon-right">
                       Mentions Légales
                     <i class="icon ion-chevron-right icon-accessory"></i>
                   </a>
-              </ion-list>
-          </div>
-      </div>
+                </ion-list>
+            </div>
+        </div>
 
         <!--</ion-scroll>-->
 
     </ion-content>
-     <button class="button button-theme fixed" ng-click="logOut()">Deconnexion</button>
+    <button class="button button-theme fixed" ng-click="logOut()">Deconnexion</button>
 </ion-view>
