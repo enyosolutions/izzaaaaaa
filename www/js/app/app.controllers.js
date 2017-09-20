@@ -263,9 +263,11 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 .controller('BookProviderCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
+    console.log($scope.provider);
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
 
+    $scope.imageUrl = $scope.provider.picture;
 
     $scope.reservation.providerservice = "";
     console.log($scope.reservation.providerservice);
@@ -288,6 +290,12 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     console.log($scope.recap_info.service);
 
     $scope.selectService = function(providerservice) {
+        console.log(providerservice);
+        if(providerservice.pics.length > 0){
+            $scope.imageUrl = providerservice.pics[0];
+        }else{
+            $scope.imageUrl = $scope.provider.picture;
+        }
         $scope.reservation.providerservice = providerservice._id;
         $scope.recap_info.service = providerservice.service.title;
         $scope.recap_info.price = providerservice.price;
