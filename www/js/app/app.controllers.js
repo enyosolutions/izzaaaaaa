@@ -396,7 +396,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
     $scope.fees_info =  {customer: $localStorage.customer_id, date: $scope.reservation.date};
     BookingsService.getFees($scope.fees_info)
-      .success(function(response) {
+    .success(function(response) {
         $scope.fees = response.fee;
     }).error(function(error) {
         console.log('Error loading fees...' + error);
@@ -569,7 +569,7 @@ stripe.createToken(cardNumber, extraDetails).then(setOutcome);
 
 /////// Confirm booking //////
 $scope.confirmBooking = function() {
-    $scope.reservation.stripetoken = $scope.cardToPay.id;
+    $scope.reservation.cardid = $scope.cardToPay.id;
     console.log($scope.cardToPay, $scope.reservation);
     BookingsService.createReservation($scope.reservation).then(function(res){
         console.log(res);
