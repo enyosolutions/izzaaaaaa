@@ -40,12 +40,14 @@
             <a class="link login-link center" ui-sref="auth.login">Je suis déjà inscrit(e),<br>je me connecte</a>
 
           </div>
+          <div class="login-btns">
+            <button type="submit" class="log-in button button-theme" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
+                    S'inscrire
+            </button>
+          </div>
         </div>
+
     </ion-content>
-    <div class="login-btns">
-      <button type="submit" class="log-in button button-theme" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
-              S'inscrire
-      </button>
-    </div>
+
   </form>
 </ion-view>
