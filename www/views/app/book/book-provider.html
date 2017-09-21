@@ -4,9 +4,15 @@
         <div class="book-provider select-option-wrapper">
             <div class="list card">
                 <div class="item item-image">
-                    <img ng-src="http://alphalabx.com:3000/{{imageUrl}}">
+                    <!-- <img ng-src="http://alphalabx.com:3000/{{imageUrl}}"> -->
+                    <ion-content scroll="false">
+                        <ion-slides slider="data.slider">
+                          <ion-slide-page ng-repeat="image in sliderImages">
+                            <img ng-src="http://alphalabx.com:3000/{{image}}">
+                          </ion-slide-page>
+                        </ion-slides>
+                      </ion-content>
                 </div>
-                <!-- {{provider}} -->
                 <div class="item item-body">
                     <div class="provider-info">
                         <h2 class="card-title">{{provider.firstname}} {{provider.lastname}} {{skill.selected}}</h2>
