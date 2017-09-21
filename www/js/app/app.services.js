@@ -8,6 +8,14 @@ angular.module('izza.app.services', [])
         });
         $state.go('app.book.home');
     }
+
+    this.goToBookings = function() {
+        $ionicHistory.nextViewOptions({
+            disableAnimate: true,
+            historyRoot: true
+        });
+        $state.go('app.bookings.home');
+    }
 })
 
 .service('RemoteDirectory', function() {
