@@ -59,20 +59,13 @@ angular.module('izza', [
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
             cordova.plugins.Keyboard.disableScroll(false);
         }
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
 
-        /*    if ( isViewedByBrowser() ) {
-              console.log("Running on Browser!");
-            } else {
-              console.log("Not running on PhoneGap!");
-            }*/
-
-        //ionic.Platform.isFullScreen = true;
 
     });
 

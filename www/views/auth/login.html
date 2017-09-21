@@ -47,14 +47,14 @@
       </div>
     </div>
     <div class="login-btns" ng-hide="isKeyboardShown">
-      <a class="link login-link center" ui-sref="auth.forgot-password">mot de passe oublié</a>
-      <a class="link login-link center" ui-sref="auth.signup">S'inscrire</a>
-      <button type="submit" class="log-in button button-theme" ng-click="doLogIn()" ng-disabled="login_form.$invalid">
+      <button type="submit" class="log-in button button-theme" ng-click="doLogIn()" >
                 Se connecter
         </button>
       <button type="submit" class=" hide log-in button button-fb" ng-click="facebookSignIn()">
               Via Facebook
         </button>
+        <a class="link login-link center ng-hide" ui-sref="auth.forgot-password">mot de passe oublié</a>
+        <a class="link login-link center" ui-sref="auth.signup">S'inscrire</a>
     </div>
   </ion-content>
 

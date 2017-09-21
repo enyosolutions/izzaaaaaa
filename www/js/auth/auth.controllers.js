@@ -40,9 +40,13 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     };
   })
 
-  .controller('LogInCtrl', function ($scope, $state, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService) {
-    $scope.user = { email: '', password: '' };
+  .controller('LogInCtrl', function ($scope, $state, $ionicPopup, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService) {
+    $scope.user = { email: "", password: "" };
     $scope.doLogIn = function () {
+      if(!$scope.user.email || !$scope.user.password){
+        return $ionicPopup.alert({title:"Erreur", template:"Merci de saisir votre email et votre mot de passe"});
+      }
+
       AuthService.authenticateUser($scope.user).then(function (response) {
         if (response.success) {
           $localStorage.token = response.data.token;
@@ -179,7 +183,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 
   })
 
-  .controller('SignUpCtrl', function ($scope, $state, $q, $stateParams, AuthService, $cordovaDevice, $ionicPlatform) {
+  .controller('SignUpCtrl', function ($scope, $state, $q, $ionicPopup, $stateParams, AuthService, $cordovaDevice, $ionicPlatform) {
     $ionicPlatform.ready(function () {
       if (window.cordova) {
         $scope.deviceUuid = $cordovaDevice.getUUID();
@@ -189,6 +193,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
       }
     });
     $scope.newUser = {
+      title: "",
       firstname: "",
       lastname: "",
       email: "",
@@ -200,6 +205,9 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
       deviceid: $scope.deviceUuid
     };
     $scope.doSignUp = function () {
+      if(!$scope.newUser.email || !$scope.newUser.password){
+        return $ionicPopup.alert({title:"Erreur", template:"Merci de saisir votre email et votre mot de passe"});
+      }
       $state.go('auth.signup_info', { userInfo: $scope.newUser });
     };
   })

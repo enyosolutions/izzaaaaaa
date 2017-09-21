@@ -37,15 +37,16 @@
                 Ce champ est obligatoire.</span>
             </div>
             <p ng-show="error" class="message error">{{error}}</p>
+          </div>
+          <div class="login-btns">
+            <button type="submit" class="log-in button button-theme" ng-click="doSignUp()">
+                    S'inscrire
+            </button>
             <a class="link login-link center" ui-sref="auth.login">Je suis déjà inscrit(e),<br>je me connecte</a>
-
           </div>
         </div>
+
     </ion-content>
-    <div class="login-btns">
-      <button type="submit" class="log-in button button-theme" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
-              S'inscrire
-      </button>
-    </div>
+
   </form>
 </ion-view>
