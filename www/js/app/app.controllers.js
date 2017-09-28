@@ -40,7 +40,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     console.log($scope.customer_id);
     BookingsService.getReservations($scope.customer_id)
     .success(function(response) {
-        $scope.reservations = response;
+        // $scope.reservations = response;
         console.log(response);
     })
     .error(function(error) {
