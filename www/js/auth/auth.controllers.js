@@ -228,9 +228,18 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     };
   })
 
-  .controller('ForgotPasswordCtrl', function ($scope, $state, $q) {
+  .controller('ForgotPasswordCtrl', function ($scope, $state, $q, AuthService) {
+    $scope.user = {email: ''};
     $scope.requestNewPassword = function () {
-      console.log("requesting new password");
-      $state.go('app.book.home');
+
+      console.log($scope.user.email);
+      // $state.go('app.book.home');
+      AuthService.requestPwd($scope.user.email).then(function (response) {
+        if (response.success) {
+          console.log(response);
+        } else {
+          console.log("Error " + response.status);
+        }
+      });
     };
   })

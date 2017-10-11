@@ -59,6 +59,12 @@ angular.module('izza.app.services', [])
         var url = RemoteDirectory.getAPISrvURL() + '/api/customer/signup';
         return $http.post(url, user).then(this.handleSuccess, this.handleError);
     }
+
+    this.requestPwd = function(email) {
+        var url = RemoteDirectory.getAPISrvURL() + '/api/customer/reqresetpwd';
+        return $http.post(url, email).then(this.handleSuccess, this.handleError);
+    }
+
     this.handleSuccess = function(response) {
         //console.log(res);
         return {success: true, status: response.status, data: response.data};
@@ -98,7 +104,7 @@ angular.module('izza.app.services', [])
 })
 
 
-.service('BookingsService', function($http, $q, _, RemoteDirectory) {
+.service('BookingsService', function($http, $q, _, RemoteDirectory, $cordovaGeolocation) {
 
     //For:
     // - getting providers.
@@ -123,9 +129,21 @@ angular.module('izza.app.services', [])
     };
 
     this.getProviders = function(idService) {
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+           var lat  = position.coords.latitude
+           var long = position.coords.longitude
+           console.log(lat + '   ' + long)
+        }, function(err) {
+           console.log(err)
+        });
+
         var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService);
         provs = $http.get(url);
         console.log("in getProviders: " + idService);
+        console.log("in getProviders: " + JSON.stringify(provs));
         return provs;
     };
 
