@@ -66,12 +66,10 @@ angular.module('izza.app.services', [])
     }
 
     this.handleSuccess = function(response) {
-        //console.log(res);
         return {success: true, status: response.status, data: response.data};
     }
 
     this.handleError = function(response) {
-        //console.log(res);
         return {success: false, status: response.status, data: response.data};
     }
 

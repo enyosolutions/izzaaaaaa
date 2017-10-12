@@ -228,17 +228,22 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     };
   })
 
-  .controller('ForgotPasswordCtrl', function ($scope, $state, $q, AuthService) {
+  .controller('ForgotPasswordCtrl', function ($scope, $state, $q, AuthService, $ionicLoading, $ionicPopup) {
     $scope.user = {email: ''};
     $scope.requestNewPassword = function () {
-
-      console.log($scope.user.email);
       // $state.go('app.book.home');
-      AuthService.requestPwd($scope.user.email).then(function (response) {
+      $ionicLoading.show({
+        template: 'Submitting...'
+      });
+      AuthService.requestPwd($scope.user).then(function (response) {
+        $ionicLoading.hide();
         if (response.success) {
-          console.log(response);
+          var alertPopup = $ionicPopup.alert({title:"Succès", template:"Vous recevrez un e-mail pour plus d'instructions"});
+          alertPopup.then(function(res) {
+              $state.go('auth.login');
+          });
         } else {
-          console.log("Error " + response.status);
+          $ionicPopup.alert({title:"Erreur", template:"S'il vous plaît vérifier votre adresse e-mail"});
         }
       });
     };
