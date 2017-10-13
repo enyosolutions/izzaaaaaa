@@ -40,7 +40,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     console.log($scope.customer_id);
     BookingsService.getReservations($scope.customer_id)
     .success(function(response) {
-        $scope.reservations = response;
+        // $scope.reservations = response;
         console.log(response);
     })
     .error(function(error) {
@@ -244,19 +244,24 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 .controller('BookProviderCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
-    console.log($scope.provider);
+    // console.log($scope.provider);
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
 
-    $scope.imageUrl = $scope.provider.picture;
+    $scope.sliderImages = [];
+
+    angular.forEach($scope.provider.services, function(value, key) {
+        $scope.sliderImages = $scope.sliderImages.concat(value.pics)
+    });
+
 
     $scope.reservation.providerservice = "";
-    console.log($scope.reservation.providerservice);
+    // console.log($scope.reservation.providerservice);
     //    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
     $scope.selection = [];
     $scope.toggleSelection = function toggleSelection(single_service) {
         var idx = $scope.selection.indexOf(single_service);
-        console.log($scope.selection);
+        // console.log($scope.selection);
         // Is currently selected
         if (idx > -1) {
             $scope.selection.splice(idx, 1);
@@ -267,22 +272,22 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         }
     };
 
-    console.log($scope.reservation.providerservice);
-    console.log($scope.recap_info.service);
+    // console.log($scope.reservation.providerservice);
+    // console.log($scope.recap_info.service);
 
     $scope.selectService = function(providerservice) {
-        console.log(providerservice);
-        if(providerservice.pics.length > 0){
-            $scope.imageUrl = providerservice.pics[0];
-        }else{
-            $scope.imageUrl = $scope.provider.picture;
-        }
+        // console.log(providerservice);
+        // if(providerservice.pics.length > 0){
+        //     $scope.imageUrl = providerservice.pics[0];
+        // }else{
+        //     $scope.imageUrl = $scope.provider.picture;
+        // }
         $scope.reservation.providerservice = providerservice._id;
         $scope.recap_info.service = providerservice.service.title;
         $scope.recap_info.price = providerservice.price;
 
     }
-    console.log($scope.reservation);
+    // console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
         //        $scope.reservation.providerservice = $scope.selection[0]._id;
         //        $scope.recap_info.service = $scope.selection[0].service.title;
@@ -304,7 +309,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
     $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
     $scope.showday = $filter('date')(caldate, 'EEEE d');
-    console.log($scope.reservation.hour);
+    // console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
 
@@ -322,10 +327,10 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.ipObjDatePicker = {
         callback: function(val) { //Mandatory
             var caldate = new Date(val);
-            console.log('Return value from the datepicker popup is : ' + caldate);
+            // console.log('Return value from the datepicker popup is : ' + caldate);
             $scope.reservation.date = caldate;
             $scope.recap_info.date = caldate;
-            console.log($scope.reservation);
+            // console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
             $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
             $scope.showday = $filter('date')(caldate, 'EEEE d');
