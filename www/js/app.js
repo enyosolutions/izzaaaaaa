@@ -64,6 +64,7 @@ angular.module('izza', [
         }
         if (window.StatusBar) {
             StatusBar.styleDefault();
+            StatusBar.overlaysWebView(true);
         }
 
 

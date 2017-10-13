@@ -203,7 +203,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         date: Date(),
         hour: "",
         status: "In Progress",
-        address:  $localStorage.profile.address,
+        address:  $localStorage.profile ? $localStorage.profile.address : "",
         note: "",
         token: $localStorage.token
     };
