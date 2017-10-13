@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="3" id="co.izza.izzaapp" ios-CFBundleVersion="17" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>IZZA</name>
-	<description>
+    <name>IZZA</name>
+    <description>
     Application pour le service IZZA
   </description>
-	<author email="nf@izza.co" href="http://izza.co/">
+    <author email="nf@izza.co" href="http://izza.co/">
     Invicti SAS
   </author>
     <content src="index.html" />
@@ -80,4 +80,5 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
     <engine name="ios" spec="~4.4.0" />
     <engine name="android" spec="~6.3.0" />
+    <allow-navigation href="http://10.0.2.15:8100" />
 </widget>
