@@ -128,17 +128,20 @@ angular.module('izza.app.services', [])
 
     this.getProviders = function(idService) {
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        var lat ;
+        var lon;
         $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(function (position) {
-           var lat  = position.coords.latitude
-           var long = position.coords.longitude
-           console.log(lat + '   ' + long)
+            lat  = position.coords.latitude;
+            lon = position.coords.longitude;
+           console.log(lat + '   ' + lon);
         }, function(err) {
            console.log(err)
         });
 
-        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService);
+        var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService)
+        + "?lat="+ lat + "&lon=" + lon;
         provs = $http.get(url);
         console.log("in getProviders: " + idService);
         console.log("in getProviders: " + JSON.stringify(provs));

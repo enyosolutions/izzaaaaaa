@@ -254,6 +254,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         $scope.sliderImages = $scope.sliderImages.concat(value.pics)
     });
 
+    console.log($scope.sliderImages);
+
 
     $scope.reservation.providerservice = "";
     // console.log($scope.reservation.providerservice);
