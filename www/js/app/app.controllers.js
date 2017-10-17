@@ -494,6 +494,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             });
             cardExpiry.mount('#cardExpiry-element');
 
+
             var cardCvc = elements.create('cardCvc', {
                 iconStyle: 'solid',
                 style: style,
@@ -561,6 +562,10 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 setOutcome(event);
             });
 
+            cardNumber.on('ready', function () {
+                $ionicLoading.hide();
+            })
+
             $scope.addCard = function () {
                 var form = document.querySelector('form');
                 var extraDetails = {
@@ -569,7 +574,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 stripe.createToken(cardNumber, extraDetails).then(setOutcome);
 
             };
-            $ionicLoading.hide();
+            // 
             ///////       END         //////
         };
 
