@@ -194,7 +194,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                                             //    }
                                         })
 
-.controller('ProvidersCtrl', function($scope, $state, $stateParams, $ionicLoading, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('ProvidersCtrl', function($scope, $state, $stateParams, $ionicLoading, BookingsService, $ionicModal, $timeout, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
 
     $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
@@ -218,7 +218,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     BookingsService.getProviders($scope.service._id).success(function(response) {
         $ionicLoading.hide();
         $scope.providers = response;
-
+        $ionicScrollDelegate.resize();
         for(i in $scope.providers){
             var provider = $scope.providers[i];
             for(var j = 0, ln = provider.services.length; j <  ln; j++ ){
@@ -227,7 +227,10 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                 }
             }
         }
-        console.log(response);
+        $ionicScrollDelegate.resize();
+        $timeout(function() {
+            $ionicScrollDelegate.resize();
+        }, 500);
     }).error(function(error) {
         $ionicLoading.hide();
         console.log('Error loading providers...' + error);
