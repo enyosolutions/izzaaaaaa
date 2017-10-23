@@ -1,27 +1,40 @@
 angular.module('izza.app.controllers', ['ui.rCalendar'])
 
-.controller('AppCtrl', function($scope, AuthService, $localStorage) {
+.controller('AppCtrl', function($scope, AuthService) {
 
     //this will represent our logged user
+    var user = {
+        about: "J'aime quand mes ongles sont parfaitement manucurés.",
+        name: "Elisa Rookie",
+        picture: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+        _id: 0,
+        followers: 345,
+        following: 58
+    };
 
     //save our logged user on the localStorage
-    $scope.loggedUser = $localStorage.profile;
+    AuthService.saveUser(user);
+    $scope.loggedUser = user;
 })
 
 
 .controller('ProfileCtrl', function($scope, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
 
-    $scope.profile = $localStorage.profile;
-    console.log($scope.profile);
-
+    $localStorage = $localStorage.$default({
+        profile: {}
+    });
+    ProfileService.getProfile($localStorage.customer_id)
+        .success(function(response) {
+            $scope.profile = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        });
+    $scope.$storage = $localStorage.profile;
+    console.log($scope.$storage);
     $scope.logOut = function() {
-        delete $localStorage.token;
-        delete $localStorage.customer_id ;
-        delete $localStorage.stripe_id;
-        delete $localStorage.profile;
-        $ionicHistory.clearCache();
-        $ionicHistory.clearHistory();
-        $state.go('auth.login');
+        $scope.myPopup = $state.go('auth.login');
     }
     $scope.gotoLegal = function() {
         $state.go("app.legal.legal-notice");
@@ -33,19 +46,19 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.profile = $localStorage.profile;
     $scope.customer_id = $localStorage.customer_id;
     $scope.isSelected = true;
-    /*
-    PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
-    */
+/*
+PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
+*/
 
     console.log($scope.customer_id);
     BookingsService.getReservations($scope.customer_id)
-    .success(function(response) {
-        // $scope.reservations = response;
-        console.log(response);
-    })
-    .error(function(error) {
-        console.log('Error loading providers...' + error);
-    });
+        .success(function(response) {
+            $scope.reservations = response;
+            console.log(response);
+        })
+        .error(function(error) {
+            console.log('Error loading providers...' + error);
+        });
     //Turns the booking into status:canceled
 
     $scope.cancelBooking = function(res_id) {
@@ -94,6 +107,33 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 .controller('BookCtrl', function($scope, $http, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
     console.log($localStorage.customer_id);
     $scope.groups = [];
+//
+//    $scope.groups[0] = {
+//        name: 'Coiffure',
+//        img: 'img/services/coiffure.jpg',
+//        items: ['Brushing', 'Chignon', 'Coupe', 'Décoloration/Coloration', 'Défrisage', 'Lissage brésilien']
+//    };
+//
+//    $scope.groups[1] = {
+//        name: 'Onglerie',
+//        img: 'img/services/onglerie.jpg',
+//        items: ['Pose de vernis simple (Mains)', 'Pose vernis semi permanent (Mains)', 'Pose gel avec capsule (Mains)', 'Extension au gel/chablon (Mains)', 'Nail art (Mains)',
+//            'Pose de vernis simple (Pieds)', 'Pose vernis semi permanent (Pieds)', 'Pose gel avec capsule (Pieds)', 'Extension au gel/chablon  (Pieds)', 'Nail art  (Pieds)'
+//        ]
+//    };
+//
+//    $scope.groups[2] = {
+//        name: 'Maquillage',
+//        img: 'img/services/maquillage.jpg',
+//        items: ['Maquillage jour', 'Maquillage soir']
+//    };
+//
+//    var url = RemoteDirectory.getAPISrvURL() + '/api/categories';
+//    console.log(url);
+//    $http.get(url).
+//    then(function(response) {
+//            $scope.groups = response.data;
+//    });
 
 
     BookingsService.getCategories().then(function(response) {
@@ -129,81 +169,74 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     }
 })
 
-.controller('SubCategoryCtrl', function($scope, $state, BookingsService, $ionicModal, $ionicPopup, $timeout, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
+.controller('SubCategoryCtrl', function($scope, $state, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $stateParams, $ionicScrollDelegate, $localStorage) {
     $scope.group = $stateParams.groupInfo;
     $scope.subgroups = $scope.group.subcategories;
 
-    //    $scope.subgroups[0] = {
-        //        name: 'Coupe',
-        //        img: 'img/subgroups/coupe.jpg'
-        //    };
-        //    $scope.subgroups[1] = {
-            //        name: 'Tresses',
-            //        img: 'img/subgroups/tresses.jpg'
-            //    };
-            //    $scope.subgroups[2] = {
-                //        name: 'Brushing',
-                //        img: 'img/subgroups/brushing.jpg'
-                //    };
-                console.log($ionicScrollDelegate);
-                $scope.toggleGroup = function(group) {
-                    console.log("scroll resize");
+//    $scope.subgroups[0] = {
+//        name: 'Coupe',
+//        img: 'img/subgroups/coupe.jpg'
+//    };
+//    $scope.subgroups[1] = {
+//        name: 'Tresses',
+//        img: 'img/subgroups/tresses.jpg'
+//    };
+//    $scope.subgroups[2] = {
+//        name: 'Brushing',
+//        img: 'img/subgroups/brushing.jpg'
+//    };
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+    $scope.isGroupShown = function(group) {
+        return $scope.shownGroup === group;
+    };
 
-                    if ($scope.isGroupShown(group)) {
-                        $scope.shownGroup = null;
-                    } else {
-                        $scope.shownGroup = group;
-                    }
-                    $ionicScrollDelegate.resize();
-                    $timeout(function() {
-                        $ionicScrollDelegate.resize();
-                    }, 500);
-                };
-                $scope.isGroupShown = function(group) {
-                    return $scope.shownGroup === group;
-                };
+    $scope.openService = function(service) {
+        $state.go('app.book.providers_list', { serviceInfo: service });
+    }
+//
+//    var myPopup;
+//    $scope.showFiltersPopup = function() {
+//        $scope.filter = {};
+//        myPopup = $ionicPopup.show({
+//            cssClass: 'filter-popup',
+//            templateUrl: 'views/app/book/partials/filters_popup.html',
+//            scope: $scope,
+//        });
+//        myPopup.then(function(res) {
+//            if (res) {
+//                console.log('Filters applied', res);
+//                myPopup.close();
+//            } else {
+//                console.log('Popup closed');
+//                myPopup.close();
+//            }
+//        });
+//    };
+//    $scope.closePopup = function() {
+//        myPopup.close();
+//    }
+//    $scope.applyFilter = function() {
+//        myPopup.close();
+//    }
+})
 
-                $scope.openService = function(service) {
-                    console.log("scroll resize");
-                    $state.go('app.book.providers_list', { serviceInfo: service });
-                }
-                //
-                //    var myPopup;
-                //    $scope.showFiltersPopup = function() {
-                    //        $scope.filter = {};
-                    //        myPopup = $ionicPopup.show({
-                        //            cssClass: 'filter-popup',
-                        //            templateUrl: 'views/app/book/partials/filters_popup.html',
-                        //            scope: $scope,
-                        //        });
-                        //        myPopup.then(function(res) {
-                            //            if (res) {
-                                //                console.log('Filters applied', res);
-                                //                myPopup.close();
-                                //            } else {
-                                    //                console.log('Popup closed');
-                                    //                myPopup.close();
-                                    //            }
-                                    //        });
-                                    //    };
-                                    //    $scope.closePopup = function() {
-                                        //        myPopup.close();
-                                        //    }
-                                        //    $scope.applyFilter = function() {
-                                            //        myPopup.close();
-                                            //    }
-                                        })
-
-.controller('ProvidersCtrl', function($scope, $state, $stateParams, $ionicLoading, BookingsService, $ionicModal, $timeout, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('ProvidersCtrl', function($scope, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
 
     $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
+        provider_name: "",
         providerservice: "",
         customer: $localStorage.customer_id,
         date: Date(),
         hour: "",
         status: "In Progress",
-        address:  $localStorage.profile ? $localStorage.profile.address : "",
+        address: "",
         note: "",
         token: $localStorage.token
     };
@@ -213,63 +246,39 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         date: "",
         hour: ""
     }
-    console.log($scope.service._id);
-    $ionicLoading.show();
+    console.log($scope.reservation);
     BookingsService.getProviders($scope.service._id).success(function(response) {
-        $ionicLoading.hide();
         $scope.providers = response;
-        $ionicScrollDelegate.resize();
-        for(i in $scope.providers){
-            var provider = $scope.providers[i];
-            for(var j = 0, ln = provider.services.length; j <  ln; j++ ){
-                if(provider.services[j].id == $scope.service._id && provider.services[j].pics && provider.services[j].pics[0]){
-                    provider.picture = provider.services[j].pics[0];
-                }
-            }
-        }
-        $ionicScrollDelegate.resize();
-        $timeout(function() {
-            $ionicScrollDelegate.resize();
-        }, 500);
+        console.log(response);
     }).error(function(error) {
-        $ionicLoading.hide();
         console.log('Error loading providers...' + error);
     })
-    //      .then(function(response) {
-        //        $scope.providers = response.data;
-        //    })
+//      .then(function(response) {
+//        $scope.providers = response.data;
+//    })
 
 
-        $scope.bookPerService = function(provider) {
-            console.log($scope.recap_info);
-            $scope.recap_info.provider_name = provider.firstname + ' ' + provider.lastname;
-            $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info});
-        };
-    })
+    $scope.bookPerService = function(provider) {
+        console.log($scope.recap_info);
+        $scope.recap_info.provider_name = provider.firstname + ' ' + provider.lastname;
+        $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info});
+    };
+})
 
-.controller('BookProviderCtrl', function($scope, $ionicLoading,  BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
+.controller('BookProviderCtrl', function($scope, BookingsService, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage) {
 
     $scope.provider = $stateParams.providerInfo;
-    // console.log($scope.provider);
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
 
-    $scope.sliderImages = [];
-
-    angular.forEach($scope.provider.services, function(value, key) {
-        $scope.sliderImages = $scope.sliderImages.concat(value.pics)
-    });
-
-    console.log($scope.sliderImages);
-
 
     $scope.reservation.providerservice = "";
-    // console.log($scope.reservation.providerservice);
-    //    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
+    console.log($scope.reservation.providerservice);
+//    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
     $scope.selection = [];
     $scope.toggleSelection = function toggleSelection(single_service) {
         var idx = $scope.selection.indexOf(single_service);
-        // console.log($scope.selection);
+        console.log($scope.selection);
         // Is currently selected
         if (idx > -1) {
             $scope.selection.splice(idx, 1);
@@ -280,26 +289,21 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         }
     };
 
-    // console.log($scope.reservation.providerservice);
-    // console.log($scope.recap_info.service);
+    console.log($scope.reservation.providerservice);
+    console.log($scope.recap_info.service);
 
     $scope.selectService = function(providerservice) {
-        // console.log(providerservice);
-        // if(providerservice.pics.length > 0){
-        //     $scope.imageUrl = providerservice.pics[0];
-        // }else{
-        //     $scope.imageUrl = $scope.provider.picture;
-        // }
+
         $scope.reservation.providerservice = providerservice._id;
         $scope.recap_info.service = providerservice.service.title;
         $scope.recap_info.price = providerservice.price;
 
     }
-    // console.log($scope.reservation);
+    console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
-        //        $scope.reservation.providerservice = $scope.selection[0]._id;
-        //        $scope.recap_info.service = $scope.selection[0].service.title;
-        //        $scope.recap_info.price = $scope.selection[0].price;
+//        $scope.reservation.providerservice = $scope.selection[0]._id;
+//        $scope.recap_info.service = $scope.selection[0].service.title;
+//        $scope.recap_info.price = $scope.selection[0].price;
         $state.go('app.book.addbooking', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info });
     };
 })
@@ -315,9 +319,9 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.reservation.date = caldate;
     $scope.recap_info.date = caldate;
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-    $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
-    $scope.showday = $filter('date')(caldate, 'EEEE d');
-    // console.log($scope.reservation.hour);
+    $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
+    $scope.showday = $filter('date')(caldate, ' EEEE, d');
+    console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
 
@@ -335,13 +339,13 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.ipObjDatePicker = {
         callback: function(val) { //Mandatory
             var caldate = new Date(val);
-            // console.log('Return value from the datepicker popup is : ' + caldate);
+            console.log('Return value from the datepicker popup is : ' + caldate);
             $scope.reservation.date = caldate;
             $scope.recap_info.date = caldate;
-            // console.log($scope.reservation);
+            console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
-            $scope.showmonth = $filter('date')(caldate, 'MMMM yyyy');
-            $scope.showday = $filter('date')(caldate, 'EEEE d');
+            $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
+            $scope.showday = $filter('date')(caldate, ' EEEE, d');
         },
         //from: new Date(2012, 1, 1), //Optional
         //to: new Date(2016, 10, 30), //Optional
@@ -390,46 +394,37 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 
 .controller('BookRecapCtrl', function($scope, BookingsService, sharedFunctions, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
-    $scope.isLoading = false;
-    $scope.hasLoaded = false;
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
     $scope.recap_info = $stateParams.recapInfo;
-
-    $scope.fees_info =  {customer: $localStorage.customer_id, date: $scope.reservation.date};
-    BookingsService.getFees($scope.fees_info)
-    .success(function(response) {
-        $scope.fees = response.fee;
-    }).error(function(error) {
-        console.log('Error loading fees...' + error);
-    });
+    $scope.vouchers = 2;
 
 
+    $scope.cards = [
+        {name: "John Doe", cardId:"test1", last4: "1234"},
+        {name: "Jane Doe", cardId:"test2", last4: "5678"}
+    ];
+    $scope.cardToPay = $scope.cards[0];
+
+    $scope.stripeCharge = {
+        currency: "euro",
+        amount: $scope.recap_info.price,
+        customerId: $localStorage.stripe_id,
+        cardId: ""
+    };
 
     $scope.selectCard = function(card) {
-        console.log(card);
         $scope.cardToPay = card;
+        $scope.stripeCharge.cardId = card.cardId;
     }
-
-    $scope.refreshCards = function() {
-        $scope.cardToPay = true;
-        BookingsService.getCards($localStorage.stripe_id)
-        .success(function(response) {
-            $scope.hasLoaded = true;
-            $scope.cardToPay = false;
-            $scope.cards = response.data;
-            if($scope.cards && $scope.cards.length > 0){
-                $scope.selectCard($scope.cards[0]);
-            }
-        })
-        .error(function(error) {
-            $scope.hasLoaded = true;
-            $scope.cardToPay = false;
-            console.log('Error loading cards...' + error);
-        });
-    }
-    $scope.refreshCards()
-
+//    BookingsService.getCards($localStorage.stripe_id)
+//        .success(function(response) {
+//            $scope.cards = response;
+//            console.log(response);
+//        })
+//        .error(function(error) {
+//            console.log('Error loading cards...' + error);
+//        });
 
 
     $ionicModal.fromTemplateUrl('views/app/book/partials/cards-list.html', {
@@ -455,8 +450,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
         $scope.new_card_modal.show();
 
         console.log('Modal is shown!');
-        ///////   STRIPE ELEMENTS   //////
-        var stripe = Stripe('pk_test_calia0re9s1xfre0GjtltI8i');
+///////   STRIPE ELEMENTS   //////
+        var stripe = Stripe('pk_test_KxHM84wFfVzsFP7NBIloYPTo');
         var elements = stripe.elements({locale: "fr"});
         var style = {
           base: {
@@ -468,124 +463,106 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
             fontSize: '15px',
             '::placeholder': {
               color: '#bec7d0',
+            },
           },
-      },
-      invalid: {
-        iconColor: '#e85746',
-        color: '#e85746',
-    }
-}
-var classes = {
-  focus: 'is-focused',
-  empty: 'is-empty',
-}
-var cardNumber = elements.create('cardNumber', {
-  iconStyle: 'solid',
-  style: style,
-  classes: classes,
-});
-cardNumber.mount('#cardNumber-element');
-
-var cardExpiry = elements.create('cardExpiry', {
-  iconStyle: 'solid',
-  style: style,
-  classes: classes,
-});
-cardExpiry.mount('#cardExpiry-element');
-
-var cardCvc = elements.create('cardCvc', {
-  iconStyle: 'solid',
-  style: style,
-  classes: classes,
-});
-cardCvc.mount('#cardCvc-element');
-
-var inputs = document.querySelectorAll('input.field');
-Array.prototype.forEach.call(inputs, function(input) {
-  input.addEventListener('focus', function() {
-    input.classList.add('is-focused');
-});
-  input.addEventListener('blur', function() {
-    input.classList.remove('is-focused');
-});
-  input.addEventListener('keyup', function() {
-    if (input.value.length === 0) {
-      input.classList.add('is-empty');
-  } else {
-      input.classList.remove('is-empty');
-  }
-});
-});
-
-function setOutcome(result) {
-  var errorElement = document.querySelector('.error');
-  errorElement.classList.remove('visible');
-
-  if (result.token) {
-    // Use the token to create a charge or a customer
-    // https://stripe.com/docs/charges
-    console.log(result.token.id);
-    $scope.new_card_modal.hide();
-    $scope.new_card_info = {customerId: $localStorage.stripe_id, token: result.token.id};
-    console.log($scope.new_card_info);
-    BookingsService.sendCard($scope.new_card_info)
-    .then(
-          function(response){
-            console.log("Success!");
-            $scope.refreshCards();
-        },
-        function(error){
-            console.log(error);
+          invalid: {
+            iconColor: '#e85746',
+            color: '#e85746',
+          }
         }
-        );
-} else if (result.error) {
-    console.log(result.error.message);
-    errorElement.textContent = result.error.message;
-    errorElement.classList.add('visible');
-} else {
-    errorElement.textContent = '';
-}
-}
+        var classes = {
+          focus: 'is-focused',
+          empty: 'is-empty',
+        }
+        var cardNumber = elements.create('cardNumber', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardNumber.mount('#cardNumber-element');
 
-cardNumber.on('change', function(event) {
-  setOutcome(event);
-});
-cardExpiry.on('change', function(event) {
-  setOutcome(event);
-});
-cardCvc.on('change', function(event) {
-  setOutcome(event);
-});
+        var cardExpiry = elements.create('cardExpiry', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardExpiry.mount('#cardExpiry-element');
 
-$scope.addCard = function(){
-  var form = document.querySelector('form');
-  var extraDetails = {
-    name: $scope.newCardForm.name.$modelValue,
-};
-stripe.createToken(cardNumber, extraDetails).then(setOutcome);
+        var cardCvc = elements.create('cardCvc', {
+          iconStyle: 'solid',
+          style: style,
+          classes: classes,
+        });
+        cardCvc.mount('#cardCvc-element');
 
-};
+        var inputs = document.querySelectorAll('input.field');
+        Array.prototype.forEach.call(inputs, function(input) {
+          input.addEventListener('focus', function() {
+            input.classList.add('is-focused');
+          });
+          input.addEventListener('blur', function() {
+            input.classList.remove('is-focused');
+          });
+          input.addEventListener('keyup', function() {
+            if (input.value.length === 0) {
+              input.classList.add('is-empty');
+            } else {
+              input.classList.remove('is-empty');
+            }
+          });
+        });
+
+        function setOutcome(result) {
+          var errorElement = document.querySelector('.error');
+          errorElement.classList.remove('visible');
+
+          if (result.token) {
+            // Use the token to create a charge or a customer
+            // https://stripe.com/docs/charges
+            console.log(result.token.id);
+            $scope.new_card_modal.hide();
+            $scope.new_card_info = {customerId: $localStorage.stripe_id, token: result.token.id};
+            console.log($scope.new_card_info);
+            BookingsService.sendCard($scope.new_card_info);
+          } else if (result.error) {
+            console.log(result.error.message);
+            errorElement.textContent = result.error.message;
+            errorElement.classList.add('visible');
+          } else {
+            errorElement.textContent = '';
+          }
+        }
+
+        cardNumber.on('change', function(event) {
+          setOutcome(event);
+        });
+        cardExpiry.on('change', function(event) {
+          setOutcome(event);
+        });
+        cardCvc.on('change', function(event) {
+          setOutcome(event);
+        });
+
+        $scope.addCard = function(){
+          var form = document.querySelector('form');
+          var extraDetails = {
+            name: $scope.newCardForm.name.$modelValue,
+          };
+          stripe.createToken(cardNumber, extraDetails).then(setOutcome);
+
+        };
 ///////       END         //////
-};
+    };
 
 
 /////// Confirm booking //////
-$scope.confirmBooking = function() {
-    $scope.reservation.cardid = $scope.cardToPay.id;
-    console.log($scope.cardToPay, $scope.reservation);
-    BookingsService.createReservation($scope.reservation).then(function(res){
-        console.log(res);
-        var alertPopup = $ionicPopup.confirm({
-            title: 'Réservation',
-            template: 'Votre demande de rendez-vous à bien été prise en compte.'
-        });
-        alertPopup.then(function(res) {
-            sharedFunctions.goToBookings();
-        }, function(err){
-            console.warn(err);
-        });
-    });
-};
+    $scope.confirmBooking = function() {
+        console.log($scope.reservation);
+        BookingsService.createCharge($scope.stripeCharge)
+        BookingsService.createReservation($scope.reservation);
+        sharedFunctions.goHome();
+
+    };
 })
 
 .controller('LegalCtrl', function($scope, $ionicModal) {
