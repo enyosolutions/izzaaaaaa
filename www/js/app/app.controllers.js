@@ -18,17 +18,22 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 })
 
 
-.controller('ProfileCtrl', function($scope, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
+.controller('ProfileCtrl', function($scope, $ionicLoading, $stateParams, $localStorage, $sessionStorage, $ionicHistory, $state, $ionicScrollDelegate, ProfileService) {
 
     $localStorage = $localStorage.$default({
         profile: {}
     });
+    $ionicLoading.show({
+        template: 'Loading...'
+    });
     ProfileService.getProfile($localStorage.customer_id)
         .success(function(response) {
             $scope.profile = response;
+            $ionicLoading.hide();
             // console.log(response);
         })
         .error(function(error) {
+            $ionicLoading.hide();
             console.log('Error loading providers...' + error);
         });
     $scope.$storage = $localStorage.profile;
@@ -41,7 +46,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     };
 })
 
-.controller('BookingsController', function($scope, BookingsService, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
+.controller('BookingsController', function($scope, BookingsService, $ionicLoading, $ionicPopup, $ionicModal, $state, $ionicHistory, $localStorage, $sessionStorage) {
 
     $scope.profile = $localStorage.profile;
     $scope.customer_id = $localStorage.customer_id;
@@ -51,12 +56,17 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 */
 
     // console.log($scope.customer_id);
+    $ionicLoading.show({
+        template: 'Loading...'
+    });
     BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
             $scope.reservations = response;
+            $ionicLoading.hide();
             // console.log(response);
         })
         .error(function(error) {
+            $ionicLoading.hide();
             console.log('Error loading providers...' + error);
         });
     //Turns the booking into status:canceled
@@ -71,6 +81,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
                 if (res) {
                     $scope.currentID = res_id;
                     // console.log("cancelling booking id: " + res_id);
+                    $ionicLoading.show({
+                        template: 'Loading...'
+                    });
                     BookingsService.cancelBooking(res_id).then(function(res) {
                         // console.log("returns: " + res);
                         $scope.doRefresh();
@@ -91,12 +104,17 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
     $scope.doRefresh = function() {
         // console.log("Refreshing reservations.");
+        $ionicLoading.show({
+            template: 'Loading...'
+        });
         BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
+            $ionicLoading.hide();
             $scope.reservations = response;
             // console.log(response);
         })
         .error(function(error) {
+            $ionicLoading.hide();
             console.log('Error loading providers...' + error);
         })
         $scope.$broadcast('scroll.refreshComplete');
@@ -104,7 +122,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
 })
 
-.controller('BookCtrl', function($scope, $http, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('BookCtrl', function($scope, $http, $state, $ionicLoading, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
     // console.log($localStorage.customer_id);
     $scope.groups = [];
 //
@@ -135,9 +153,12 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 //            $scope.groups = response.data;
 //    });
 
-
+    $ionicLoading.show({
+        template: 'Loading...'
+    });
     BookingsService.getCategories().then(function(response) {
         $scope.groups = response.data;
+        $ionicLoading.hide();
     })
     $scope.openGroup = function(group) {
         $scope.myPopup = $state.go('app.book.category', { groupInfo: group });
@@ -226,7 +247,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 //    }
 })
 
-.controller('ProvidersCtrl', function($scope, $state, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
+.controller('ProvidersCtrl', function($scope, $state, $ionicLoading, $stateParams, BookingsService, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
 
     $scope.service = $stateParams.serviceInfo;
     $scope.reservation = {
@@ -247,10 +268,15 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         hour: ""
     }
     // console.log($scope.reservation);
+    $ionicLoading.show({
+        template: 'Loading...'
+     });
     BookingsService.getProviders($scope.service._id).success(function(response) {
         $scope.providers = response;
+        $ionicLoading.hide();
         // console.log(response);
     }).error(function(error) {
+        $ionicLoading.hide();
         console.log('Error loading providers...' + error);
     })
 //      .then(function(response) {
@@ -392,7 +418,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 })
 
-.controller('BookRecapCtrl', function($scope, BookingsService, sharedFunctions, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
+.controller('BookRecapCtrl', function($scope, $ionicLoading, BookingsService, sharedFunctions, $ionicPopup, $state, ionicDatePicker, $stateParams, $localStorage, $ionicModal) {
 
     $scope.provider = $stateParams.providerInfo;
     $scope.reservation = $stateParams.reservationInfo;
@@ -447,6 +473,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
     $scope.newCardForm = {};
     $scope.newCard = function() {
+        $ionicLoading.show({
+            template: 'Loading...'
+         });
         $scope.new_card_modal.show();
 
         // console.log('Modal is shown!');
@@ -533,6 +562,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
           }
         }
 
+        cardNumber.on('ready', function(event) {
+            $ionicLoading.hide();            
+        })
         cardNumber.on('change', function(event) {
           setOutcome(event);
         });

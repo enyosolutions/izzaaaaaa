@@ -13,7 +13,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     };
 
     $scope.facebookSignIn = function () {
-      console.log("doing facebbok sign in");
+      // console.log("doing facebbok sign in");
       $state.go('app.book.home');
     };
 
@@ -40,14 +40,18 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     };
   })
 
-  .controller('LogInCtrl', function ($scope, $state, $ionicPopup, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService) {
+  .controller('LogInCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, $stateParams, $localStorage, AuthService, $q, UserService, $ionicLoading, ProfileService) {
     $scope.user = { email: "", password: "" };
     $scope.doLogIn = function () {
-      if(!$scope.user.email || !$scope.user.password){
-        return $ionicPopup.alert({title:"Erreur", template:"Merci de saisir votre email et votre mot de passe"});
+      if (!$scope.user.email || !$scope.user.password) {
+        return $ionicPopup.alert({ title: "Erreur", template: "Merci de saisir votre email et votre mot de passe" });
       }
 
+      $ionicLoading.show({
+        template: 'Loggin In...'
+      });
       AuthService.authenticateUser($scope.user).then(function (response) {
+        $ionicLoading.hide();
         if (response.success) {
           $localStorage.token = response.data.token;
           $localStorage.customer_id = response.data.id;
@@ -55,13 +59,14 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
           ProfileService.getProfile($localStorage.customer_id)
             .success(function (response) {
               $localStorage.profile = response;
-              console.log(response);
+              // console.log(response);
+              $state.go('app.book.home');
             })
             .error(function (error) {
               console.log('Error ' + error);
             });
-          console.log($localStorage.profile);
-          $state.go('app.book.home');
+          // console.log($localStorage.profile);
+          // $state.go('app.book.home');
         } else {
           console.log("Error " + response.status);
           if (response.status == 403) {
@@ -100,7 +105,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
             picture: "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
           });
           $ionicLoading.hide();
-          $state.go('app.home');
+          $state.go('app.book.home');
         }, function (fail) {
           // Fail get profile info
           console.log('profile info fail', fail);
@@ -119,7 +124,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
 
       facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
         function (response) {
-          console.log(response);
+          // console.log(response);
           info.resolve(response);
         },
         function (response) {
@@ -137,7 +142,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
           // The user is logged in and has authenticated your app, and response.authResponse supplies
           // the user's ID, a valid access token, a signed request, and the time the access token
           // and signed request each expire
-          console.log('getLoginStatus', success.status);
+          // console.log('getLoginStatus', success.status);
 
           // Check if we have our user saved
           var user = UserService.getUser('facebook');
@@ -154,13 +159,13 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
                   picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
                 });
 
-                $state.go('app.home');
+                $state.go('app.book.home');
               }, function (fail) {
                 // Fail get profile info
                 console.log('profile info fail', fail);
               });
           } else {
-            $state.go('app.home');
+            $state.go('app.book.home');
           }
         } else {
           // If (success.status === 'not_authorized') the user is logged in to Facebook,
@@ -168,7 +173,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
           // Else the person is not logged into Facebook,
           // so we're not sure if they are logged into this app or not.
 
-          console.log('getLoginStatus', success.status);
+          // console.log('getLoginStatus', success.status);
 
           $ionicLoading.show({
             template: 'Logging in...'
@@ -205,21 +210,25 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
       deviceid: $scope.deviceUuid
     };
     $scope.doSignUp = function () {
-      if(!$scope.newUser.email || !$scope.newUser.password){
-        return $ionicPopup.alert({title:"Erreur", template:"Merci de saisir votre email et votre mot de passe"});
+      if (!$scope.newUser.email || !$scope.newUser.password) {
+        return $ionicPopup.alert({ title: "Erreur", template: "Merci de saisir votre email et votre mot de passe" });
       }
       $state.go('auth.signup_info', { userInfo: $scope.newUser });
     };
   })
 
-  .controller('SignUpInfoCtrl', function ($scope, $state, $q, $stateParams, AuthService) {
+  .controller('SignUpInfoCtrl', function ($scope,$ionicLoading, $state, $q, $stateParams, AuthService) {
     $scope.newUser = $stateParams.userInfo;
-    console.log($scope.newUser);
+    // console.log($scope.newUser);
     $scope.doSignUp = function () {
-      console.log($scope.newUser);
+      // console.log($scope.newUser);
+      $ionicLoading.show({
+        template: 'Loggin In...'
+      });
       AuthService.createUser($scope.newUser).then(function (response) {
+        $ionicLoading.hide();
         if (response.success) {
-          console.log("Yay, you're signed up!" + response.data);
+          // console.log("Yay, you're signed up!" + response.data);
           $state.go('auth.login', { userInfo: { email: $scope.newUser.email, password: $scope.newUser.password } });
         } else {
           console.log("Error " + response.status);
@@ -229,7 +238,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
   })
 
   .controller('ForgotPasswordCtrl', function ($scope, $state, $q, AuthService, $ionicLoading, $ionicPopup) {
-    $scope.user = {email: ''};
+    $scope.user = { email: '' };
     $scope.requestNewPassword = function () {
       // $state.go('app.book.home');
       $ionicLoading.show({
@@ -238,12 +247,12 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
       AuthService.requestPwd($scope.user).then(function (response) {
         $ionicLoading.hide();
         if (response.success) {
-          var alertPopup = $ionicPopup.alert({title:"Succès", template:"Vous recevrez un e-mail pour plus d'instructions"});
-          alertPopup.then(function(res) {
-              $state.go('auth.login');
+          var alertPopup = $ionicPopup.alert({ title: "Succès", template: "Vous recevrez un e-mail pour plus d'instructions" });
+          alertPopup.then(function (res) {
+            $state.go('auth.login');
           });
         } else {
-          $ionicPopup.alert({title:"Erreur", template:"S'il vous plaît vérifier votre adresse e-mail"});
+          $ionicPopup.alert({ title: "Erreur", template: "S'il vous plaît vérifier votre adresse e-mail" });
         }
       });
     };
