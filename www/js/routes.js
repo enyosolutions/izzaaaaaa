@@ -185,17 +185,6 @@ angular.module('izza').config(function ($stateProvider, $urlRouterProvider) {
             abstract: true
         })
 
-        .state('auth.welcome', {
-            url: '/welcome',
-            templateUrl: "views/auth/welcome.html",
-            controller: 'WelcomeCtrl',
-            resolve: {
-                show_hidden_actions: function () {
-                    return false;
-                }
-            }
-        })
-
         .state('auth.login', {
             url: '/login',
             templateUrl: "views/auth/login.html",

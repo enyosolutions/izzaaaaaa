@@ -135,7 +135,7 @@ angular.module('izza.app.services', [])
         .then(function (position) {
             lat  = position.coords.latitude;
             lon = position.coords.longitude;
-           console.log(lat + '   ' + lon);
+        //    console.log(lat + '   ' + lon);
         }, function(err) {
            console.log(err)
         });
@@ -143,8 +143,8 @@ angular.module('izza.app.services', [])
         var url = RemoteDirectory.getAPISrvURL() + '/api/providers/byservice/' + encodeURIComponent(idService)
         + "?lat="+ lat + "&lon=" + lon;
         provs = $http.get(url);
-        console.log("in getProviders: " + idService);
-        console.log("in getProviders: " + JSON.stringify(provs));
+        // console.log("in getProviders: " + idService);
+        // console.log("in getProviders: " + JSON.stringify(provs));
         return provs;
     };
 
@@ -170,7 +170,7 @@ angular.module('izza.app.services', [])
         $http.post(url, charge)
             .then(
                 function(response){
-                    console.log("Success!");
+                    // console.log("Success!");
                 },
                 function(response){
                     console.log("Failed!");
@@ -182,7 +182,7 @@ angular.module('izza.app.services', [])
         var promise = $http.post(url, reservation);
         promise.then(
                 function(response){
-                    console.log("Success!");
+                    // console.log("Success!");
                 },
                 function(response){
                     console.log("Failed!");
@@ -197,7 +197,7 @@ angular.module('izza.app.services', [])
         promise
             .then(
                 function(response){
-                    console.log("Success!");
+                    // console.log("Success!");
                 },
                 function(error){
                     console.log("Failed!");

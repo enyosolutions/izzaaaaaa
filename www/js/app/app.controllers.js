@@ -26,13 +26,13 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     ProfileService.getProfile($localStorage.customer_id)
         .success(function(response) {
             $scope.profile = response;
-            console.log(response);
+            // console.log(response);
         })
         .error(function(error) {
             console.log('Error loading providers...' + error);
         });
     $scope.$storage = $localStorage.profile;
-    console.log($scope.$storage);
+    // console.log($scope.$storage);
     $scope.logOut = function() {
         $scope.myPopup = $state.go('auth.login');
     }
@@ -50,11 +50,11 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
 PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 */
 
-    console.log($scope.customer_id);
+    // console.log($scope.customer_id);
     BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
             $scope.reservations = response;
-            console.log(response);
+            // console.log(response);
         })
         .error(function(error) {
             console.log('Error loading providers...' + error);
@@ -70,9 +70,9 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
             alertPopup.then(function(res) {
                 if (res) {
                     $scope.currentID = res_id;
-                    console.log("cancelling booking id: " + res_id);
+                    // console.log("cancelling booking id: " + res_id);
                     BookingsService.cancelBooking(res_id).then(function(res) {
-                        console.log("returns: " + res);
+                        // console.log("returns: " + res);
                         $scope.doRefresh();
                     });
                 } else {
@@ -90,11 +90,11 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     };
 
     $scope.doRefresh = function() {
-        console.log("Refreshing reservations.");
+        // console.log("Refreshing reservations.");
         BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
             $scope.reservations = response;
-            console.log(response);
+            // console.log(response);
         })
         .error(function(error) {
             console.log('Error loading providers...' + error);
@@ -105,7 +105,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 })
 
 .controller('BookCtrl', function($scope, $http, $state, BookingsService, RemoteDirectory, $ionicModal, $ionicPopup, lodash, $filter, $ionicScrollDelegate, $localStorage) {
-    console.log($localStorage.customer_id);
+    // console.log($localStorage.customer_id);
     $scope.groups = [];
 //
 //    $scope.groups[0] = {
@@ -153,7 +153,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         });
         myPopup.then(function(res) {
             if (res) {
-                console.log('Filters applied', res);
+                // console.log('Filters applied', res);
                 myPopup.close();
             } else {
                 console.log('Popup closed');
@@ -246,10 +246,10 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         date: "",
         hour: ""
     }
-    console.log($scope.reservation);
+    // console.log($scope.reservation);
     BookingsService.getProviders($scope.service._id).success(function(response) {
         $scope.providers = response;
-        console.log(response);
+        // console.log(response);
     }).error(function(error) {
         console.log('Error loading providers...' + error);
     })
@@ -259,7 +259,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
 
     $scope.bookPerService = function(provider) {
-        console.log($scope.recap_info);
+        // console.log($scope.recap_info);
         $scope.recap_info.provider_name = provider.firstname + ' ' + provider.lastname;
         $state.go('app.book.provider', { providerInfo: provider, reservationInfo: $scope.reservation, recapInfo: $scope.recap_info});
     };
@@ -273,12 +273,12 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
 
     $scope.reservation.providerservice = "";
-    console.log($scope.reservation.providerservice);
+    // console.log($scope.reservation.providerservice);
 //    $scope.reservation.provider = $scope.provider.firstname + " " + $scope.provider.lastname;
     $scope.selection = [];
     $scope.toggleSelection = function toggleSelection(single_service) {
         var idx = $scope.selection.indexOf(single_service);
-        console.log($scope.selection);
+        // console.log($scope.selection);
         // Is currently selected
         if (idx > -1) {
             $scope.selection.splice(idx, 1);
@@ -289,8 +289,8 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         }
     };
 
-    console.log($scope.reservation.providerservice);
-    console.log($scope.recap_info.service);
+    // console.log($scope.reservation.providerservice);
+    // console.log($scope.recap_info.service);
 
     $scope.selectService = function(providerservice) {
 
@@ -299,7 +299,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
         $scope.recap_info.price = providerservice.price;
 
     }
-    console.log($scope.reservation);
+    // console.log($scope.reservation);
     $scope.continuetoDate = function(provider) {
 //        $scope.reservation.providerservice = $scope.selection[0]._id;
 //        $scope.recap_info.service = $scope.selection[0].service.title;
@@ -321,7 +321,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
     $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
     $scope.showday = $filter('date')(caldate, ' EEEE, d');
-    console.log($scope.reservation.hour);
+    // console.log($scope.reservation.hour);
     //        $scope.showday = "";
     //        $scope.showmonth = "Choisir la date";
 
@@ -339,10 +339,10 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.ipObjDatePicker = {
         callback: function(val) { //Mandatory
             var caldate = new Date(val);
-            console.log('Return value from the datepicker popup is : ' + caldate);
+            // console.log('Return value from the datepicker popup is : ' + caldate);
             $scope.reservation.date = caldate;
             $scope.recap_info.date = caldate;
-            console.log($scope.reservation);
+            // console.log($scope.reservation);
             $scope.showdate = $filter('date')(caldate, 'dd/MM/yyyy');
             $scope.showmonth = $filter('date')(caldate, 'MMMM, yyyy');
             $scope.showday = $filter('date')(caldate, ' EEEE, d');
@@ -449,7 +449,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     $scope.newCard = function() {
         $scope.new_card_modal.show();
 
-        console.log('Modal is shown!');
+        // console.log('Modal is shown!');
 ///////   STRIPE ELEMENTS   //////
         var stripe = Stripe('pk_test_KxHM84wFfVzsFP7NBIloYPTo');
         var elements = stripe.elements({locale: "fr"});
@@ -519,13 +519,13 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
           if (result.token) {
             // Use the token to create a charge or a customer
             // https://stripe.com/docs/charges
-            console.log(result.token.id);
+            // console.log(result.token.id);
             $scope.new_card_modal.hide();
             $scope.new_card_info = {customerId: $localStorage.stripe_id, token: result.token.id};
-            console.log($scope.new_card_info);
+            // console.log($scope.new_card_info);
             BookingsService.sendCard($scope.new_card_info);
           } else if (result.error) {
-            console.log(result.error.message);
+            // console.log(result.error.message);
             errorElement.textContent = result.error.message;
             errorElement.classList.add('visible');
           } else {
@@ -557,7 +557,7 @@ PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
 
 /////// Confirm booking //////
     $scope.confirmBooking = function() {
-        console.log($scope.reservation);
+        // console.log($scope.reservation);
         BookingsService.createCharge($scope.stripeCharge)
         BookingsService.createReservation($scope.reservation);
         sharedFunctions.goHome();
