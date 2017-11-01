@@ -599,7 +599,7 @@ $scope.confirmBooking = function() {
     BookingsService.createReservation($scope.reservation).then(function(res){
         $ionicLoading.hide();
         // console.log(res);
-        var alertPopup = $ionicPopup.confirm({
+        var alertPopup = $ionicPopup.alert({
             title: 'Réservation',
             template: 'Votre demande de rendez-vous à bien été prise en compte.'
         });
