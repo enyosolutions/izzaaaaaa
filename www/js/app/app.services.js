@@ -194,16 +194,16 @@ angular.module('izza.app.services', [])
         var url = RemoteDirectory.getAPISrvURL() + '/api/appointment/cancel/' + encodeURIComponent(res_id);
         console.log('Loading res from:' + url);
         var promise = $http.put(url);
-        promise
-            .then(
-                function(response){
-                    // console.log("Success!");
-                },
-                function(error){
-                    console.log("Failed!");
-                    console.log(error);
-                }
-            );
+        // promise
+        //     .then(
+        //         function(response){
+        //             // console.log("Success!");
+        //         },
+        //         function(error){
+        //             console.log("Failed!");
+        //             console.log(error);
+        //         }
+        //     );
         return promise;
     };
 
