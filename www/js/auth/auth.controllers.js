@@ -48,7 +48,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
       }
 
       $ionicLoading.show({
-        template: 'Loggin In...'
+        template: 'Connexion...'
       });
       AuthService.authenticateUser($scope.user).then(function (response) {
         $ionicLoading.hide();
@@ -176,7 +176,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
           // console.log('getLoginStatus', success.status);
 
           $ionicLoading.show({
-            template: 'Logging in...'
+            template: 'Connexion...'
           });
 
           // Ask the permissions you need. You can learn more about
@@ -223,7 +223,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     $scope.doSignUp = function () {
       // console.log($scope.newUser);
       $ionicLoading.show({
-        template: 'Loggin In...'
+        template: 'Inscription...'
       });
       AuthService.createUser($scope.newUser).then(function (response) {
         $ionicLoading.hide();
@@ -242,7 +242,7 @@ angular.module('izza.auth.controllers', ['ionic', 'ngStorage'])
     $scope.requestNewPassword = function () {
       // $state.go('app.book.home');
       $ionicLoading.show({
-        template: 'Submitting...'
+        template: 'Chargement...'
       });
       AuthService.requestPwd($scope.user).then(function (response) {
         $ionicLoading.hide();
