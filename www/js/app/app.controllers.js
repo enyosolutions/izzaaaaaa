@@ -59,7 +59,8 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     $scope.cancelBooking = function (res_id) {
         $ionicPopup.confirm({
             title: 'Annulation',
-            template: 'Attention vous allez annuler votre réservation.'
+            template: 'Attention vous allez annuler votre réservation.',
+            cancelText: 'Annuler'
         }).then(function (res) {
             // console.log("cancelling booking id: " + res_id);
             if (res) {
@@ -74,8 +75,7 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
                     console.log('Error Cancelling...' + JSON.stringify(error));
                     $ionicPopup.alert({
                         title: 'Annulation',
-                        template: error.message.error,
-                        okText: 'Annuler'
+                        template: error.message.error
                     }).then(function (res) {
                         $ionicLoading.show();
                         $scope.doRefresh();
