@@ -41,7 +41,6 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     PLACEHOLDER VALUE FOR RESERVATIONS (FRONT END DEV AND TESTING ONLY)
     */
 
-    // console.log($scope.customer_id);
     // $ionicLoading.show();
     BookingsService.getReservations($scope.customer_id)
     .success(function(response) {
@@ -56,41 +55,61 @@ angular.module('izza.app.controllers', ['ui.rCalendar'])
     //Turns the booking into status:canceled
 
     $scope.cancelBooking = function(res_id) {
-        $scope.showAlertReserveOK = function() {
-            var alertPopup = $ionicPopup.confirm({
-                title: 'Annulation',
-                template: 'Attention vous allez annuler votre réservation.'
-            });
-            alertPopup.then(function(res) {
-                if (res) {
-                    $scope.currentID = res_id;
-                    // console.log("cancelling booking id: " + res_id);
-                    $ionicLoading.show();
-                    BookingsService.cancelBooking(res_id).then(function(res) {
-                        // console.log("returns: " + res);
-                        $scope.doRefresh();
-                    });
-                } else {
-                    var errorPrompt = $ionicPopup.alert({
+        $ionicPopup.confirm({
+            title: 'Annulation',
+            template: 'Attention vous allez annuler votre réservation.'
+        }).then(function(res) {
+            // console.log("cancelling booking id: " + res_id);
+            if (res) {
+                $scope.currentID = res_id;                
+                $ionicLoading.show();
+                BookingsService.cancelBooking(res_id)
+                .success(function(response) {
+                    $scope.doRefresh();
+                })
+                .error(function(error) {
+                    $ionicLoading.hide();
+                    console.log('Error Cancelling...' + JSON.stringify(error));
+                    $ionicPopup.alert({
                         title: 'Annulation',
-                        template: 'La réservation na pas pu être annulée.'
+                        template: error.message.error
+                    }).then(function(res) {
+                        $ionicLoading.show();
+                        $scope.doRefresh();
+                    })
+                });
+            } else {
+                $ionicPopup.alert({
+                    title: 'Annulation',
+                    template: 'La réservation na pas pu être annulée.'
+                }).then(function(res) {
+                    $scope.currentID = res_id;
+                    $ionicLoading.show();
+                    BookingsService.cancelBooking(res_id)
+                    .success(function(response) {
+                        $scope.doRefresh();
+                    })
+                    .error(function(error) {
+                        $ionicLoading.hide();
+                        console.log('Error Cancelling...' + JSON.stringify(error));
+                        $ionicPopup.alert({
+                            title: 'Annulation',
+                            template: error.message.error
+                        }).then(function(res) {
+                            $ionicLoading.show();
+                            $scope.doRefresh();
+                        })                        
                     });
-                    errorPrompt.then(function(res) {
-                        console.log("cancelling booking id: " + res_id);
-                    });
-                }
-            });
-        };
-        $scope.showAlertReserveOK();
+                });
+            }
+        });
     };
 
     $scope.doRefresh = function() {
-        // console.log("Refreshing reservations.");
         BookingsService.getReservations($scope.customer_id)
         .success(function(response) {
             $scope.reservations = response;
             $ionicLoading.hide();
-            // console.log(response);
         })
         .error(function(error) {
             $ionicLoading.hide();
