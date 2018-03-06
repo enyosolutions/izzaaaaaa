@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget android-versionCode="3" id="co.izza.izzaapp" ios-CFBundleVersion="32" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="13" id="co.izza.izzaapp" ios-CFBundleVersion="36" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	<name>IZZA</name>
 	<description>
     Application pour le service IZZA
@@ -74,8 +74,6 @@
 	<icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
 	<hook src="scripts/incrementBuildNum.js" type="after_build"/>
 	<hook src="scripts/incrementBuildNum.js" type="before_prepare"/>
-	<engine name="android" spec="^6.3.0"/>
-	<engine name="ios" spec="^4.4.0"/>
 	<plugin name="cordova-plugin-console" spec="^1.0.7"/>
 	<plugin name="cordova-plugin-device" spec="^1.1.6"/>
 	<plugin name="cordova-plugin-dialogs" spec="^1.3.3"/>
@@ -84,4 +82,6 @@
 	<plugin name="cordova-plugin-transport-security" spec="^0.1.2"/>
 	<plugin name="cordova-plugin-whitelist" spec="^1.3.2"/>
 	<plugin name="ionic-plugin-keyboard" spec="git+https://github.com/driftyco/ionic-plugins-keyboard.git"/>
+	<engine name="android" spec="^6.3.0"/>
+	<engine name="ios" spec="^4.4.0"/>
 </widget>
